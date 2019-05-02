@@ -1,4 +1,4 @@
-import pkg from './package'
+import pkg from './package';
 
 export default {
   mode: 'universal',
@@ -11,9 +11,9 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: pkg.description },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   /*
@@ -29,12 +29,40 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/vueFire',
+  ],
 
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/pwa',
+    [
+      'nuxt-fire',
+      {
+        useOnly: ['realtimeDb'],
+        config: {
+          development: {
+            apiKey: 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0',
+            authDomain: 'con-rooms.firebaseapp.com',
+            databaseURL: 'https://con-rooms.firebaseio.com',
+            projectId: 'con-rooms',
+            storageBucket: 'con-rooms.appspot.com',
+            messagingSenderId: '904693349598',
+          },
+          production: {
+            apiKey: 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0',
+            authDomain: 'con-rooms.firebaseapp.com',
+            databaseURL: 'https://con-rooms.firebaseio.com',
+            projectId: 'con-rooms',
+            storageBucket: 'con-rooms.appspot.com',
+            messagingSenderId: '904693349598',
+          },
+        },
+      },
+    ],
+  ],
 
   /*
    ** Build configuration
@@ -50,9 +78,9 @@ export default {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
+          exclude: /(node_modules)/,
+        });
       }
-    }
-  }
-}
+    },
+  },
+};
