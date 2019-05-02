@@ -1,0 +1,11 @@
+image: node:8.9.0
+
+pipelines:
+  branches:
+    master:
+      - step:
+          caches:
+            - node
+          script: # Modify the commands below to build your repository.
+            - yarn install
+            - yarn deploy
