@@ -66,6 +66,10 @@ export default {
           name: 'Photo',
           type: 'photo',
         },
+        {
+          id: 'colors',
+          name: 'Colors',
+        }
       ],
     };
   },

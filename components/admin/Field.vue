@@ -14,7 +14,7 @@
       v-else-if="type === 'photo'"
       :con="con"
       :value="value"
-      @input="(value) => update({ [name]: value })"
+      @input="(photo, colors) => update({ photo, colors })"
     />
     <input
       v-else
