@@ -61,6 +61,11 @@ export default {
           name: 'Location',
           type: 'places',
         },
+        {
+          id: 'photo',
+          name: 'Photo',
+          type: 'photo',
+        },
       ],
     };
   },

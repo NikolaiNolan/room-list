@@ -10,6 +10,12 @@
       :value="value"
       @input="(value) => update({ [name]: value })"
     />
+    <PhotoSelector
+      v-else-if="type === 'photo'"
+      :con="con"
+      :value="value"
+      @input="(value) => update({ [name]: value })"
+    />
     <input
       v-else
       :type="type"
@@ -24,10 +30,12 @@
 import filter from 'lodash/filter';
 
 import DateField from './DateField';
+import PhotoSelector from './PhotoSelector';
 
 export default {
   components: {
     DateField,
+    PhotoSelector,
   },
   props: {
     type: String,
@@ -35,11 +43,15 @@ export default {
       type: String,
       required: true,
     },
+    con: {
+      type: Object,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
-    value: [String, Number],
+    value: [String, Number, Object],
   },
   data() {
     return {

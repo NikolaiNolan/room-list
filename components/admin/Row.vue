@@ -7,6 +7,7 @@
       <Field
         :type="field.type"
         :id="id"
+        :con="con"
         :name="field.id"
         :value="get(con, field.id.replace(/\//g, '.'))"
       />
