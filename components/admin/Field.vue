@@ -17,11 +17,18 @@
       @input="(photo, colors) => update({ photo, colors })"
     />
     <input
+      v-else-if="type === 'number'"
+      type="number"
+      v-model="inputValue"
+      @input="update({ [name]: +inputValue })"
+      @keyup.enter="$event.target.blur"
+    />
+    <input
       v-else
       :type="type"
       v-model="inputValue"
       @input="update({ [name]: inputValue })"
-      @keyup.enter="$el.blur"
+      @keyup.enter="$event.target.blur"
     />
   </div>
 </template>
@@ -79,17 +86,17 @@ export default {
     }) {
       const city = filter(address, { types: ['locality'] })[0].long_name;
       const state = filter(address, { types: ['administrative_area_level_1'] })[0].long_name;
+      this.$fireDb.ref(`cons/${this.id}/hotel`).update({
+        link,
+        name,
+        photo: {
+          url: photo.getUrl(),
+          attributions: photo.html_attributions,
+        },
+        placeId,
+      });
       this.update({
         city: `${city}, ${state}`,
-        hotel: {
-          link,
-          name,
-          photo: {
-            url: photo.getUrl(),
-            attributions: photo.html_attributions,
-          },
-          placeId,
-        },
         location: {
           lat: lat(),
           lng: lng(),
@@ -97,7 +104,7 @@ export default {
       });
     },
     update(rule) {
-      this.$fireDb.ref('cons').child(this.id).update(rule);
+      this.$fireDb.ref(`cons/${this.id}`).update(rule);
     },
   },
 };

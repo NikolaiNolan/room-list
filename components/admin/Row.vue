@@ -2,14 +2,14 @@
   <tr>
     <td
       v-for="field of fields"
-      :key="field.id"
+      :key="field.path"
     >
       <Field
         :type="field.type"
         :id="id"
         :con="con"
-        :name="field.id"
-        :value="get(con, field.id.replace(/\//g, '.'))"
+        :name="field.path"
+        :value="get(con, field.path.replace(/\//g, '.'))"
       />
     </td>
     <td>

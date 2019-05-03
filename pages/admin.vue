@@ -43,31 +43,41 @@ export default {
       cons: [],
       fields: [
         {
-          id: 'name',
+          path: 'name',
           name: 'Name',
         },
         {
-          id: 'dates/start',
+          path: 'dates/start',
           name: 'Start Date',
           type: 'date',
         },
         {
-          id: 'dates/end',
+          path: 'dates/daysEarly',
+          name: 'Days Early',
+          type: 'number',
+        },
+        {
+          path: 'dates/end',
           name: 'End Date',
           type: 'date',
         },
         {
-          id: 'hotel/name',
+          path: 'dates/daysLate',
+          name: 'Days Late',
+          type: 'number',
+        },
+        {
+          path: 'hotel/name',
           name: 'Location',
           type: 'places',
         },
         {
-          id: 'photo',
+          path: 'photo',
           name: 'Photo',
           type: 'photo',
         },
         {
-          id: 'colors',
+          path: 'colors',
           name: 'Colors',
         }
       ],
