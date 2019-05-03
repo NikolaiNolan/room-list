@@ -27,7 +27,9 @@
 </template>
 
 <script>
-import { getUnixTime, subYears, toDate } from 'date-fns';
+import getUnixTime from 'date-fns/getUnixTime';
+import subYears from 'date-fns/subYears';
+import toDate from 'date-fns/toDate';
 import Flickr from 'flickr-sdk';
 import find from 'lodash/find';
 import map from 'lodash/map';

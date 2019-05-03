@@ -8,11 +8,9 @@
 </template>
 
 <script>
-import {
-  format,
-  parseISO,
-  toDate,
-} from 'date-fns';
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
+import toDate from 'date-fns/toDate';
 
 export default {
   props: {
