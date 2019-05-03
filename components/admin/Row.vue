@@ -13,7 +13,7 @@
       />
     </td>
     <td>
-      <button @click="deleteCon">Delete</button>
+      <button @dblclick="deleteCon">Delete</button>
     </td>
   </tr>
 </template>
