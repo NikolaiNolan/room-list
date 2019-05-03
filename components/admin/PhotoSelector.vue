@@ -4,14 +4,15 @@
       <img
         v-if="value && value.thumbnail"
         :src="value.thumbnail"
+        @click="getPhotos"
       />
-      <button @click="getPhotos">Change Photo</button>
     </template>
     <template v-else>
       <img
         v-for="photo of photos"
         :key="photo.id"
-        :src="photo.url_q"
+        :src="photo.url_s"
+        class="thumbnail"
         @click="setPhoto(photo)"
       />
     </template>
@@ -48,7 +49,7 @@ export default {
     async getPhotos() {
       const { body: { photos: { photo } } } = await flickr.photos.search({
         content_type: 1,
-        extras: 'url_sq,url_q,url_l,color_codes',
+        extras: 'url_sq,url_s,url_l,color_codes',
         license: '1,2,3,4,5,6,7,8,9,10',
         per_page: 12,
         sort: 'interestingness-desc',
@@ -77,3 +78,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.thumbnail {
+  width: 160px;
+  height: 160px;
+  object: {
+    fit: cover;
+    position: top;
+  }
+}
+</style>
