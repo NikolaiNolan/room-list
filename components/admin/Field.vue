@@ -8,6 +8,7 @@
     <DateField
       v-else-if="type === 'date'"
       :value="value"
+      class="date"
       @input="(value) => update({ [name]: value })"
     />
     <PhotoSelector
@@ -20,8 +21,25 @@
       v-else-if="type === 'number'"
       type="number"
       v-model="inputValue"
+      class="number"
       @input="update({ [name]: +inputValue })"
       @keyup.enter="$event.target.blur"
+    />
+    <input
+      v-else-if="type === 'currency'"
+      type="number"
+      step="0.01"
+      min="0"
+      v-model="inputValue"
+      class="currency"
+      @input="update({ [name]: +inputValue })"
+      @keyup.enter="$event.target.blur"
+    />
+    <input
+      v-else-if="type === 'checkbox'"
+      type="checkbox"
+      v-model="inputValue"
+      @change="update({ [name]: inputValue || null })"
     />
     <input
       v-else
@@ -58,7 +76,7 @@ export default {
       type: String,
       required: true,
     },
-    value: [String, Number, Object],
+    value: [Boolean, Number, String, Object],
   },
   data() {
     return {
@@ -109,3 +127,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.number {
+  width: 2.5em;
+}
+
+.date {
+  width: 9.5em;
+}
+
+.currency {
+  width: 4.5em;
+}
+</style>

@@ -72,6 +72,21 @@ export default {
           type: 'places',
         },
         {
+          path: 'room/rate',
+          name: 'Room Rate',
+          type: 'currency',
+        },
+        {
+          path: 'room/count',
+          name: 'Room Count',
+          type: 'number',
+        },
+        {
+          path: 'room/suite',
+          name: 'Suite',
+          type: 'checkbox',
+        },
+        {
           path: 'photo',
           name: 'Photo',
           type: 'photo',

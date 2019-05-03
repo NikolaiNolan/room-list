@@ -10,7 +10,7 @@
         v-else
         @click="getPhotos"
       >
-        Choose photo
+        Choose
       </button>
     </template>
     <template v-else>
