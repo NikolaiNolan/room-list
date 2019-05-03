@@ -21,6 +21,7 @@
         class="thumbnail"
         @click="setPhoto(photo)"
       />
+      <button @click="photos = []">Cancel</button>
     </template>
   </div>
 </template>
