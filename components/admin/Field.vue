@@ -106,6 +106,7 @@ export default {
     }) {
       const city = filter(address, { types: ['locality'] })[0].long_name;
       const state = filter(address, { types: ['administrative_area_level_1'] })[0].long_name;
+      const country = filter(address, { types: ['country'] })[0].short_name;
 
       const directionsService = new google.maps.DirectionsService();
       const response = await new Promise((resolve, reject) => {
@@ -141,6 +142,7 @@ export default {
           lat: lat(),
           lng: lng(),
         },
+        canada: country === 'CA' || null,
       });
     },
     update(rule) {
