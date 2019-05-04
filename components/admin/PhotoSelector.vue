@@ -88,7 +88,6 @@ export default {
         width: 641
       });
       this.photos = response.body.photos.photo;
-      console.log(this.photos);
     },
     async setPhoto({ color_codes: colorString, owner, url_sq: thumbnail, url_l: url }) {
       let colors = null;
