@@ -20,9 +20,9 @@
     <input
       v-else-if="type === 'number'"
       type="number"
-      v-model="inputValue"
+      v-model="model"
       class="number"
-      @input="update({ [name]: +inputValue })"
+      @input="update({ [name]: +model })"
       @keyup.enter="$event.target.blur"
     />
     <input
@@ -30,37 +30,39 @@
       type="number"
       step="0.01"
       min="0"
-      v-model="inputValue"
+      v-model="model"
       class="currency"
-      @input="update({ [name]: +inputValue })"
+      @input="update({ [name]: +model })"
       @keyup.enter="$event.target.blur"
     />
     <input
       v-else-if="type === 'checkbox'"
       type="checkbox"
-      v-model="inputValue"
-      @change="update({ [name]: inputValue || null })"
+      v-model="model"
+      @change="update({ [name]: model || null })"
     />
-    <input
+    <TextField
       v-else
-      :type="type"
-      v-model="inputValue"
-      @input="update({ [name]: inputValue })"
-      @keyup.enter="$event.target.blur"
+      :refPath="`cons/${this.id}`"
+      :keyPath="name"
+      :value="value"
     />
   </div>
 </template>
 
 <script>
 import filter from 'lodash/filter';
+import kmToMi from 'km-to-mi';
 
 import DateField from './DateField';
 import PhotoSelector from './PhotoSelector';
+import TextField from './TextField';
 
 export default {
   components: {
     DateField,
     PhotoSelector,
+    TextField,
   },
   props: {
     type: String,
@@ -80,19 +82,19 @@ export default {
   },
   data() {
     return {
-      inputValue: null,
+      model: null,
     };
   },
   watch: {
     value: {
       immediate: true,
       handler(value) {
-        this.inputValue = value;
+        this.model = value;
       },
     },
   },
   methods: {
-    setPlace({
+    async setPlace({
       address_components: address,
       geometry: {
         location: { lat, lng },
@@ -104,6 +106,23 @@ export default {
     }) {
       const city = filter(address, { types: ['locality'] })[0].long_name;
       const state = filter(address, { types: ['administrative_area_level_1'] })[0].long_name;
+
+      const directionsService = new google.maps.DirectionsService();
+      const response = await new Promise((resolve, reject) => {
+        directionsService.route({
+          origin: '31 Hawks Landing Cir, Verona, WI',
+          destination: `${lat()},${lng()}`,
+          travelMode: 'DRIVING',
+        }, (response, status) => {
+          if (status == 'OK') {
+            resolve(response);
+            return;
+          }
+          reject(status);
+        })
+      });
+      const distance = kmToMi(response.routes[0].legs[0].distance.value / 1000);
+
       this.$fireDb.ref(`cons/${this.id}/hotel`).update({
         link,
         name,
@@ -113,6 +132,9 @@ export default {
         },
         placeId,
       });
+
+      this.$fireDb.ref(`cons/${this.id}/ride`).update({ distance });
+
       this.update({
         city: `${city}, ${state}`,
         location: {

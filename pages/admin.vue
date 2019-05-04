@@ -1,46 +1,59 @@
 <template>
-  <table>
-    <thead>
-      <tr>
-        <th
-          v-for="field of fields"
-          :key="field.id"
-        >
-          {{field.name}}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <no-ssr>
-        <Row
-          v-for="con of futureCons"
-          :key="con['.key']"
-          :id="con['.key']"
-          :con="con"
-          :fields="fields"
-        />
+  <div>
+    <TextField
+      v-for="field of config"
+      :key="field['.key']"
+      label
+      refPath="config"
+      :keyPath="field['.key']"
+      :value="field['.value']"
+    />
+    <table>
+      <thead>
         <tr>
-          <td>
-            <button @click="addCon">Add Con</button>
-          </td>
+          <th
+            v-for="field of fields"
+            :key="field.path"
+          >
+            {{field.name}}
+          </th>
         </tr>
-      </no-ssr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <no-ssr>
+          <Row
+            v-for="con of futureCons"
+            :key="con['.key']"
+            :id="con['.key']"
+            :con="con"
+            :fields="fields"
+          />
+          <tr>
+            <td>
+              <button @click="addCon">Add Con</button>
+            </td>
+          </tr>
+        </no-ssr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
 import isAfter from 'date-fns/isAfter';
 import toDate from 'date-fns/toDate';
 
+import TextField from '~/components/admin/TextField';
 import Row from '~/components/admin/Row';
 
 export default {
   components: {
+    TextField,
     Row,
   },
   data() {
     return {
+      config: [],
       cons: [],
       fields: [
         {
@@ -73,11 +86,6 @@ export default {
           type: 'places',
         },
         {
-          path: 'room/rate',
-          name: 'Room Rate',
-          type: 'currency',
-        },
-        {
           path: 'room/count',
           name: 'Room Count',
           type: 'number',
@@ -86,6 +94,21 @@ export default {
           path: 'room/suite',
           name: 'Suite',
           type: 'checkbox',
+        },
+        {
+          path: 'room/rate',
+          name: 'Room Rate',
+          type: 'currency',
+        },
+        {
+          path: 'ride/count',
+          name: 'Ride Count',
+          type: 'number',
+        },
+        {
+          path: 'ride/parking',
+          name: 'Parking',
+          type: 'currency',
         },
         {
           path: 'photo',
@@ -111,6 +134,7 @@ export default {
   },
   firebase() {
     return {
+      config: this.$fireDb.ref('config'),
       cons: this.$fireDb.ref('cons').orderByChild('dates/start'),
     };
   },

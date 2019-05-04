@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     async getPhotos() {
-      const { body: { photos: { photo } } } = await flickr.photos.search({
+      const response = await flickr.photos.search({
         content_type: 1,
         extras: 'url_sq,url_s,url_l,color_codes',
         license: '1,2,3,4,5,6,7,8,9,10',
@@ -84,7 +84,7 @@ export default {
         text: `"${this.con.name}"`,
         min_taken_date: getUnixTime(subYears(toDate(this.con.dates.start), 10)),
       });
-      this.photos = photo;
+      this.photos = response.body.photos.photo;
     },
     async setPhoto({ color_codes: colorString, owner, url_sq: thumbnail, url_l: url }) {
       const colors = colorString.split(',').map((codePair) => {
@@ -92,17 +92,10 @@ export default {
         const color = find(flickrColors, { id }) || find(flickrColors, { swatch: id.slice(-6) });
         return color.name.toLowerCase();
       });
-      const {
-        body: {
-          person: {
-            realname: { _content: credit },
-            photosurl: { _content: link },
-          },
-        },
-      } = await flickr.people.getInfo({ user_id: owner });
+      const response = await flickr.people.getInfo({ user_id: owner });
       this.$emit('input', {
-        credit,
-        link,
+        credit: response.body.person.realname._content,
+        link: response.body.person.photosurl._content,
         thumbnail,
         url,
       }, colors.join());

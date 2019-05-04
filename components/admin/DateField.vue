@@ -1,7 +1,7 @@
 <template>
   <input
     type="date"
-    v-model="inputValue"
+    v-model="model"
     @input="input"
     @keyup.enter="$el.blur"
   />
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      inputValue: this.unixToDate(this.value),
+      model: this.unixToDate(this.value),
     };
   },
   methods: {
@@ -30,8 +30,8 @@ export default {
       return format(toDate(timestamp), 'yyyy-MM-dd');
     },
     input() {
-      if (!this.inputValue) return;
-      this.$emit('input', this.dateToUnix(this.inputValue));
+      if (!this.model) return;
+      this.$emit('input', this.dateToUnix(this.model));
     },
   },
 };
