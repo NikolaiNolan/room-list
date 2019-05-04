@@ -41,6 +41,11 @@
       v-model="model"
       @change="update({ [name]: model || null })"
     />
+    <textarea
+      v-else-if="type === 'textarea'"
+      v-model="model"
+      @change="update({ [name]: model || null })"
+    />
     <TextField
       v-else
       :refPath="`cons/${this.id}`"

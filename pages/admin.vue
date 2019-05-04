@@ -111,6 +111,11 @@ export default {
           type: 'currency',
         },
         {
+          path: 'ride/toll',
+          name: 'Toll',
+          type: 'currency',
+        },
+        {
           path: 'photo',
           name: 'Photo',
           type: 'photo',
@@ -118,6 +123,11 @@ export default {
         {
           path: 'colors',
           name: 'Colors',
+        },
+        {
+          path: 'notes',
+          name: 'Notes',
+          type: 'textarea',
         }
       ],
     };

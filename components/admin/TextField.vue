@@ -3,7 +3,7 @@
     <span v-if="label">{{keyPath}}:</span>
     <input
       v-model="model"
-      @input="$fireDb.ref(refPath).update({ [keyPath]: model });"
+      @input="$fireDb.ref(refPath).update({ [keyPath]: model || null });"
       @keyup.enter="$event.target.blur"
     />
   </span>
@@ -21,10 +21,7 @@ export default {
       type: String,
       required: true,
     },
-    value: {
-      type: [Number, String],
-      required: true,
-    }
+    value: [Number, String],
   },
   data() {
     return {
