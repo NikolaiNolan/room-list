@@ -48,7 +48,7 @@ export default {
     [
       'nuxt-fire',
       {
-        useOnly: ['realtimeDb'],
+        useOnly: ['auth', 'realtimeDb'],
         config: {
           development: {
             apiKey: 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0',

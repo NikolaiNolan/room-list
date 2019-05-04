@@ -7969,6 +7969,11 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
+km-to-mi@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/km-to-mi/-/km-to-mi-1.0.0.tgz#960f0ee0364f1f0cfca9d68a02e76cb74f2daeb6"
+  integrity sha1-lg8O4DZPHwz8qdaKAudst08trrY=
+
 known-css-properties@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.13.0.tgz#2750fde566cbf542a9876d4acd6bb0257ebadd2c"
