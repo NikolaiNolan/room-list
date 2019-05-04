@@ -83,22 +83,29 @@ export default {
         sort: 'interestingness-desc',
         text: `"${this.con.name}"`,
         min_taken_date: getUnixTime(subYears(toDate(this.con.dates.start), 10)),
+        dimension_search_mode: 'min',
+        height: 641,
+        width: 641
       });
       this.photos = response.body.photos.photo;
+      console.log(this.photos);
     },
     async setPhoto({ color_codes: colorString, owner, url_sq: thumbnail, url_l: url }) {
-      const colors = colorString.split(',').map((codePair) => {
-        const id = codePair.split('|')[0];
-        const color = find(flickrColors, { id }) || find(flickrColors, { swatch: id.slice(-6) });
-        return color.name.toLowerCase();
-      });
+      let colors = null;
+      if (colorString) {
+        const colors = colorString.split(',').map((codePair) => {
+          const id = codePair.split('|')[0];
+          const color = find(flickrColors, { id }) || find(flickrColors, { swatch: id.slice(-6) });
+          return color.name.toLowerCase();
+        }).join();
+      }
       const response = await flickr.people.getInfo({ user_id: owner });
       this.$emit('input', {
-        credit: response.body.person.realname._content,
+        credit: (response.body.person.realname || response.body.person.username)._content,
         link: response.body.person.photosurl._content,
         thumbnail,
         url,
-      }, colors.join());
+      }, colors);
       this.photos = [];
     }
   }
