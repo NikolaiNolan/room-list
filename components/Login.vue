@@ -6,16 +6,15 @@
     >
       Log In
     </button>
-    <button
-      v-else
-      @click="logout"
-    >
-      Log Out
-    </button>
-    <img
-      :src="$store.state.user.photo" width="75"
-    />
-    {{$store.state.user.name}}
+    <template v-else>
+      <button @click="logout">
+        Log Out
+      </button>
+      <img
+        :src="$store.state.user.photo" width="75"
+      />
+      {{$store.state.user.name}}
+    </template>
   </div>
 </template>
 

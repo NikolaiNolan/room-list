@@ -6,14 +6,14 @@
     >
       <Field
         :type="field.type"
-        :id="id"
+        :dbRef="dbRef"
         :con="con"
         :name="field.path"
         :value="get(con, field.path.replace(/\//g, '.'))"
       />
     </td>
     <td>
-      <button @dblclick="deleteCon">Delete</button>
+      <button @dblclick="con.ref.remove()">Delete</button>
     </td>
   </tr>
 </template>
@@ -28,8 +28,8 @@ export default {
     Field,
   },
   props: {
-    id: {
-      type: String,
+    dbRef: {
+      type: Object,
       required: true,
     },
     con: {
@@ -45,11 +45,6 @@ export default {
     return {
       get,
     };
-  },
-  methods: {
-    deleteCon() {
-      this.$fireDb.ref('cons').child(this.id).remove();
-    },
   },
 };
 </script>

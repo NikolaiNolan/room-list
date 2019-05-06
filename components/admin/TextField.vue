@@ -1,9 +1,9 @@
 <template>
   <span>
-    <span v-if="label">{{keyPath}}:</span>
+    <span v-if="label">{{path}}:</span>
     <input
       v-model="model"
-      @input="$fireDb.ref(refPath).update({ [keyPath]: model || null });"
+      @input="dbRef.update({ [path]: model || null });"
       @keyup.enter="$event.target.blur"
     />
   </span>
@@ -13,11 +13,11 @@
 export default {
   props: {
     label: Boolean,
-    refPath: {
-      type: String,
+    dbRef: {
+      type: Object,
       required: true,
     },
-    keyPath: {
+    path: {
       type: String,
       required: true,
     },

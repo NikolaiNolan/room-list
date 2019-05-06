@@ -48,8 +48,8 @@
     />
     <TextField
       v-else
-      :refPath="`cons/${this.id}`"
-      :keyPath="name"
+      :dbRef="dbRef"
+      :path="name"
       :value="value"
     />
   </div>
@@ -71,8 +71,8 @@ export default {
   },
   props: {
     type: String,
-    id: {
-      type: String,
+    dbRef: {
+      type: Object,
       required: true,
     },
     con: {
@@ -129,7 +129,7 @@ export default {
       });
       const distance = kmToMi(response.routes[0].legs[0].distance.value / 1000);
 
-      this.$fireDb.ref(`cons/${this.id}/hotel`).update({
+      this.dbRef.child('hotel').update({
         link,
         name,
         photo: {
@@ -139,7 +139,7 @@ export default {
         placeId,
       });
 
-      this.$fireDb.ref(`cons/${this.id}/ride`).update({ distance });
+      this.dbRef.child('ride').update({ distance });
 
       this.update({
         city: `${city}, ${state}`,
@@ -151,7 +151,7 @@ export default {
       });
     },
     update(rule) {
-      this.$fireDb.ref(`cons/${this.id}`).update(rule);
+      this.dbRef.update(rule);
     },
   },
 };

@@ -6,8 +6,8 @@
         v-for="field of config"
         :key="field['.key']"
         label
-        refPath="config"
-        :keyPath="field['.key']"
+        :dbRef="$firebaseRefs.config"
+        :path="field['.key']"
         :value="field['.value']"
       />
       <table>
@@ -26,7 +26,7 @@
             <Row
               v-for="con of futureCons"
               :key="con['.key']"
-              :id="con['.key']"
+              :dbRef="$firebaseRefs.cons.child(con['.key'])"
               :con="con"
               :fields="fields"
             />
@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     addCon() {
-      this.$fireDb.ref('cons').push(0);
+      this.$firebaseRefs.cons.push(0);
     },
   },
 };
