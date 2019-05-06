@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import convert from 'convert-units';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import toDate from 'date-fns/toDate';
@@ -23,7 +24,8 @@ export default {
   },
   methods: {
     dateToUnix(dateString) {
-      return parseISO(dateString).getTime();
+      const dayinMs = convert(1).from('d').to('ms');
+      return Math.floor(parseISO(dateString).getTime() / dayinMs) * dayinMs + dayinMs * 11/24;
     },
     unixToDate(timestamp) {
       if (!timestamp) return null;

@@ -13,7 +13,10 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Montserrat+Alternates:600,700' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
   },
 
   /*
@@ -24,12 +27,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    '~/assets/stylus/main',
+  ],
 
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
+    '~/plugins/filters',
     {
       src: '~/plugins/googleMaps',
       mode: 'client',
@@ -45,6 +51,14 @@ export default {
    */
   modules: [
     '@nuxtjs/pwa',
+    [
+      '@nuxtjs/vuetify',
+      {
+        // materialIcons: false,
+        css: false,
+        treeShake: true,
+      }
+    ],
     [
       'nuxt-fire',
       {
@@ -70,6 +84,9 @@ export default {
       },
     ],
   ],
+
+  vuetify: {
+  },
 
   /*
    ** Build configuration

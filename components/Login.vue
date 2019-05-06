@@ -11,7 +11,7 @@
         Log Out
       </button>
       <img
-        :src="$store.state.user.photo" width="75"
+        :src="$store.state.user.picture" width="75"
       />
       {{$store.state.user.name}}
     </template>
@@ -19,7 +19,12 @@
 </template>
 
 <script>
+import auth from '~/plugins/auth';
+
 export default {
+  mixins: [
+    auth,
+  ],
   beforeCreate() {
     this.$fireAuth.onAuthStateChanged(user => {
       this.$store.commit('loggedIn', user);
@@ -28,22 +33,15 @@ export default {
         id: user.uid,
         name: user.displayName,
         email: user.email,
-        photo: user.photoURL,
+        picture: user.photoURL,
       });
       this.$store.commit('admin', user.uid === 'LK7Jn91OK8NgXpBmttGCz2u5cPg2');
     });
   },
-  methods: {
-    async login() {
-      await this.$fireAuth.setPersistence(this.$fireAuthObj.Auth.Persistence.LOCAL);
-      const provider = new this.$fireAuthObj.GoogleAuthProvider();
-      const { user: { uid }, additionalUserInfo: { profile }} = await this.$fireAuth.signInWithPopup(provider);
-      this.$fireDb.ref('users').update({ [uid]: profile });
-    },
-    async logout() {
-      await this.$fireAuth.signOut();
-      this.$store.commit('user', null);
-    }
-  }
+  async mounted() {
+    const { user, additionalUserInfo } = await this.$fireAuth.getRedirectResult();
+    if (!user || !additionalUserInfo) return;
+    this.$fireDb.ref('users').update({ [user.uid]: additionalUserInfo.profile });
+  },
 }
 </script>
