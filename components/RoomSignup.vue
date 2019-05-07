@@ -1,34 +1,64 @@
 <template>
-  <section>
-    <VRangeSlider
-      v-model="dayRange"
-      :min="firstDate"
-      :max="lastDate"
-      prepend-icon="date_range"
-      :step="step"
-      :tick-labels="tickLabels"
-      tick-size="0"
-      class="slider"
-    />
-    <br>
-    <VIcon>directions_car</VIcon> ride to con<br>
-    ride from con<br>
+  <section class="room-signup">
+    <VListTile>
+      <VListTileAction>
+        <VIcon>date_range</VIcon>
+      </VListTileAction>
+      <VListTileContent>
+        <VRangeSlider
+          v-model="dayRange"
+          :min="firstDate"
+          :max="lastDate"
+          :step="step"
+          :tick-labels="tickLabels"
+          tick-size="0"
+          class="slider"
+        />
+      </VListTileContent>
+    </VListTile>
+    <VListTile v-if="ride">
+      <VListTileAction>
+        <VIcon>directions_car</VIcon>
+      </VListTileAction>
+      <VListTileContent class="pt-1">
+        <VCheckbox
+          v-model="rideTo"
+          :disabled="arrivalDate !== firstDate"
+          label="Ride to con"
+        />
+      </VListTileContent>
+      <VListTileContent class="pt-1">
+        <VCheckbox
+          v-model="rideFrom"
+          :disabled="departureDate !== lastDate"
+          label="Ride from con"
+        />
+      </VListTileContent>
+    </VListTile>
+    <VBtn
+      depressed
+      class="text-none"
+      @click="joinRoom"
+    >
+      <VIcon left>check</VIcon>
+      Join
+    </VBtn>
     <VBtn
       depressed
       class="text-none"
       @click="$emit('close')"
     >
       <VIcon left>cancel</VIcon>
-      Close
+      Cancel
     </VBtn>
   </section>
 </template>
 
 <script>
 import convert from 'convert-units';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
 import toDate from 'date-fns/toDate';
-import range from 'lodash/range';
 
 export default {
   props: {
@@ -44,12 +74,28 @@ export default {
       type: Number,
       validator: value => value % 1 === 0,
     },
+    ride: Boolean,
   },
   data() {
     return {
+      userId: null,
       dayRange: [],
+      rideTo: false,
+      rideFrom: false,
       step: convert(1).from('d').to('ms'),
     };
+  },
+  computed: {
+    arrivalDate() {
+      return this.dayRange[0];
+    },
+    departureDate() {
+      return this.dayRange[1];
+    },
+    tickLabels() {
+      return eachDayOfInterval({ start: toDate(this.firstDate), end: toDate(this.lastDate) })
+        .map(date => format(date, 'EEE'));
+    },
   },
   watch: {
     firstDate: {
@@ -64,26 +110,41 @@ export default {
         this.dayRange = [this.firstDate, lastDate];
       },
     },
-    'dayRange.0'(arrivalDate) {
-      if (arrivalDate !== this.dayRange[1]) return;
-      this.dayRange = [arrivalDate - this.step, this.dayRange[1]];
+    arrivalDate(arrivalDate) {
+      if (arrivalDate !== this.firstDate) this.rideTo = false;
+      if (arrivalDate !== this.departureDate) return;
+      this.dayRange = [arrivalDate - this.step, this.departureDate];
     },
-    'dayRange.1'(departureDate) {
-      if (this.dayRange[0] !== departureDate) return;
-      this.dayRange = [this.dayRange[0], departureDate + this.step];
+    departureDate(departureDate) {
+      if (departureDate !== this.lastDate) this.rideFrom = false;
+      if (this.arrivalDate !== departureDate) return;
+      this.dayRange = [this.arrivalDate, departureDate + this.step];
     },
   },
-  computed: {
-    tickLabels() {
-      return range(this.firstDate, this.lastDate + this.step, this.step)
-        .map(timestamp => format(toDate(timestamp), 'EEE'));
+  methods: {
+    joinRoom() {
+      this.$emit('addPerson', {
+        dates: {
+          arrival: this.arrivalDate,
+          departure: this.departureDate,
+        },
+        ride: {
+          to: this.rideTo || null,
+          from: this.rideFrom || null,
+        },
+      });
+      this.$emit('close');
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  .slider {
+  .room-signup {
+    /deep/ .v-list__tile__content {
+      align-items: stretch;
+    }
+
     /deep/ .v-slider {
       margin: {
         left: 1.2em;

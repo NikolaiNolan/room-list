@@ -3,8 +3,7 @@ export default {
     async login() {
       await this.$fireAuth.setPersistence(this.$fireAuthObj.Auth.Persistence.LOCAL);
       const provider = new this.$fireAuthObj.GoogleAuthProvider();
-      const { user: { uid }, additionalUserInfo: { profile }} = await this.$fireAuth.signInWithRedirect(provider);
-      this.$fireDb.ref('users').update({ [uid]: profile });
+      this.$fireAuth.signInWithRedirect(provider);
     },
     async logout() {
       await this.$fireAuth.signOut();

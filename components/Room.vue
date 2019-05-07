@@ -2,7 +2,7 @@
   <section>
     <h3 class="title text-lowercase">{{roomType | capitalize}} {{index + 1}}</h3>
     <VBtn
-      v-if="formOpen"
+      v-if="!formOpen"
       depressed
       class="text-none"
       @click="showForm"
@@ -15,7 +15,9 @@
       :index="index"
       :firstDate="firstDate"
       :lastDate="lastDate"
+      :ride="ride"
       @close="formOpen = false"
+      @addPerson="addPerson"
     />
   </section>
 </template>
@@ -51,6 +53,7 @@ export default {
       validator: rate => /^\d+\.?\d{0,2}$/.test(rate),
     },
     suite: Boolean,
+    ride: Boolean,
   },
   data() {
     return {
@@ -69,7 +72,10 @@ export default {
         return;
       }
       this.formOpen = true;
-    }
-  }
-}
+    },
+    addPerson(...args) {
+      this.$emit('addPerson', ...args);
+    },
+  },
+};
 </script>

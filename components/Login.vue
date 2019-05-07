@@ -41,7 +41,22 @@ export default {
   async mounted() {
     const { user, additionalUserInfo } = await this.$fireAuth.getRedirectResult();
     if (!user || !additionalUserInfo) return;
-    this.$fireDb.ref('users').update({ [user.uid]: additionalUserInfo.profile });
+    const {
+      email,
+      family_name: familyName,
+      given_name: givenName,
+      name,
+      picture
+    } = additionalUserInfo.profile;
+    this.$fireDb.ref('users').update({
+      [user.uid]: {
+        email,
+        familyName,
+        givenName,
+        name,
+        picture,
+      },
+    });
   },
 }
 </script>

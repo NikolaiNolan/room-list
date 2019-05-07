@@ -18,6 +18,8 @@
         :people="con.room.people"
         :rate="con.room.rate"
         :suite="con.room.suite"
+        :ride="con.ride && !!con.ride.count"
+        @addPerson="(...args) => addPerson(index, ...args)"
       />
     </template>
   </section>
@@ -25,7 +27,9 @@
 
 <script>
 import addDays from 'date-fns/addDays';
-import formatDistanceStrict from 'date-fns/formatDistanceStrict'
+import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import isBefore from 'date-fns/isBefore';
+import isSameDay from 'date-fns/isSameDay';
 import subDays from 'date-fns/subDays';
 import toDate from 'date-fns/toDate';
 
@@ -52,7 +56,10 @@ export default {
       return this.con.dates && this.con.dates.start && this.con.dates.end;
     },
     dateDistance() {
-      return formatDistanceStrict(toDate(this.con.dates.start), new Date(), { addSuffix: true });
+      const startDate = toDate(this.con.dates.start);
+      if (isBefore(startDate, new Date())) return null;
+      if (isSameDay(startDate, new Date())) return 'today';
+      return formatDistanceStrict(startDate, new Date(), { addSuffix: true });
     },
     roomsAvailable() {
       return this.datesAvailable && this.con.room && this.con.room.count;
@@ -66,5 +73,10 @@ export default {
       return addDays(this.con.dates.end, this.con.dates.daysLate || 0).getTime();
     },
   },
-}
+  methods: {
+    addPerson(...args) {
+      this.$emit('addPerson', ...args);
+    }
+  }
+};
 </script>
