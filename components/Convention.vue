@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="headline font-weight-medium text-lowercase">{{con.name}}</h2>
+    <h2 class="display-1">{{con.name}}</h2>
     <p v-if="datesAvailable">
       <DateRange
         :start="con.dates.start"
@@ -12,13 +12,12 @@
       <Room
         v-for="(number, index) of con.room.count"
         :key="index"
-        :index="index"
-        :firstDate="firstDate"
-        :lastDate="lastDate"
-        :people="con.room.people"
+        :heading="con.room.count > 1"
+        :people="con.people && con.people[index]"
         :rate="con.room.rate"
         :suite="con.room.suite"
         :ride="con.ride && !!con.ride.count"
+        v-bind="{ index, firstDate, lastDate }"
         @addPerson="(...args) => addPerson(index, ...args)"
       />
     </template>
@@ -35,6 +34,7 @@ import toDate from 'date-fns/toDate';
 
 import DateRange from './DateRange';
 import Room from './Room';
+import { roundToNearestMinutes } from 'date-fns/fp';
 
 export default {
   components: {

@@ -1,34 +1,51 @@
 <template>
   <section>
-    <h3 class="title text-lowercase">{{roomType | capitalize}} {{index + 1}}</h3>
-    <VBtn
-      v-if="!formOpen"
-      depressed
-      class="text-none"
-      @click="showForm"
+    <h3
+      v-if="heading"
+      class="title"
     >
-      <VIcon left>person_add</VIcon>
-      Join this {{roomType}}
-    </VBtn>
-    <RoomSignup
-      v-else
-      :index="index"
-      :firstDate="firstDate"
-      :lastDate="lastDate"
-      :ride="ride"
-      @close="formOpen = false"
-      @addPerson="addPerson"
+      {{roomType | capitalize}} {{index + 1}}
+    </h3>
+    <RoomPerson
+      v-for="(person, personId) in sortedPeople"
+      :key="personId"
+      :multiple="nameCount[person.givenName] > 1"
+      v-bind="{ ...person, personId }"
     />
+    <template v-if="true">
+      <VDivider inset />
+      <VListTile
+        v-if="!formOpen"
+        @click="showForm"
+      >
+        <VListTileAvatar>
+          <VIcon>person_add</VIcon>
+        </VListTileAvatar>
+        <VListTileContent>
+          Join this {{roomType}}
+        </VListTileContent>
+      </VListTile>
+      <RoomSignup
+        v-else
+        v-bind="{ index, firstDate, lastDate, ride }"
+        @close="formOpen = false"
+        @addPerson="addPerson"
+      />
+    </template>
   </section>
 </template>
 
 <script>
 import auth from '~/plugins/auth';
+import countBy from 'lodash/countBy';
+import sortBy from 'lodash/sortBy';
 
+import RoomPerson from './RoomPerson';
 import RoomSignup from './RoomSignup';
 
 export default {
   components: {
+    RoomPerson,
     RoomSignup,
   },
   mixins: [
@@ -47,7 +64,8 @@ export default {
       type: Number,
       validator: value => value % 1 === 0,
     },
-    people: Array,
+    heading: Boolean,
+    people: Object,
     rate: {
       type: Number,
       validator: rate => /^\d+\.?\d{0,2}$/.test(rate),
@@ -63,6 +81,12 @@ export default {
   computed: {
     roomType() {
       return this.suite ? 'suite' : 'room';
+    },
+    sortedPeople() {
+      return sortBy(this.people, ['givenName', 'familyInitial']);
+    },
+    nameCount() {
+      return countBy(this.people, 'givenName');
     },
   },
   methods: {

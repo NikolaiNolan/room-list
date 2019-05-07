@@ -3,12 +3,12 @@
     <Login />
     <template v-if="$store.state.admin">
       <TextField
-        v-for="field of config"
-        :key="field['.key']"
+        v-for="(value, key) of config"
+        :key="key"
         label
         :dbRef="$firebaseRefs.config"
-        :path="field['.key']"
-        :value="field['.value']"
+        :path="key"
+        :value="value"
       />
       <table>
         <thead>
@@ -27,8 +27,7 @@
               v-for="con of futureCons"
               :key="con['.key']"
               :dbRef="$firebaseRefs.cons.child(con['.key'])"
-              :con="con"
-              :fields="fields"
+              v-bind="{ con, fields }"
             />
             <tr>
               <td>
@@ -58,7 +57,7 @@ export default {
   },
   data() {
     return {
-      config: [],
+      config: {},
       cons: [],
       fields: [
         {
@@ -149,7 +148,10 @@ export default {
   },
   firebase() {
     return {
-      config: this.$fireDb.ref('config'),
+      config: {
+        source: this.$fireDb.ref('config'),
+        asObject: true,
+      },
       cons: this.$fireDb.ref('cons').orderByChild('dates/start'),
     };
   },

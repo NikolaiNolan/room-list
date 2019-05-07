@@ -57,7 +57,7 @@
 
 <script>
 import filter from 'lodash/filter';
-import kmToMi from 'km-to-mi';
+import convert from 'convert-units';
 
 import DateField from './DateField';
 import PhotoSelector from './PhotoSelector';
@@ -127,7 +127,7 @@ export default {
           reject(status);
         })
       });
-      const distance = kmToMi(response.routes[0].legs[0].distance.value / 1000);
+      const distance = convert(response.routes[0].legs[0].distance.value).from('m').to('mi');
 
       this.dbRef.child('hotel').update({
         link,

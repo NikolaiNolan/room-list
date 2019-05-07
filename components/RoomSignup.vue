@@ -1,9 +1,9 @@
 <template>
   <section class="room-signup">
     <VListTile>
-      <VListTileAction>
+      <VListTileAvatar>
         <VIcon>date_range</VIcon>
-      </VListTileAction>
+      </VListTileAvatar>
       <VListTileContent>
         <VRangeSlider
           v-model="dayRange"
@@ -17,9 +17,9 @@
       </VListTileContent>
     </VListTile>
     <VListTile v-if="ride">
-      <VListTileAction>
+      <VListTileAvatar>
         <VIcon>directions_car</VIcon>
-      </VListTileAction>
+      </VListTileAvatar>
       <VListTileContent class="pt-1">
         <VCheckbox
           v-model="rideTo"
