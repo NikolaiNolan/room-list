@@ -63,6 +63,10 @@ export default {
     auth,
   ],
   props: {
+    conId: {
+      type: String,
+      required: true,
+    },
     index: {
       type: Number,
       validator: value => value >= 0 && value % 1 === 0,
@@ -115,9 +119,16 @@ export default {
       return countBy(this.people, 'givenName');
     },
   },
+  mounted() {
+    const openForm = window.sessionStorage.getItem('openForm');
+    if (!openForm) return;
+    if (openForm === `${this.conId}/${this.index}`) this.formOpen = true;
+    window.sessionStorage.removeItem('openForm');
+  },
   methods: {
     showForm() {
       if (!this.$store.state.loggedIn) {
+        window.sessionStorage.setItem('openForm', `${this.conId}/${this.index}`);
         this.login();
         return;
       }

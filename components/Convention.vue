@@ -16,6 +16,7 @@
           <Room
             v-for="(number, index) of con.room.count"
             :key="index"
+            :con-id="con['.key']"
             :count="con.room.count"
             :people="con.people && con.people[index]"
             :rate="con.room.rate"
