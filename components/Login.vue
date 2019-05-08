@@ -1,30 +1,43 @@
 <template>
-  <div>
-    <button
-      v-if="!$store.state.loggedIn"
-      @click="login"
-    >
-      Log In
-    </button>
-    <template v-else>
-      <button @click="logout">
+  <VBtn
+    v-if="!$store.state.loggedIn"
+    depressed
+    class="text-none"
+    @click="login"
+  >
+    Log In
+  </VBtn>
+  <VListTile
+    v-else
+    avatar
+    @click="logout"
+  >
+    <VListTileAvatar v-if="$store.state.user.picture">
+      <Avatar :picture="$store.state.user.picture" />
+    </VListTileAvatar>
+    <VListTileContent>
+      <VListTileTitle>
+        {{$store.state.user.name}}
+      </VListTileTitle>
+      <VListTileSubTitle>
         Log Out
-      </button>
-      <img
-        :src="$store.state.user.picture" width="75"
-      />
-      {{$store.state.user.name}}
-    </template>
-  </div>
+      </VListTileSubTitle>
+    </VListTileContent>
+  </VListTile>
 </template>
 
 <script>
 import auth from '~/plugins/auth';
 
+import Avatar from './Avatar';
+
 export default {
   mixins: [
     auth,
   ],
+  components: {
+    Avatar,
+  },
   beforeCreate() {
     this.$fireAuth.onAuthStateChanged(user => {
       this.$store.commit('loggedIn', user);
