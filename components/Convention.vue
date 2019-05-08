@@ -1,26 +1,33 @@
 <template>
   <section>
-    <h2 class="display-1">{{con.name}}</h2>
-    <p v-if="datesAvailable">
-      <DateRange
-        :start="con.dates.start"
-        :end="con.dates.end"
-      />
-      <small>{{dateDistance}}</small>
-    </p>
-    <template v-if="roomsAvailable">
-      <Room
-        v-for="(number, index) of con.room.count"
-        :key="index"
-        :heading="con.room.count > 1"
-        :people="con.people && con.people[index]"
-        :rate="con.room.rate"
-        :suite="con.room.suite"
-        :ride="con.ride && !!con.ride.count"
-        v-bind="{ index, firstDate, lastDate }"
-        @addPerson="(...args) => addPerson(index, ...args)"
-      />
-    </template>
+    <VContainer>
+      <VLayout>
+        <VFlex sm4>
+          <h2 class="display-1">{{con.name}}</h2>
+          <p v-if="datesAvailable">
+            <DateRange
+              :start="con.dates.start"
+              :end="con.dates.end"
+            />
+            <small>{{dateDistance}}</small>
+          </p>
+        </VFlex>
+        <template v-if="roomsAvailable">
+          <Room
+            v-for="(number, index) of con.room.count"
+            :key="index"
+            :count="con.room.count"
+            :people="con.people && con.people[index]"
+            :rate="con.room.rate"
+            :suite="con.room.suite"
+            :ride="con.ride && !!con.ride.count"
+            :canada="con.canada"
+            v-bind="{ index, firstDate, lastDate }"
+            @addPerson="(...args) => addPerson(index, ...args)"
+          />
+        </template>
+      </VLayout>
+    </VContainer>
   </section>
 </template>
 

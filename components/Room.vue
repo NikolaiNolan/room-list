@@ -1,19 +1,30 @@
 <template>
-  <section>
-    <h3
-      v-if="heading"
-      class="title"
+  <VFlex
+    sm4
+    tag="section"
+  >
+    <VSubheader
+      inset
+      class="subheader"
     >
-      {{roomType | capitalize}} {{index + 1}}
-    </h3>
+      {{roomType | capitalize}}
+      <template v-if="count > 1">{{index + 1}}</template>
+      <span class="caption">
+        {{sortedPeople.length}}/{{roomMax}}
+      </span>
+    </VSubheader>
+    <VDivider inset />
     <RoomPerson
       v-for="(person, personId) in sortedPeople"
       :key="personId"
       :multiple="nameCount[person.givenName] > 1"
       v-bind="{ ...person, personId }"
     />
+    <VDivider
+      v-if="true && sortedPeople.length"
+      inset
+    />
     <template v-if="true">
-      <VDivider inset />
       <VListTile
         v-if="!formOpen"
         @click="showForm"
@@ -32,7 +43,7 @@
         @addPerson="addPerson"
       />
     </template>
-  </section>
+  </VFlex>
 </template>
 
 <script>
@@ -64,7 +75,10 @@ export default {
       type: Number,
       validator: value => value % 1 === 0,
     },
-    heading: Boolean,
+    count: {
+      type: Number,
+      required: true,
+    },
     people: Object,
     rate: {
       type: Number,
@@ -72,13 +86,25 @@ export default {
     },
     suite: Boolean,
     ride: Boolean,
+    canada: Boolean,
   },
   data() {
     return {
       formOpen: false,
     };
   },
+  firebase() {
+    return {
+      roomMaxRecord: {
+        source: this.$fireDb.ref(`config/${this.suite ? 'suite' : 'room'}Max`),
+        asObject: true,
+      },
+    };
+  },
   computed: {
+    roomMax() {
+      return this.roomMaxRecord['.value'];
+    },
     roomType() {
       return this.suite ? 'suite' : 'room';
     },
@@ -103,3 +129,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.subheader {
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.count {
+  border-radius: 0;
+}
+</style>

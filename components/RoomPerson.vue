@@ -26,19 +26,6 @@ export default {
   components: {
     Avatar,
   },
-  data() {
-    return {
-      profile: {},
-    };
-  },
-  firebase() {
-    return {
-      profile: {
-        source: this.$fireDb.ref(`users/${this.personId}/public`),
-        asObject: true,
-      },
-    };
-  },
   props: {
     personId: {
       type: [Number, String],
@@ -60,6 +47,19 @@ export default {
       required: true,
     },
     ride: Object,
+  },
+  data() {
+    return {
+      profile: {},
+    };
+  },
+  firebase() {
+    return {
+      profile: {
+        source: this.$fireDb.ref(`users/${this.personId}/public`),
+        asObject: true,
+      },
+    };
   },
 };
 </script>

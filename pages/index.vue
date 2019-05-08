@@ -1,16 +1,14 @@
 <template>
   <VApp>
     <VContent>
-      <VContainer>
-        <Login />
-        <Convention
-          v-for="con of cons"
-          :key="con['.key']"
-          :dbRef="$firebaseRefs.cons.child(con['.key'])"
-          :con="con"
-          @addPerson="(...args) => addPerson(con['.key'], ...args)"
-        />
-      </VContainer>
+      <Login />
+      <Convention
+        v-for="con of cons"
+        :key="con['.key']"
+        :dbRef="$firebaseRefs.cons.child(con['.key'])"
+        :con="con"
+        @addPerson="(...args) => addPerson(con['.key'], ...args)"
+      />
     </VContent>
   </VApp>
 </template>
@@ -26,13 +24,16 @@ export default {
   },
   data() {
     return {
-      config: [],
+      config: {},
       cons: [],
     };
   },
   firebase() {
     return {
-      config: this.$fireDb.ref('config'),
+      config: {
+        source: this.$fireDb.ref('config'),
+        asObject: true,
+      },
       cons: this.$fireDb.ref('cons').orderByChild('dates/start').startAt(new Date().getTime()),
     };
   },
