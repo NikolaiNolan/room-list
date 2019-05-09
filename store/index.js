@@ -17,4 +17,8 @@ export const mutations = {
   admin(state, admin) {
     state.admin = admin;
   },
+  removePerson(state, { conKey, roomKey, personKey }) {
+    console.log(conKey, roomKey, personKey);
+    this.$fireDb.ref(`people/${conKey}/${roomKey}/${personKey}`).remove();
+  }
 }

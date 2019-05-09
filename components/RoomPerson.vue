@@ -13,14 +13,21 @@
         <template v-else>{{name}}.</template>
       </VListTileContent>
       <VListTileAction>
-        <VIcon>delete</VIcon>
+        <VBtn
+          icon
+          ripple
+          @click="removePerson({ conKey: conId, roomKey: roomId, personKey: personId })"
+        >
+          <VIcon v-if="personId === $store.state.user.id">delete</VIcon>
+        </VBtn>
       </VListTileAction>
-      {{$store.state.user.id}}
     </VListTile>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 import Avatar from './Avatar';
 
 export default {
@@ -28,6 +35,14 @@ export default {
     Avatar,
   },
   props: {
+    conId: {
+      type: String,
+      required: true,
+    },
+    roomId: {
+      type: [Number, String],
+      required: true,
+    },
     personId: {
       type: [Number, String],
       required: true,
@@ -61,5 +76,6 @@ export default {
       },
     };
   },
+  methods: mapMutations(['removePerson']),
 };
 </script>

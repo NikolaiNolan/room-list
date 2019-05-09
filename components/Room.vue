@@ -17,7 +17,9 @@
     <RoomPerson
       v-for="(person, personId) in people"
       :key="personId"
-      :person-id="personId"
+      :con-id="conId"
+      :room-id="index"
+      :person-id="person['.key']"
       :given-name="person.givenName"
       :name="person.name"
       :multiple="nameCount[person.givenName] > 1"
