@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <VApp>
     <Login />
     <template v-if="$store.state.admin">
       <TextField
@@ -38,7 +38,7 @@
         </tbody>
       </table>
     </template>
-  </div>
+  </VApp>
 </template>
 
 <script>
