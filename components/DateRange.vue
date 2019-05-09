@@ -5,10 +5,9 @@
 </template>
 
 <script>
+import format from 'date-fns/format';
 import getMonth from 'date-fns/getMonth';
 import getYear from 'date-fns/getYear';
-import format from 'date-fns/format';
-import toDate from 'date-fns/toDate';
 
 export default {
   props: {
@@ -23,17 +22,15 @@ export default {
   },
   computed: {
     dateRange() {
-      const start = toDate(this.start);
-      const end = toDate(this.end);
-      let date = format(start, 'MMMM d');
-      if (getYear(start) !== getYear(end)) {
-        date += format(start, ', y');
+      let date = format(this.start, 'MMMM d');
+      if (getYear(this.start) !== getYear(this.end)) {
+        date += format(this.start, ', y');
       }
       date += '–';
-      if (getMonth(start) !== getMonth(end)) {
-        date += format(end, 'MMMM ');
+      if (getMonth(this.start) !== getMonth(this.end)) {
+        date += format(this.end, 'MMMM ');
       }
-      date += format(end, 'd, y');
+      date += format(this.end, 'd, y');
       return date;
     },
   },

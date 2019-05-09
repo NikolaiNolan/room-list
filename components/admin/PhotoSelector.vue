@@ -29,7 +29,6 @@
 <script>
 import getUnixTime from 'date-fns/getUnixTime';
 import subYears from 'date-fns/subYears';
-import toDate from 'date-fns/toDate';
 import Flickr from 'flickr-sdk';
 import find from 'lodash/find';
 import map from 'lodash/map';
@@ -82,7 +81,7 @@ export default {
         per_page: 20,
         sort: 'interestingness-desc',
         text: `"${this.con.name}"`,
-        min_taken_date: getUnixTime(subYears(toDate(this.con.dates.start), 10)),
+        min_taken_date: getUnixTime(subYears(this.con.dates.start, 10)),
         dimension_search_mode: 'min',
         height: 641,
         width: 641

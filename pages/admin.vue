@@ -43,7 +43,6 @@
 
 <script>
 import isAfter from 'date-fns/isAfter';
-import toDate from 'date-fns/toDate';
 
 import Login from '~/components/Login';
 import Row from '~/components/admin/Row';
@@ -140,8 +139,8 @@ export default {
     futureCons() {
       return this.cons.filter(({ dates }) => {
         if (!dates || !dates.start || !dates.end) return true;
-        if (isAfter(toDate(dates.start), new Date())) return true;
-        if (isAfter(toDate(dates.end), new Date())) return true;
+        if (isAfter(dates.start, new Date())) return true;
+        if (isAfter(dates.end, new Date())) return true;
         return false;
       });
     },

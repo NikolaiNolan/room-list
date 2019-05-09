@@ -1,9 +1,6 @@
 <template>
   <div>
-    <VDivider
-      v-if="personId"
-      inset
-    />
+    <VDivider inset />
     <VListTile avatar>
       <VListTileAvatar>
         <Avatar
@@ -12,8 +9,8 @@
         />
       </VListTileAvatar>
       <VListTileContent>
-        {{givenName}}
-        <template v-if="multiple">{{familyInitial}}.</template>
+        <template v-if="!multiple">{{givenName}}</template>
+        <template v-else>{{name}}.</template>
       </VListTileContent>
     </VListTile>
   </div>
@@ -31,12 +28,11 @@ export default {
       type: [Number, String],
       required: true,
     },
-    index: Number,
     givenName: {
       type: String,
       required: true,
     },
-    familyInitial: {
+    name: {
       type: String,
       required: true,
     },

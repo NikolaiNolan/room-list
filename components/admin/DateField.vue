@@ -11,7 +11,6 @@
 import convert from 'convert-units';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import toDate from 'date-fns/toDate';
 
 export default {
   props: {
@@ -29,7 +28,7 @@ export default {
     },
     unixToDate(timestamp) {
       if (!timestamp) return null;
-      return format(toDate(timestamp), 'yyyy-MM-dd');
+      return format(timestamp, 'yyyy-MM-dd');
     },
     input() {
       if (!this.model) return;

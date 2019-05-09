@@ -58,7 +58,6 @@
 import convert from 'convert-units';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
-import toDate from 'date-fns/toDate';
 
 export default {
   props: {
@@ -93,7 +92,7 @@ export default {
       return this.dayRange[1];
     },
     tickLabels() {
-      return eachDayOfInterval({ start: toDate(this.firstDate), end: toDate(this.lastDate) })
+      return eachDayOfInterval({ start: this.firstDate, end: this.lastDate })
         .map(date => format(date, 'EEE'));
     },
   },

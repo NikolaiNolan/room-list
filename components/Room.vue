@@ -10,21 +10,22 @@
       {{roomType | capitalize}}
       <template v-if="count > 1">{{index + 1}}</template>
       <span class="caption">
-        {{sortedPeople.length}}/{{roomMax}}
+        {{people.length}}/{{roomMax}}
       </span>
     </VSubheader>
-    <VDivider inset />
     <RoomPerson
-      v-for="(person, personId) in sortedPeople"
+      v-for="(person, personId) in people"
       :key="personId"
+      :person-id="personId"
+      :given-name="person.givenName"
+      :name="person.name"
       :multiple="nameCount[person.givenName] > 1"
-      v-bind="{ ...person, personId }"
+      :picture="person.picture"
+      :dates="person.dates"
+      :ride="person.ride"
     />
-    <VDivider
-      v-if="true && sortedPeople.length"
-      inset
-    />
-    <template v-if="true">
+    <template v-if="people.length < roomMax">
+      <VDivider inset />
       <VListTile
         v-if="!formOpen"
         @click="showForm"
@@ -83,7 +84,6 @@ export default {
       type: Number,
       required: true,
     },
-    people: Object,
     rate: {
       type: Number,
       validator: rate => /^\d+\.?\d{0,2}$/.test(rate),
@@ -103,6 +103,7 @@ export default {
         source: this.$fireDb.ref(`config/${this.suite ? 'suite' : 'room'}Max`),
         asObject: true,
       },
+      people: this.$fireDb.ref(`people/${this.conId}/${this.index}`).orderByChild('name'),
     };
   },
   computed: {
@@ -111,9 +112,6 @@ export default {
     },
     roomType() {
       return this.suite ? 'suite' : 'room';
-    },
-    sortedPeople() {
-      return sortBy(this.people, ['givenName', 'familyInitial']);
     },
     nameCount() {
       return countBy(this.people, 'givenName');

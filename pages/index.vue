@@ -42,9 +42,9 @@ export default {
       const userId = this.$store.state.user.id;
       const userSnapshot = await this.$fireDb.ref(`users/${userId}`).once('value');
       const { familyName, givenName, picture } = userSnapshot.val();
-      this.$firebaseRefs.cons.child(`${conId}/people/${roomIndex}/${userId}`).update({
+      this.$fireDb.ref(`people/${conId}/${roomIndex}/${userId}`).update({
         givenName,
-        familyInitial: familyName[0],
+        name: `${givenName} ${familyName[0]}`,
         picture,
         ...options,
       });
