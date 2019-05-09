@@ -1,6 +1,7 @@
 <template>
   <VFlex
-    sm4
+    sm12
+    xl6
     tag="section"
   >
     <VSubheader

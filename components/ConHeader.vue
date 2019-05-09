@@ -1,7 +1,13 @@
 <template>
   <header>
+    <VImg
+      v-if="con.photo && con.photo.url"
+      aspect-ratio="1"
+      position="top"
+      :src="con.photo.url"
+    />
     <h2 class="display-1">{{con.name}}</h2>
-    <p v-if="datesAvailable">
+    <p v-if="this.con.dates && this.con.dates.start && this.con.dates.end">
       <DateRange
         :start="con.dates.start"
         :end="con.dates.end"
@@ -28,10 +34,5 @@ export default {
       required: true,
     },
   },
-  computed: {
-    datesAvailable() {
-      return Boolean(this.con.dates && this.con.dates.start && this.con.dates.end);
-    },
-  }
 };
 </script>

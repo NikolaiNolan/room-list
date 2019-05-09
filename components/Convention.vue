@@ -1,24 +1,40 @@
 <template>
   <section>
     <VContainer>
-      <VLayout>
-        <VFlex sm4>
-          <ConHeader :con="con" />
+      <VLayout wrap>
+        <VFlex
+          xs12
+          sm6
+          md4
+          lg6
+        >
+          <VLayout wrap>
+            <VFlex
+              sm12
+              lg6
+            >
+              <ConHeader :con="con" />
+            </VFlex>
+            <VFlex>
+            </VFlex>
+          </VLayout>
         </VFlex>
-        <template v-if="roomsAvailable">
-          <Room
-            v-for="(number, index) of con.room.count"
-            :key="index"
-            :con-id="con['.key']"
-            :count="con.room.count"
-            :rate="con.room.rate"
-            :suite="con.room.suite"
-            :ride="con.ride && !!con.ride.count"
-            :canada="con.canada"
-            v-bind="{ index, firstDate, lastDate }"
-            @addPerson="(...args) => addPerson(index, ...args)"
-          />
-        </template>
+        <VFlex v-if="roomsAvailable">
+          <VLayout wrap>
+            <Room
+              v-for="(number, index) of con.room.count"
+              :key="index"
+              :con-id="con['.key']"
+              :count="con.room.count"
+              :rate="con.room.rate"
+              :suite="con.room.suite"
+              :ride="con.ride && !!con.ride.count"
+              :canada="con.canada"
+              v-bind="{ index, firstDate, lastDate }"
+              @addPerson="(...args) => addPerson(index, ...args)"
+            />
+          </VLayout>
+        </VFlex>
       </VLayout>
     </VContainer>
   </section>
