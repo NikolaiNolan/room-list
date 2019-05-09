@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "firebase-admin": "~7.0.0",
-    "firebase-functions": "^2.2.0"
+    "firebase-functions": "^2.2.0",
+    "node-fetch": "^2.5.0"
   },
   "devDependencies": {},
-  "private": true
+  "private": true,
+  "engines": {
+    "node": "10"
+  }
 }
