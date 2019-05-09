@@ -6,20 +6,20 @@
         :start="con.dates.start"
         :end="con.dates.end"
       />
-      <small>{{dateDistance}}</small>
+      <small>
+        <DateDistance :date="con.dates.start" />
+      </small>
     </p>
   </header>
 </template>
 
 <script>
-import formatDistanceStrict from 'date-fns/formatDistanceStrict';
-import isBefore from 'date-fns/isBefore';
-import isSameDay from 'date-fns/isSameDay';
-
+import DateDistance from './DateDistance';
 import DateRange from './DateRange';
 
 export default {
   components: {
+    DateDistance,
     DateRange,
   },
   props: {
@@ -27,15 +27,11 @@ export default {
       type: Object,
       required: true,
     },
-    datesAvailable: Boolean,
   },
   computed: {
-    dateDistance() {
-      const startDate = this.con.dates.start;
-      if (isBefore(startDate, new Date())) return null;
-      if (isSameDay(startDate, new Date())) return 'today';
-      return formatDistanceStrict(startDate, new Date(), { addSuffix: true });
+    datesAvailable() {
+      return Boolean(this.con.dates && this.con.dates.start && this.con.dates.end);
     },
-  },
+  }
 };
 </script>

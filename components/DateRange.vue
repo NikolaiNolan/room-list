@@ -1,7 +1,5 @@
 <template>
-  <span>
-    {{dateRange}}
-  </span>
+  <span>{{dateRange}}</span>
 </template>
 
 <script>

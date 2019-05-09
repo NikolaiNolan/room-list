@@ -3,10 +3,7 @@
     <VContainer>
       <VLayout>
         <VFlex sm4>
-          <ConHeader
-            :con="con"
-            :dates-available="datesAvailable"
-          />
+          <ConHeader :con="con" />
         </VFlex>
         <template v-if="roomsAvailable">
           <Room
@@ -51,11 +48,8 @@ export default {
     },
   },
   computed: {
-    datesAvailable() {
-      return Boolean(this.con.dates && this.con.dates.start && this.con.dates.end);
-    },
     roomsAvailable() {
-      return this.datesAvailable && this.con.room && this.con.room.count;
+      return this.con.room && this.con.room.count;
     },
     firstDate() {
       if (!this.roomsAvailable) return;
