@@ -1,6 +1,6 @@
 <template>
   <VFlex
-    sm12
+    xs12
     xl6
     tag="section"
   >

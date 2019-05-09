@@ -1,5 +1,5 @@
 <template>
-  <VApp>
+  <VApp dark>
     <VContent>
       <Login />
       <Convention

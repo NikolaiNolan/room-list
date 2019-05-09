@@ -29,29 +29,12 @@
 <script>
 import getUnixTime from 'date-fns/getUnixTime';
 import subYears from 'date-fns/subYears';
+import flickrColors from '~/plugins/flickrColors';
 import Flickr from 'flickr-sdk';
 import find from 'lodash/find';
 import map from 'lodash/map';
 
 const flickr = new Flickr('ee8e8f2645fe385dcf72fbe0aeadd8d8');
-
-const flickrColors = [
-  { id: '0', swatch: 'ff2000', name: 'Red' },
-	{ id: '1', swatch: 'a24615', name: 'Brown' },
-	{ id: '2', swatch: 'ff7c00', name: 'Orange' },
-	{ id: '3', swatch: 'ffcf00', name: 'Amber' },
-	{ id: '4', swatch: 'fffa00', name: 'Yellow' },
-	{ id: '5', swatch: '90e200', name: 'Lime' },
-	{ id: '6', swatch: '00ab00', name: 'Green' },
-	{ id: '7', swatch: '00b2d4', name: 'Cyan' },
-	{ id: '8', swatch: '0062c6', name: 'Blue' },
-	{ id: '9', swatch: '8c20ba', name: 'Purple' },
-	{ id: 'a', swatch: 'f52394', name: 'Pink' },
-	{ id: 'b', swatch: 'ff9f9c', name: 'Salmon' },
-	{ id: 'c', swatch: 'ffffff', name: 'White' },
-	{ id: 'd', swatch: '7c7c7c', name: 'Gray' },
-	{ id: 'e', swatch: '000000', name: 'Black' },
-];
 
 export default {
   props: {

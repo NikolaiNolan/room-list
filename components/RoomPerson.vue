@@ -12,6 +12,10 @@
         <template v-if="!multiple">{{givenName}}</template>
         <template v-else>{{name}}.</template>
       </VListTileContent>
+      <VListTileAction>
+        <VIcon>delete</VIcon>
+      </VListTileAction>
+      {{$store.state.user.id}}
     </VListTile>
   </div>
 </template>

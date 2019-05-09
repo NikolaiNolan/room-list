@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :style="{ backgroundColor: color.primary }">
     <VContainer>
       <VLayout wrap>
         <VFlex
@@ -10,7 +10,7 @@
         >
           <VLayout wrap>
             <VFlex
-              sm12
+              xs12
               lg6
             >
               <ConHeader :con="con" />
@@ -43,6 +43,7 @@
 <script>
 import addDays from 'date-fns/addDays';
 import subDays from 'date-fns/subDays';
+import colors from '~/plugins/nikolaiColors';
 
 import ConHeader from './ConHeader';
 import Room from './Room';
@@ -64,6 +65,9 @@ export default {
     },
   },
   computed: {
+    color() {
+      return this.con.colors.split(',').map(colorName => colors[colorName]).find(color => color);
+    },
     roomsAvailable() {
       return this.con.room && this.con.room.count;
     },
