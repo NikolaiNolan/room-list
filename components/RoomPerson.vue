@@ -4,21 +4,21 @@
     <VListTile avatar>
       <VListTileAvatar>
         <Avatar
-          v-if="picture"
-          :picture="picture"
+          v-if="person.picture"
+          :picture="person.picture"
         />
       </VListTileAvatar>
       <VListTileContent>
-        <template v-if="!multiple">{{givenName}}</template>
-        <template v-else>{{name}}.</template>
+        {{person.givenName}}
+        <template v-if="multiple">{{person.familyInitial}}.</template>
       </VListTileContent>
       <VListTileAction>
         <VBtn
           icon
           ripple
-          @click="removePerson({ conKey: conId, roomKey: roomId, personKey: personId })"
+          @click="$emit('removePerson')"
         >
-          <VIcon v-if="personId === $store.state.user.id">delete</VIcon>
+          <VIcon v-if="person.id === $store.state.user.id">delete</VIcon>
         </VBtn>
       </VListTileAction>
     </VListTile>
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import Avatar from './Avatar';
 
 export default {
@@ -35,47 +33,11 @@ export default {
     Avatar,
   },
   props: {
-    conId: {
-      type: String,
-      required: true,
-    },
-    roomId: {
-      type: [Number, String],
-      required: true,
-    },
-    personId: {
-      type: [Number, String],
-      required: true,
-    },
-    givenName: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    multiple: Boolean,
-    picture: String,
-    dates: {
+    person: {
       type: Object,
       required: true,
     },
-    ride: Object,
+    multiple: Boolean,
   },
-  data() {
-    return {
-      profile: {},
-    };
-  },
-  firebase() {
-    return {
-      profile: {
-        source: this.$fireDb.ref(`users/${this.personId}/public`),
-        asObject: true,
-      },
-    };
-  },
-  methods: mapMutations(['removePerson']),
 };
 </script>

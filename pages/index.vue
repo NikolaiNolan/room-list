@@ -4,16 +4,17 @@
       <Login />
       <Convention
         v-for="con of cons"
-        :key="con['.key']"
-        :dbRef="$firebaseRefs.cons.child(con['.key'])"
+        :key="con.id"
         :con="con"
-        @addPerson="(...args) => addPerson(con['.key'], ...args)"
+        @addPerson="(...args) => addPerson(con.id, ...args)"
       />
     </VContent>
   </VApp>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Convention from '~/components/Convention';
 import Login from '~/components/Login';
 
@@ -22,29 +23,23 @@ export default {
     Convention,
     Login,
   },
-  data() {
-    return {
-      config: {},
-      cons: [],
-    };
-  },
-  firebase() {
-    return {
-      config: {
-        source: this.$fireDb.ref('config'),
-        asObject: true,
-      },
-      cons: this.$fireDb.ref('cons').orderByChild('dates/start').startAt(new Date().getTime()),
-    };
+  computed: mapGetters({
+    cons: 'cons/cons',
+    roomMax: 'config/roomMax',
+    suiteMax: 'config/suiteMax',
+  }),
+  created() {
+    this.$store.dispatch('config/bind', this.$fireDb);
+    this.$store.dispatch('cons/bind', this.$fireDb.ref('cons').orderByChild('dates/start').startAt(new Date().getTime()));
   },
   methods: {
-    async addPerson(conId, roomIndex, options) {
+    async addPerson(conId, roomId, options) {
       const userId = this.$store.state.user.id;
       const userSnapshot = await this.$fireDb.ref(`users/${userId}`).once('value');
       const { familyName, givenName, picture } = userSnapshot.val();
-      this.$fireDb.ref(`people/${conId}/${roomIndex}/${userId}`).update({
+      this.$fireDb.ref(`cons/${conId}/people/${roomId}/${userId}`).update({
         givenName,
-        name: `${givenName} ${familyName[0]}`,
+        familyInitial: familyName[0],
         picture,
         ...options,
       });

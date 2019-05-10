@@ -9,25 +9,19 @@
       class="subheader"
     >
       {{roomType | capitalize}}
-      <template v-if="count > 1">{{index + 1}}</template>
+      <template v-if="con.room.count > 1">{{roomId + 1}}</template>
       <span class="caption">
-        {{people.length}}/{{roomMax}}
+        {{people.length}}/{{max}}
       </span>
     </VSubheader>
     <RoomPerson
-      v-for="(person, personId) in people"
-      :key="personId"
-      :con-id="conId"
-      :room-id="index"
-      :person-id="person['.key']"
-      :given-name="person.givenName"
-      :name="person.name"
+      v-for="person in people"
+      :key="person.id"
+      :person="person"
       :multiple="nameCount[person.givenName] > 1"
-      :picture="person.picture"
-      :dates="person.dates"
-      :ride="person.ride"
+      @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
     />
-    <template v-if="people.length < roomMax">
+    <template v-if="people.length < max">
       <VDivider inset />
       <VListTile
         v-if="!formOpen"
@@ -42,7 +36,8 @@
       </VListTile>
       <RoomSignup
         v-else
-        v-bind="{ index, firstDate, lastDate, ride }"
+        :ride="con.ride.count"
+        v-bind="{ roomId, firstDate, lastDate }"
         @close="formOpen = false"
         @addPerson="addPerson"
       />
@@ -53,7 +48,9 @@
 <script>
 import auth from '~/plugins/auth';
 import countBy from 'lodash/countBy';
+import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
+import { mapActions, mapGetters } from 'vuex';
 
 import RoomPerson from './RoomPerson';
 import RoomSignup from './RoomSignup';
@@ -67,11 +64,15 @@ export default {
     auth,
   ],
   props: {
-    conId: {
-      type: String,
+    con: {
+      type: Object,
       required: true,
     },
-    index: {
+    peopleObject: {
+      type: Object,
+      default: () => ({}),
+    },
+    roomId: {
       type: Number,
       validator: value => value >= 0 && value % 1 === 0,
     },
@@ -83,53 +84,47 @@ export default {
       type: Number,
       validator: value => value % 1 === 0,
     },
-    count: {
-      type: Number,
-      required: true,
-    },
-    rate: {
-      type: Number,
-      validator: rate => /^\d+\.?\d{0,2}$/.test(rate),
-    },
-    suite: Boolean,
-    ride: Boolean,
-    canada: Boolean,
   },
   data() {
     return {
       formOpen: false,
     };
   },
-  firebase() {
-    return {
-      roomMaxRecord: {
-        source: this.$fireDb.ref(`config/${this.suite ? 'suite' : 'room'}Max`),
-        asObject: true,
-      },
-      people: this.$fireDb.ref(`people/${this.conId}/${this.index}`).orderByChild('name'),
-    };
-  },
   computed: {
-    roomMax() {
-      return this.roomMaxRecord['.value'];
-    },
+    ...mapGetters({
+      roomMax: 'config/roomMax',
+      suiteMax: 'config/suiteMax',
+    }),
     roomType() {
-      return this.suite ? 'suite' : 'room';
+      return this.con.room.suite ? 'suite' : 'room';
+    },
+    people() {
+      return sortBy(
+        map(
+          this.peopleObject,
+          (person, id) => ({ ...person, id }),
+        ),
+        ['givenName', 'familyInitial'],
+      );
     },
     nameCount() {
-      return countBy(this.people, 'givenName');
+      return countBy(this.peopleObject, 'givenName');
+    },
+    max() {
+      return this[`${this.roomType}Max`];
     },
   },
   mounted() {
     const openForm = window.sessionStorage.getItem('openForm');
     if (!openForm) return;
-    if (openForm === `${this.conId}/${this.index}`) this.formOpen = true;
+    if (openForm === `${this.con.id}/${this.roomId}`) this.formOpen = true;
     window.sessionStorage.removeItem('openForm');
   },
   methods: {
+    ...mapActions(['removePerson']),
     showForm() {
       if (!this.$store.state.loggedIn) {
-        window.sessionStorage.setItem('openForm', `${this.conId}/${this.index}`);
+        window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
         this.login();
         return;
       }

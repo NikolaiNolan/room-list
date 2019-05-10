@@ -28,7 +28,8 @@
     "vue2-google-maps": "^0.10.6",
     "vuefire": "^1.4.5",
     "vuetify": "^1.5.14",
-    "vuetify-loader": "^1.2.2"
+    "vuetify-loader": "^1.2.2",
+    "vuexfire": "^2.3.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",

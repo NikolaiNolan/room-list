@@ -61,9 +61,9 @@ import format from 'date-fns/format';
 
 export default {
   props: {
-    index: {
+    roomId: {
       type: Number,
-      validator: index => index >= 0,
+      validator: value => value >= 0 && value % 1 === 0,
     },
     firstDate: {
       type: Number,

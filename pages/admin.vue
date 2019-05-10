@@ -56,8 +56,6 @@ export default {
   },
   data() {
     return {
-      config: {},
-      cons: [],
       fields: [
         {
           path: 'name',

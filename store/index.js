@@ -1,3 +1,5 @@
+import { firebaseMutations } from 'vuexfire';
+
 export const state = () => ({
   loggedIn: false,
   user: null,
@@ -5,6 +7,7 @@ export const state = () => ({
 })
 
 export const mutations = {
+  ...firebaseMutations,
   loggedIn(state, loggedIn) {
     state.loggedIn = !!loggedIn;
     if (loggedIn) return;
@@ -16,9 +19,11 @@ export const mutations = {
   },
   admin(state, admin) {
     state.admin = admin;
-  },
-  removePerson(state, { conKey, roomKey, personKey }) {
-    console.log(conKey, roomKey, personKey);
-    this.$fireDb.ref(`people/${conKey}/${roomKey}/${personKey}`).remove();
   }
 }
+
+export const actions = {
+  removePerson(context, { conId, roomId, personId }) {
+    this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).remove();
+  },
+};

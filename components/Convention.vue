@@ -22,16 +22,12 @@
         <VFlex v-if="roomsAvailable">
           <VLayout wrap>
             <Room
-              v-for="(number, index) of con.room.count"
-              :key="index"
-              :con-id="con['.key']"
-              :count="con.room.count"
-              :rate="con.room.rate"
-              :suite="con.room.suite"
-              :ride="con.ride && !!con.ride.count"
-              :canada="con.canada"
-              v-bind="{ index, firstDate, lastDate }"
-              @addPerson="(...args) => addPerson(index, ...args)"
+              v-for="(number, roomId) of con.room.count"
+              :key="roomId"
+              :con="con"
+              :people-object="con.people && con.people[roomId]"
+              v-bind="{ roomId, firstDate, lastDate }"
+              @addPerson="(...args) => addPerson(roomId, ...args)"
             />
           </VLayout>
         </VFlex>
@@ -55,10 +51,6 @@ export default {
     Room,
   },
   props: {
-    dbRef: {
-      type: Object,
-      required: true,
-    },
     con: {
       type: Object,
       required: true,
