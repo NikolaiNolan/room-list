@@ -23,7 +23,25 @@ export const mutations = {
 }
 
 export const actions = {
+  async addPerson({ state }, { conId, roomId, options }) {
+    const personId = state.user.id;
+    const userSnapshot = await this.$fireDb.ref(`users/${personId}`).once('value');
+    const { familyName, givenName, picture } = userSnapshot.val();
+    this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).update({
+      givenName,
+      familyInitial: familyName[0],
+      picture,
+      ...options,
+    });
+  },
   removePerson(context, { conId, roomId, personId }) {
     this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).remove();
+  },
+  async nuxtServerInit({ dispatch }, context) {
+    return await Promise.all([
+      dispatch('cons/ssrBind', context),
+      dispatch('config/ssrBindRoomMax', context),
+      dispatch('config/ssrBindSuiteMax', context),
+    ]);
   },
 };

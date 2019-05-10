@@ -36,10 +36,10 @@
       </VListTile>
       <RoomSignup
         v-else
-        :ride="con.ride.count"
+        :ride="con.ride.available"
         v-bind="{ roomId, firstDate, lastDate }"
         @close="formOpen = false"
-        @addPerson="addPerson"
+        @addPerson="options => addPerson({ conId: con.id, roomId, options })"
       />
     </template>
   </VFlex>
@@ -121,7 +121,7 @@ export default {
     window.sessionStorage.removeItem('openForm');
   },
   methods: {
-    ...mapActions(['removePerson']),
+    ...mapActions(['addPerson', 'removePerson']),
     showForm() {
       if (!this.$store.state.loggedIn) {
         window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
@@ -129,9 +129,6 @@ export default {
         return;
       }
       this.formOpen = true;
-    },
-    addPerson(...args) {
-      this.$emit('addPerson', ...args);
     },
   },
 };

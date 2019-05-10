@@ -18,7 +18,7 @@
           ripple
           @click="$emit('removePerson')"
         >
-          <VIcon v-if="person.id === $store.state.user.id">delete</VIcon>
+          <VIcon v-if="$store.state.user && person.id === $store.state.user.id">delete</VIcon>
         </VBtn>
       </VListTileAction>
     </VListTile>

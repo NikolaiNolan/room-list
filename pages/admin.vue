@@ -102,9 +102,9 @@ export default {
           type: 'currency',
         },
         {
-          path: 'ride/count',
-          name: 'Ride Count',
-          type: 'number',
+          path: 'ride/available',
+          name: 'Ride',
+          type: 'checkbox',
         },
         {
           path: 'ride/parking',

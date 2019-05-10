@@ -6,7 +6,6 @@
         v-for="con of cons"
         :key="con.id"
         :con="con"
-        @addPerson="(...args) => addPerson(con.id, ...args)"
       />
     </VContent>
   </VApp>
@@ -29,21 +28,8 @@ export default {
     suiteMax: 'config/suiteMax',
   }),
   created() {
-    this.$store.dispatch('config/bind', this.$fireDb);
-    this.$store.dispatch('cons/bind', this.$fireDb.ref('cons').orderByChild('dates/start').startAt(new Date().getTime()));
-  },
-  methods: {
-    async addPerson(conId, roomId, options) {
-      const userId = this.$store.state.user.id;
-      const userSnapshot = await this.$fireDb.ref(`users/${userId}`).once('value');
-      const { familyName, givenName, picture } = userSnapshot.val();
-      this.$fireDb.ref(`cons/${conId}/people/${roomId}/${userId}`).update({
-        givenName,
-        familyInitial: familyName[0],
-        picture,
-        ...options,
-      });
-    },
+    this.$store.dispatch('config/bind', this);
+    this.$store.dispatch('cons/bind', this);
   },
 }
 </script>
