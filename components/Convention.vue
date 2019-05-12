@@ -35,7 +35,7 @@
               :key="roomId"
               :con="con"
               :people-object="con.people && con.people[roomId]"
-              v-bind="{ roomId, userRoomId, firstDate, lastDate }"
+              v-bind="{ roomId, userRoomId, firstDate, lastDate, cost }"
             />
           </VLayout>
         </VFlex>
@@ -46,11 +46,18 @@
 
 <script>
 import addDays from 'date-fns/addDays';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
+import format from 'date-fns/format';
+import isWithinInterval from 'date-fns/isWithinInterval'
 import subDays from 'date-fns/subDays';
-import flattenDepth from 'lodash/flattenDepth';
+import filter from 'lodash/filter';
+import flatMap from 'lodash/flatMap';
+import sum from 'lodash/sum';
+import { mapGetters } from 'vuex';
 
 import ConHeader from './ConHeader';
 import Room from './Room';
+import { differenceInCalendarDays } from 'date-fns/fp';
 
 export default {
   components: {
@@ -64,6 +71,10 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      gasCost: 'config/gasCost',
+      mpg: 'config/mpg',
+    }),
     roomsAvailable() {
       return this.con.room && this.con.room.count;
     },
@@ -88,6 +99,44 @@ export default {
       });
       return index !== -1 ? index : null;
     },
+    cost() {
+      const cost = { room: {}, ride: {} };
+      const addPersonCost = [];
+      const addRoomCost = [];
+
+      if (!this.lastDate) return;
+      if (!this.con.room || !this.con.room.rate) return;
+
+      const people = flatMap(this.con.people, room => Object.values(room || {}));
+      const roomCount = Object.keys(this.con.people || {}).length;
+      const rate = this.con.room.rate;
+      const tip = 5;
+
+      eachDayOfInterval({ start: addDays(this.firstDate, 1), end: this.lastDate })
+        .map(date => {
+          const nightPeople = people.filter(({ dates: { arrival, departure }}) => (
+            isWithinInterval(date, { start: arrival, end: departure })
+          ));
+          cost.room[date.getTime()] = (roomCount * (rate * 1.005 + tip)) / nightPeople.length;
+          addPersonCost.push((roomCount * (rate * 1.005 + tip)) / (nightPeople.length + 1));
+          addRoomCost.push(((roomCount + 1) * (rate * 1.005 + tip)) / (nightPeople.length + 1));
+        });
+      if (this.con.ride && this.con.ride.available) {
+        const distance = this.con.ride.distance;
+        const toll = this.con.ride.toll || 0;
+        const parking = this.con.ride.parking || 0;
+        const rideCost = ((distance / this.mpg) * this.gasCost) + (toll / 2) + (parking * differenceInCalendarDays(this.firstDate, this.lastDate));
+        cost.ride = {
+          to: rideCost / filter(people, 'ride.to').length,
+          from: rideCost / filter(people, 'ride.from').length,
+        };
+      }
+      return {
+        ...cost,
+        addPerson: sum(addPersonCost),
+        addRoom: sum(addRoomCost),
+      };
+    }
   },
 };
 </script>

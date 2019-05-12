@@ -23,6 +23,7 @@
         :key="person.id"
         :person="person"
         :multiple="nameCount[person.givenName] > 1"
+        v-bind="{ firstDate, lastDate, cost }"
         @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
       />
       <template v-if="people.length < max && userRoomId === null">
@@ -32,13 +33,14 @@
           class="signup"
         >
           <template v-slot:activator>
-            <VListTile>
+            <VListTile @click="showForm($event)">
               <VListTileAvatar>
                 <VIcon>mdi-account-plus</VIcon>
               </VListTileAvatar>
-              <VListTileContent>
-                Join this {{roomType}}
-              </VListTileContent>
+                <VLayout justify-space-between align-center>
+                  Join this {{roomType}}
+                  <Price :price="cost[`add${people.length ? 'Person' : 'Room'}`]" />
+                </VLayout>
             </VListTile>
           </template>
           <RoomSignup
@@ -71,11 +73,13 @@ import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import { mapActions, mapGetters } from 'vuex';
 
+import Price from './Price';
 import RoomPerson from './RoomPerson';
 import RoomSignup from './RoomSignup';
 
 export default {
   components: {
+    Price,
     RoomPerson,
     RoomSignup,
   },
@@ -106,6 +110,10 @@ export default {
     lastDate: {
       type: Number,
       validator: value => value % 1 === 0,
+    },
+    cost: {
+      type: Object,
+      required: true,
     },
   },
   data() {
@@ -149,13 +157,10 @@ export default {
   },
   methods: {
     ...mapActions(['addPerson', 'movePerson', 'removePerson']),
-    showForm() {
-      if (!this.$store.state.loggedIn) {
-        window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
-        this.login();
-        return;
-      }
-      this.formOpen = true;
+    showForm(event) {
+      if (this.$store.state.loggedIn) return;
+      window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
+      this.login();
     },
   },
 };
