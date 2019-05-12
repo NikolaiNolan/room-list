@@ -24,8 +24,6 @@ export default {
   },
   computed: mapGetters({
     cons: 'cons/cons',
-    roomMax: 'config/roomMax',
-    suiteMax: 'config/suiteMax',
   }),
   created() {
     this.$store.dispatch('config/bind', this);

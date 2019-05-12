@@ -41,10 +41,7 @@ export default {
       mode: 'client',
     },
     '~/plugins/materialDesignIcons',
-    {
-      src: '~/plugins/vueFire',
-      mode: 'client',
-    },
+    '~/plugins/vueFire',
   ],
 
   /*

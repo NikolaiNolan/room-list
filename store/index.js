@@ -1,4 +1,4 @@
-import { firebaseMutations } from 'vuexfire';
+import { vuexfireMutations } from 'vuexfire';
 
 export const state = () => ({
   loggedIn: false,
@@ -7,7 +7,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  ...firebaseMutations,
+  ...vuexfireMutations,
   loggedIn(state, loggedIn) {
     state.loggedIn = !!loggedIn;
     if (loggedIn) return;
@@ -44,11 +44,10 @@ export const actions = {
   removePerson(context, { conId, roomId, personId }) {
     this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).remove();
   },
-  async nuxtServerInit({ dispatch }, context) {
+  async nuxtServerInit({ dispatch }, { app }) {
     return await Promise.all([
-      dispatch('cons/ssrBind', context),
-      dispatch('config/ssrBindRoomMax', context),
-      dispatch('config/ssrBindSuiteMax', context),
+      dispatch('config/bind', app),
+      dispatch('cons/bind', app),
     ]);
   },
 };
