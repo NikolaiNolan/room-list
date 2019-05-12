@@ -13,24 +13,18 @@
         <template v-if="multiple">{{person.familyInitial}}.</template>
       </VListTileContent>
       <VListTileAction>
-        <VTooltip
-          bottom
-          nudge-top="5"
-          open-delay="500"
-          transition="fade"
+        <VBtn
+          icon
+          ripple
+          @click="$emit('removePerson')"
         >
-          <template v-slot:activator="{ on }">
-            <VBtn
-              icon
-              ripple
-              v-on="on"
-              @click="$emit('removePerson')"
-            >
-              <VIcon v-if="$store.state.user && person.id === $store.state.user.id">mdi-account-minus</VIcon>
-            </VBtn>
-          </template>
-          <span>Leave this room</span>
-        </VTooltip>
+          <VIcon
+            v-if="$store.state.user && person.id === $store.state.user.id"
+            title="Leave this room"
+          >
+            mdi-account-minus
+          </VIcon>
+        </VBtn>
       </VListTileAction>
     </VListTile>
   </div>
