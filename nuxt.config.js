@@ -40,6 +40,7 @@ export default {
       src: '~/plugins/googleMaps',
       mode: 'client',
     },
+    '~/plugins/materialDesignIcons',
     {
       src: '~/plugins/vueFire',
       mode: 'client',
@@ -54,7 +55,7 @@ export default {
     [
       '@nuxtjs/vuetify',
       {
-        // materialIcons: false,
+        materialIcons: false,
         css: false,
         treeShake: true,
       }
@@ -86,6 +87,7 @@ export default {
   ],
 
   vuetify: {
+    iconfont: 'mdi',
   },
 
   /*

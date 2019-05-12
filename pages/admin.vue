@@ -122,8 +122,8 @@ export default {
           type: 'photo',
         },
         {
-          path: 'colors',
-          name: 'Colors',
+          path: 'color',
+          name: 'Color',
         },
         {
           path: 'notes',

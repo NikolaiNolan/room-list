@@ -2,7 +2,7 @@
   <section class="room-signup">
     <VListTile>
       <VListTileAvatar>
-        <VIcon>date_range</VIcon>
+        <VIcon>mdi-calendar-range</VIcon>
       </VListTileAvatar>
       <VListTileContent>
         <VRangeSlider
@@ -18,7 +18,7 @@
     </VListTile>
     <VListTile v-if="ride">
       <VListTileAvatar>
-        <VIcon>directions_car</VIcon>
+        <VIcon>mdi-car</VIcon>
       </VListTileAvatar>
       <VListTileContent class="pt-1">
         <VCheckbox
@@ -40,7 +40,7 @@
       class="text-none"
       @click="joinRoom"
     >
-      <VIcon left>check</VIcon>
+      <VIcon left>mdi-check</VIcon>
       Join
     </VBtn>
     <VBtn
@@ -48,7 +48,7 @@
       class="text-none"
       @click="$emit('close')"
     >
-      <VIcon left>cancel</VIcon>
+      <VIcon left>mdi-close-circle</VIcon>
       Cancel
     </VBtn>
   </section>

@@ -1,10 +1,11 @@
 <template>
   <header>
     <VImg
-      v-if="con.photo && con.photo.url"
-      aspect-ratio="1"
-      position="top"
-      :src="con.photo.url"
+      v-if="con.photo && con.photo.medium"
+      aspect-ratio="1.33"
+      position="center 25%"
+      :src="con.photo.medium"
+      class="photo"
     />
     <h2 class="display-1">
       <TransformAlternates>{{con.name}}</TransformAlternates>
@@ -40,3 +41,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.photo {
+  @media (min-width: 600px) {
+    /deep/ .v-responsive__sizer {
+      padding-bottom: 100% !important;
+    }
+
+    /deep/ .v-image__image {
+      background-position: top !important;
+    }
+  }
+}
+</style>

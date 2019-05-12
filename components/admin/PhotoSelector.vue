@@ -33,6 +33,7 @@ import flickrColors from '~/plugins/flickrColors';
 import Flickr from 'flickr-sdk';
 import find from 'lodash/find';
 import map from 'lodash/map';
+import reducedColors from '~/plugins/reducedColors';
 
 const flickr = new Flickr('ee8e8f2645fe385dcf72fbe0aeadd8d8');
 
@@ -59,7 +60,7 @@ export default {
     async getPhotos() {
       const response = await flickr.photos.search({
         content_type: 1,
-        extras: 'url_sq,url_s,url_l,color_codes',
+        extras: 'url_sq,url_s,url_z,url_c,url_l,url_o,color_codes',
         license: '1,2,3,4,5,6,7,8,9,10',
         per_page: 20,
         sort: 'interestingness-desc',
@@ -71,22 +72,36 @@ export default {
       });
       this.photos = response.body.photos.photo;
     },
-    async setPhoto({ color_codes: colorString, owner, url_sq: thumbnail, url_l: url }) {
-      let colors = null;
+    async setPhoto({
+      color_codes: colorString = '',
+      owner,
+      url_sq: thumbnail,
+      url_z: small,
+      url_c: medium,
+      url_l: large,
+      url_o: original,
+    }) {
+      let photoColors = null;
+      let conColor = null;
       if (colorString) {
-        const colors = colorString.split(',').map((codePair) => {
+        photoColors = colorString.split(',').map((codePair) => {
           const id = codePair.split('|')[0];
           const color = find(flickrColors, { id }) || find(flickrColors, { swatch: id.slice(-6) });
           return color.name.toLowerCase();
-        }).join();
+        });
+        conColor = photoColors.map(colorName => reducedColors[colorName]).find(color => color);
       }
       const response = await flickr.people.getInfo({ user_id: owner });
       this.$emit('input', {
         credit: (response.body.person.realname || response.body.person.username)._content,
         link: response.body.person.photosurl._content,
         thumbnail,
-        url,
-      }, colors);
+        small,
+        medium,
+        large,
+        original,
+        colors: photoColors,
+      }, conColor);
       this.photos = [];
     }
   }

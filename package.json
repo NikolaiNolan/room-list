@@ -32,6 +32,7 @@
     "vuexfire": "^2.3.1"
   },
   "devDependencies": {
+    "@mdi/font": "^3.6.95",
     "@nuxtjs/eslint-config": "^0.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.1",

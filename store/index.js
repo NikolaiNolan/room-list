@@ -34,6 +34,13 @@ export const actions = {
       ...options,
     });
   },
+  async movePerson({ state }, { conId, fromRoomId, toRoomId }) {
+    const personId = state.user.id;
+    const userSnapshot = await this.$fireDb.ref(`cons/${conId}/people/${fromRoomId}/${personId}`).once('value');
+    const options = userSnapshot.val();
+    this.$fireDb.ref(`cons/${conId}/people/${toRoomId}/${personId}`).update(options);
+    this.$fireDb.ref(`cons/${conId}/people/${fromRoomId}/${personId}`).remove();
+  },
   removePerson(context, { conId, roomId, personId }) {
     this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).remove();
   },

@@ -21,14 +21,14 @@
       :multiple="nameCount[person.givenName] > 1"
       @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
     />
-    <template v-if="people.length < max">
+    <template v-if="people.length < max && userRoomId === null">
       <VDivider inset />
       <VListTile
         v-if="!formOpen"
         @click="showForm"
       >
         <VListTileAvatar>
-          <VIcon>person_add</VIcon>
+          <VIcon>mdi-account-plus</VIcon>
         </VListTileAvatar>
         <VListTileContent>
           Join this {{roomType}}
@@ -41,6 +41,17 @@
         @close="formOpen = false"
         @addPerson="options => addPerson({ conId: con.id, roomId, options })"
       />
+    </template>
+    <template v-else-if="people.length < max && userRoomId !== roomId">
+      <VDivider inset />
+      <VListTile @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })">
+        <VListTileAvatar>
+          <VIcon>mdi-account-arrow-right</VIcon>
+        </VListTileAvatar>
+        <VListTileContent>
+          Move to this {{roomType}}
+        </VListTileContent>
+      </VListTile>
     </template>
   </VFlex>
 </template>
@@ -73,6 +84,10 @@ export default {
       default: () => ({}),
     },
     roomId: {
+      type: Number,
+      validator: value => value >= 0 && value % 1 === 0,
+    },
+    userRoomId: {
       type: Number,
       validator: value => value >= 0 && value % 1 === 0,
     },
@@ -113,6 +128,10 @@ export default {
     max() {
       return this[`${this.roomType}Max`];
     },
+    userInRoom() {
+      if (!this.$store.state.user) return false;
+      return !!this.peopleObject[this.$store.state.user.id];
+    },
   },
   mounted() {
     const openForm = window.sessionStorage.getItem('openForm');
@@ -121,7 +140,7 @@ export default {
     window.sessionStorage.removeItem('openForm');
   },
   methods: {
-    ...mapActions(['addPerson', 'removePerson']),
+    ...mapActions(['addPerson', 'movePerson', 'removePerson']),
     showForm() {
       if (!this.$store.state.loggedIn) {
         window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
@@ -138,6 +157,7 @@ export default {
 .subheader {
   justify-content: space-between;
   font-weight: 600;
+  color: white;
 }
 
 .count {

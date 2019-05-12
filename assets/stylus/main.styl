@@ -31,4 +31,85 @@ $headings = {
 .subheading
   text-transform: lowercase
 
+$nikolai-colors = {
+  blue: {
+    primary: #008cd2,
+    secondary: #00aee4,
+  },
+  red: {
+    primary: #c20839,
+    secondary: #eb1755,
+  },
+  green: {
+    primary: #00a532,
+    secondary: #00c789,
+  },
+  purple: {
+    primary: #935782,
+    secondary: #b18fac,
+  },
+  orange: {
+    primary: #dd731d,
+    secondary: #fd8713,
+  },
+}
+
+$colors = {
+  blue: {
+    base: $nikolai-colors.blue.primary,
+  },
+  red: {
+    base: $nikolai-colors.red.primary,
+  },
+  green: {
+    base: $nikolai-colors.green.primary,
+  },
+  purple: {
+    base: $nikolai-colors.purple.primary,
+  },
+  orange: {
+    base: $nikolai-colors.orange.primary,
+  },
+}
+
+.blue
+  .v-avatar .picture
+  .v-image
+    background-color: $nikolai-colors.blue.secondary
+    // color: $nikolai-colors.blue.secondary
+  .theme--dark.v-divider
+    border-color: $nikolai-colors.blue.secondary
+.red
+  .v-avatar .picture
+  .v-image
+    background-color: $nikolai-colors.red.secondary
+    // color: $nikolai-colors.red.secondary
+  .theme--dark.v-divider
+    border-color: $nikolai-colors.red.secondary
+.green
+  .v-avatar .picture
+  .v-image
+    background-color: $nikolai-colors.green.secondary
+    // color: $nikolai-colors.green.secondary
+  .theme--dark.v-divider
+    border-color: $nikolai-colors.green.secondary
+.purple
+  .v-avatar .picture
+  .v-image
+    background-color: $nikolai-colors.purple.secondary
+    // color: $nikolai-colors.purple.secondary
+  .theme--dark.v-divider
+    border-color: $nikolai-colors.purple.secondary
+.orange
+  .v-avatar .picture
+  .v-image
+    background-color: $nikolai-colors.orange.secondary
+    // color: $nikolai-colors.orange.secondary
+  .theme--dark.v-divider
+    border-color: $nikolai-colors.orange.secondary
+
+div.v-tooltip__content
+  box-shadow: none
+  background-color: $nikolai-colors.green.secondary
+
 @import '~vuetify/src/stylus/app'
