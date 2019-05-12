@@ -2,11 +2,12 @@
   <section class="room-signup">
     <VListTile>
       <VListTileAvatar>
-        <VIcon>mdi-calendar-range</VIcon>
+        <VIcon title="Arrival/departure dates">mdi-calendar-range</VIcon>
       </VListTileAvatar>
       <VListTileContent>
         <VRangeSlider
           v-model="dayRange"
+          color="white"
           :min="firstDate"
           :max="lastDate"
           :step="step"
@@ -35,22 +36,19 @@
         />
       </VListTileContent>
     </VListTile>
-    <VBtn
-      depressed
-      class="text-none"
-      @click="joinRoom"
-    >
-      <VIcon left>mdi-check</VIcon>
-      Join
-    </VBtn>
-    <VBtn
-      depressed
-      class="text-none"
-      @click="$emit('close')"
-    >
-      <VIcon left>mdi-close-circle</VIcon>
-      Cancel
-    </VBtn>
+    <VListTile>
+      <VListTileAvatar />
+      <VListTileContent>
+        <VBtn
+          depressed
+          class="ma-0 text-none"
+          @click="joinRoom"
+        >
+          <VIcon left>mdi-check</VIcon>
+          Join
+        </VBtn>
+      </VListTileContent>
+    </VListTile>
   </section>
 </template>
 
@@ -135,21 +133,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .room-signup {
-    /deep/ .v-list__tile__content {
-      align-items: stretch;
-    }
-
-    /deep/ .v-slider {
-      margin: {
-        left: 1.2em;
-        right: 1.2em;
-      }
-    }
-
-    /deep/ .v-slider__ticks:first-child > span,
-    /deep/ .v-slider__ticks:last-child > span {
-      transform: translateX(-50%);
-    }
+.room-signup {
+  /deep/ .v-input--slider {
+    align-self: stretch;
   }
+
+  /deep/ .v-slider {
+    margin: {
+      left: 1.2em;
+      right: 1.2em;
+    }
+    font-size: 80%;
+  }
+
+  /deep/ .v-slider__ticks:first-child > span,
+  /deep/ .v-slider__ticks:last-child > span {
+    transform: translateX(-50%);
+  }
+}
+
 </style>

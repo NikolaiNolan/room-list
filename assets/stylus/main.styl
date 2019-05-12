@@ -75,6 +75,8 @@ $colors = {
 .blue
   .v-avatar .picture
   .v-image
+  .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
+  .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
     background-color: $nikolai-colors.blue.secondary
     // color: $nikolai-colors.blue.secondary
   .theme--dark.v-divider
@@ -82,6 +84,8 @@ $colors = {
 .red
   .v-avatar .picture
   .v-image
+  .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
+  .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
     background-color: $nikolai-colors.red.secondary
     // color: $nikolai-colors.red.secondary
   .theme--dark.v-divider
@@ -89,6 +93,8 @@ $colors = {
 .green
   .v-avatar .picture
   .v-image
+  .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
+  .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
     background-color: $nikolai-colors.green.secondary
     // color: $nikolai-colors.green.secondary
   .theme--dark.v-divider
@@ -96,6 +102,8 @@ $colors = {
 .purple
   .v-avatar .picture
   .v-image
+  .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
+  .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
     background-color: $nikolai-colors.purple.secondary
     // color: $nikolai-colors.purple.secondary
   .theme--dark.v-divider
@@ -103,13 +111,28 @@ $colors = {
 .orange
   .v-avatar .picture
   .v-image
+  .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
+  .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
     background-color: $nikolai-colors.orange.secondary
     // color: $nikolai-colors.orange.secondary
   .theme--dark.v-divider
     border-color: $nikolai-colors.orange.secondary
 
+div.v-list__tile__content
+  overflow: visible
+
 div.v-tooltip__content
   box-shadow: none
   background-color: $nikolai-colors.green.secondary
+  opacity: 1 !important;
+
+.theme--dark.v-input--slider span.v-slider__ticks
+label.theme--dark.v-label
+  color: white
+
+div.accent--text
+i.accent--text
+  color: white !important
+  caret-color: white !important
 
 @import '~vuetify/src/stylus/app'

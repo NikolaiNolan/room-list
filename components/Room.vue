@@ -4,55 +4,63 @@
     xl6
     tag="section"
   >
-    <VSubheader
-      inset
-      class="subheader"
+    <VList
+      class="list pt-0 pb-0"
+      :class="{ 'mt-3': roomId }"
     >
-      {{roomType | capitalize}}
-      <template v-if="con.room.count > 1">{{roomId + 1}}</template>
-      <span class="caption">
-        {{people.length}}/{{max}}
-      </span>
-    </VSubheader>
-    <RoomPerson
-      v-for="person in people"
-      :key="person.id"
-      :person="person"
-      :multiple="nameCount[person.givenName] > 1"
-      @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
-    />
-    <template v-if="people.length < max && userRoomId === null">
-      <VDivider inset />
-      <VListTile
-        v-if="!formOpen"
-        @click="showForm"
+      <VSubheader
+        inset
+        class="subheader"
       >
-        <VListTileAvatar>
-          <VIcon>mdi-account-plus</VIcon>
-        </VListTileAvatar>
-        <VListTileContent>
-          Join this {{roomType}}
-        </VListTileContent>
-      </VListTile>
-      <RoomSignup
-        v-else
-        :ride="con.ride.available"
-        v-bind="{ roomId, firstDate, lastDate }"
-        @close="formOpen = false"
-        @addPerson="options => addPerson({ conId: con.id, roomId, options })"
+        {{roomType | capitalize}}
+        <template v-if="con.room.count > 1">{{roomId + 1}}</template>
+        <span class="caption">
+          {{people.length}}/{{max}}
+        </span>
+      </VSubheader>
+      <RoomPerson
+        v-for="person in people"
+        :key="person.id"
+        :person="person"
+        :multiple="nameCount[person.givenName] > 1"
+        @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
       />
-    </template>
-    <template v-else-if="people.length < max && userRoomId !== roomId">
-      <VDivider inset />
-      <VListTile @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })">
-        <VListTileAvatar>
-          <VIcon>mdi-account-arrow-right</VIcon>
-        </VListTileAvatar>
-        <VListTileContent>
-          Move to this {{roomType}}
-        </VListTileContent>
-      </VListTile>
-    </template>
+      <template v-if="people.length < max && userRoomId === null">
+        <VDivider inset />
+        <VListGroup
+          v-model="formOpen"
+          class="signup"
+        >
+          <template v-slot:activator>
+            <VListTile>
+              <VListTileAvatar>
+                <VIcon>mdi-account-plus</VIcon>
+              </VListTileAvatar>
+              <VListTileContent>
+                Join this {{roomType}}
+              </VListTileContent>
+            </VListTile>
+          </template>
+          <RoomSignup
+            :ride="con.ride.available"
+            v-bind="{ roomId, firstDate, lastDate }"
+            @close="formOpen = false"
+            @addPerson="options => addPerson({ conId: con.id, roomId, options })"
+          />
+        </VListGroup>
+      </template>
+      <template v-else-if="people.length < max && userRoomId !== roomId">
+        <VDivider inset />
+        <VListTile @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })">
+          <VListTileAvatar>
+            <VIcon>mdi-account-arrow-right</VIcon>
+          </VListTileAvatar>
+          <VListTileContent>
+            Move to this {{roomType}}
+          </VListTileContent>
+        </VListTile>
+      </template>
+    </VList>
   </VFlex>
 </template>
 
@@ -154,13 +162,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.list {
+  background-color: transparent;
+}
+
 .subheader {
   justify-content: space-between;
   font-weight: 600;
   color: white;
 }
 
-.count {
-  border-radius: 0;
+.signup::before,
+.signup::after {
+  display: none;
 }
 </style>
