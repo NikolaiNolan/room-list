@@ -47,7 +47,9 @@
               </VLayout>
             </VLayout>
           </VFlex>
-          <Price :price="personCost" />
+          <Price
+            :price="personCost"
+          />
         </VLayout>
       </VListTileContent>
       <VListTileAction>
@@ -57,7 +59,7 @@
           @click="$emit('removePerson')"
         >
           <VIcon
-            v-if="$store.state.user && person.id === $store.state.user.id"
+            v-if="user && person.id === user.id"
             title="Leave this room"
           >
             mdi-account-minus
@@ -74,6 +76,7 @@ import format from 'date-fns/format';
 import isWithinInterval from 'date-fns/isWithinInterval';
 import filter from 'lodash/filter';
 import sum from 'lodash/sum';
+import { mapState } from 'vuex';
 
 import Avatar from './Avatar';
 import Price from './Price';
@@ -103,6 +106,7 @@ export default {
     },
   },
   computed: {
+    ...mapState('user', ['user']),
     conLength() {
       return differenceInCalendarDays(this.lastDate, this.firstDate);
     },

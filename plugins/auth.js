@@ -7,7 +7,7 @@ export default {
     },
     async logout() {
       await this.$fireAuth.signOut();
-      this.$store.commit('user', null);
+      this.$store.commit('user/setUser', null);
     }
   }
 }

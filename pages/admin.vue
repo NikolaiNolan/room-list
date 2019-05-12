@@ -1,7 +1,7 @@
 <template>
   <VApp>
     <Login />
-    <template v-if="$store.state.admin">
+    <template v-if="admin">
       <TextField
         v-for="(value, key) of config"
         :key="key"
@@ -43,6 +43,7 @@
 
 <script>
 import isAfter from 'date-fns/isAfter';
+import { mapState } from 'vuex';
 
 import Login from '~/components/Login';
 import Row from '~/components/admin/Row';
@@ -134,6 +135,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('user', ['admin']),
     futureCons() {
       return this.cons.filter(({ dates }) => {
         if (!dates || !dates.start || !dates.end) return true;

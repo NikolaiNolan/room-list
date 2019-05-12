@@ -1,6 +1,8 @@
 <template>
   <div class="price">
-    ${{Math.ceil(price)}}
+    <VListTileTitle class="text-xs-right">
+      ${{Math.ceil(price)}}
+    </VListTileTitle>
   </div>
 </template>
 
@@ -17,7 +19,6 @@ export default {
 
 <style lang="scss" scoped>
 .price {
-  width: 2.5em;
-  text-align: right;
+  width: 2.75em;
 }
 </style>

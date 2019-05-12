@@ -71,7 +71,7 @@ import auth from '~/plugins/auth';
 import countBy from 'lodash/countBy';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 import Price from './Price';
 import RoomPerson from './RoomPerson';
@@ -122,6 +122,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('user', ['loggedIn', 'user']),
     ...mapGetters({
       roomMax: 'config/roomMax',
       suiteMax: 'config/suiteMax',
@@ -145,8 +146,8 @@ export default {
       return this[`${this.roomType}Max`];
     },
     userInRoom() {
-      if (!this.$store.state.user) return false;
-      return !!this.peopleObject[this.$store.state.user.id];
+      if (!this.user) return false;
+      return !!this.peopleObject[this.user.id];
     },
   },
   mounted() {
@@ -156,9 +157,13 @@ export default {
     window.sessionStorage.removeItem('openForm');
   },
   methods: {
-    ...mapActions(['addPerson', 'movePerson', 'removePerson']),
+    ...mapActions({
+      addPerson: 'person/add',
+      movePerson: 'person/move',
+      removePerson: 'person/remove',
+    }),
     showForm(event) {
-      if (this.$store.state.loggedIn) return;
+      if (this.loggedIn) return;
       window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
       this.login();
     },

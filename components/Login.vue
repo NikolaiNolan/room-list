@@ -1,6 +1,6 @@
 <template>
   <VBtn
-    v-if="!$store.state.loggedIn"
+    v-if="!loggedIn"
     depressed
     class="text-none"
     @click="login"
@@ -12,12 +12,12 @@
     avatar
     @click="logout"
   >
-    <VListTileAvatar v-if="$store.state.user.picture">
-      <Avatar :picture="$store.state.user.picture" />
+    <VListTileAvatar v-if="user.picture">
+      <Avatar :picture="user.picture" />
     </VListTileAvatar>
     <VListTileContent>
       <VListTileTitle>
-        {{$store.state.user.name}}
+        {{user.name}}
       </VListTileTitle>
       <VListTileSubTitle>
         Log Out
@@ -28,6 +28,7 @@
 
 <script>
 import auth from '~/plugins/auth';
+import { mapState } from 'vuex';
 
 import Avatar from './Avatar';
 
@@ -38,17 +39,20 @@ export default {
   components: {
     Avatar,
   },
+  computed: mapState('user', ['loggedIn', 'user']),
   beforeCreate() {
-    this.$fireAuth.onAuthStateChanged(user => {
-      this.$store.commit('loggedIn', user);
+    this.$fireAuth.onAuthStateChanged(async user => {
+      this.$store.commit('user/setLoggedIn', user);
       if (!user) return;
-      this.$store.commit('user', {
+      this.$store.commit('user/updateUser', {
         id: user.uid,
         name: user.displayName,
         email: user.email,
         picture: user.photoURL,
       });
-      this.$store.commit('admin', user.uid === 'LK7Jn91OK8NgXpBmttGCz2u5cPg2');
+      this.$store.commit('user/setAdmin', user.uid === 'LK7Jn91OK8NgXpBmttGCz2u5cPg2');
+      const userSnapshot = await this.$fireDb.ref(`users/${user.uid}`).once('value');
+      this.$store.commit('user/updateUser', userSnapshot.val());
     });
   },
   async mounted() {

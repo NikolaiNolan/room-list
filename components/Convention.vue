@@ -53,7 +53,7 @@ import subDays from 'date-fns/subDays';
 import filter from 'lodash/filter';
 import flatMap from 'lodash/flatMap';
 import sum from 'lodash/sum';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import ConHeader from './ConHeader';
 import Room from './Room';
@@ -71,6 +71,7 @@ export default {
     },
   },
   computed: {
+    ...mapState('user', ['user']),
     ...mapGetters({
       gasCost: 'config/gasCost',
       mpg: 'config/mpg',
@@ -88,14 +89,14 @@ export default {
     },
     userInCon() {
       if (!this.con.people) return false;
-      if (!this.$store.state.user) return false;
-      return !!Object.assign(...this.con.people)[this.$store.state.user.id];
+      if (!this.user) return false;
+      return !!Object.assign(...this.con.people)[this.user.id];
     },
     userRoomId() {
       if (!this.con.people) return null;
-      if (!this.$store.state.user) return null;
+      if (!this.user) return null;
       const index = this.con.people.findIndex(room => {
-        return room && room[this.$store.state.user.id];
+        return room && room[this.user.id];
       });
       return index !== -1 ? index : null;
     },
