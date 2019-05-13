@@ -6,7 +6,7 @@
         v-for="(value, key) of config"
         :key="key"
         label
-        :dbRef="$firebaseRefs.config"
+        :dbRef="$fireDb.ref('config')"
         :path="key"
         :value="value"
       />
@@ -25,8 +25,8 @@
           <no-ssr>
             <Row
               v-for="con of futureCons"
-              :key="con['.key']"
-              :dbRef="$firebaseRefs.cons.child(con['.key'])"
+              :key="con.id"
+              :dbRef="$fireDb.ref(`cons/${con.id}`)"
               v-bind="{ con, fields }"
             />
             <tr>
@@ -43,7 +43,7 @@
 
 <script>
 import isAfter from 'date-fns/isAfter';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import Login from '~/components/Login';
 import Row from '~/components/admin/Row';
@@ -135,7 +135,11 @@ export default {
     };
   },
   computed: {
+    ...mapState('config', ['config']),
     ...mapState('user', ['admin']),
+    ...mapGetters({
+      cons: 'cons/cons',
+    }),
     futureCons() {
       return this.cons.filter(({ dates }) => {
         if (!dates || !dates.start || !dates.end) return true;
@@ -145,18 +149,13 @@ export default {
       });
     },
   },
-  firebase() {
-    return {
-      config: {
-        source: this.$fireDb.ref('config'),
-        asObject: true,
-      },
-      cons: this.$fireDb.ref('cons').orderByChild('dates/start'),
-    };
+  beforeCreate() {
+    this.$store.dispatch('config/bind', this);
+    this.$store.dispatch('cons/bind', this);
   },
   methods: {
     addCon() {
-      this.$firebaseRefs.cons.push(0);
+      this.$fireDb.ref('cons').push(0);
     },
   },
 };

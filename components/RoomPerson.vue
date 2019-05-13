@@ -21,33 +21,29 @@
           <VFlex class="mx-2">
             <VLayout
               justify-space-between
+              align-center
               class="dates"
               :style="dateMargins"
             >
-              <VLayout align-center>
-                {{arrivalDay}}
-                <VIcon
-                  v-if="person.ride && person.ride.to"
-                  small
-                  class="icon"
-                >
-                  mdi-car
-                </VIcon>
-              </VLayout>
-              <VLayout
-                v-if="conLength < 4 || stayLength !== 1"
-                justify-end
-                align-center
+              {{arrivalDay}}
+              <VIcon
+                v-if="person.ride && person.ride.to"
+                small
+                class="icon pl-1"
               >
-                <VIcon
-                  v-if="person.ride && person.ride.from"
-                  small
-                  class="icon"
-                >
-                  mdi-car
-                </VIcon>
+                mdi-car
+              </VIcon>
+              <VDivider class="divider mx-1" />
+              <VIcon
+                v-if="person.ride && person.ride.from"
+                small
+                class="icon pr-1"
+              >
+                mdi-car
+              </VIcon>
+              <template v-if="conLength < 4 || stayLength !== 1">
                 {{departureDay}}
-              </VLayout>
+              </template>
             </VLayout>
           </VFlex>
           <Price
@@ -164,18 +160,10 @@ export default {
 }
 
 .dates {
-  padding: {
-    left: .33em;
-    right: .33em;
-  }
   font-size: 79%;
-  color: white;
+}
 
-  .icon {
-    margin: {
-      left: .17em;
-      right: .17em;
-    }
-  }
+.divider.v-divider.theme--dark {
+  border-color: inherit;
 }
 </style>

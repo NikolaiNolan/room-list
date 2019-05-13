@@ -73,6 +73,7 @@ export default {
   computed: {
     ...mapState('user', ['user']),
     ...mapGetters({
+      dailyTip: 'config/dailyTip',
       gasCost: 'config/gasCost',
       mpg: 'config/mpg',
     }),
@@ -111,16 +112,15 @@ export default {
       const people = flatMap(this.con.people, room => Object.values(room || {}));
       const roomCount = Object.keys(this.con.people || {}).length;
       const rate = this.con.room.rate;
-      const tip = 5;
 
       eachDayOfInterval({ start: addDays(this.firstDate, 1), end: this.lastDate })
         .map(date => {
           const nightPeople = people.filter(({ dates: { arrival, departure }}) => (
             isWithinInterval(date, { start: arrival, end: departure })
           ));
-          cost.room[date.getTime()] = (roomCount * (rate * 1.005 + tip)) / nightPeople.length;
-          addPersonCost.push((roomCount * (rate * 1.005 + tip)) / (nightPeople.length + 1));
-          addRoomCost.push(((roomCount + 1) * (rate * 1.005 + tip)) / (nightPeople.length + 1));
+          cost.room[date.getTime()] = (roomCount * (rate * 1.005 + this.dailyTip)) / nightPeople.length;
+          addPersonCost.push((roomCount * (rate * 1.005 + this.dailyTip)) / (nightPeople.length + 1));
+          addRoomCost.push(((roomCount + 1) * (rate * 1.005 + this.dailyTip)) / (nightPeople.length + 1));
         });
       if (this.con.ride && this.con.ride.available) {
         const distance = this.con.ride.distance;

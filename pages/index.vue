@@ -25,7 +25,7 @@ export default {
   computed: mapGetters({
     cons: 'cons/cons',
   }),
-  created() {
+  beforeCreate() {
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
   },

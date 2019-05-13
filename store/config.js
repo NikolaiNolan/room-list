@@ -1,19 +1,20 @@
 import { firebaseAction } from 'vuexfire';
 
 export const state = () => ({
-  _config: {},
+  config: {},
 });
 
 export const getters = {
-  exchange: ({ _config }) => _config.exchange,
-  gasCost: ({ _config }) => _config.gasCost,
-  mpg: ({ _config }) => _config.mpg,
-  roomMax: ({ _config }) => _config.roomMax,
-  suiteMax: ({ _config }) => _config.suiteMax,
+  dailyTip: ({ config }) => config.dailyTip,
+  exchange: ({ config }) => config.exchange,
+  gasCost: ({ config }) => config.gasCost,
+  mpg: ({ config }) => config.mpg,
+  roomMax: ({ config }) => config.roomMax,
+  suiteMax: ({ config }) => config.suiteMax,
 };
 
 export const actions = {
   bind: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef('_config', app.$fireDb.ref('config'));
+    return await bindFirebaseRef('config', app.$fireDb.ref('config'));
   }),
 };
