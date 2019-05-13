@@ -5,6 +5,7 @@ export const state = () => ({
 });
 
 export const getters = {
+  exchange: ({ _config }) => _config.exchange,
   gasCost: ({ _config }) => _config.gasCost,
   mpg: ({ _config }) => _config.mpg,
   roomMax: ({ _config }) => _config.roomMax,

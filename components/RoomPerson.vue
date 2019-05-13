@@ -28,17 +28,20 @@
                 {{arrivalDay}}
                 <VIcon
                   v-if="person.ride && person.ride.to"
+                  small
                   class="icon"
                 >
                   mdi-car
                 </VIcon>
               </VLayout>
               <VLayout
+                v-if="conLength < 4 || stayLength !== 1"
                 justify-end
                 align-center
               >
                 <VIcon
                   v-if="person.ride && person.ride.from"
+                  small
                   class="icon"
                 >
                   mdi-car
@@ -49,6 +52,8 @@
           </VFlex>
           <Price
             :price="personCost"
+            :to-canadian="user.canadian && !conCanadian"
+            :from-canadian="conCanadian && !user.canadian"
           />
         </VLayout>
       </VListTileContent>
@@ -92,6 +97,7 @@ export default {
       required: true,
     },
     multiple: Boolean,
+    conCanadian: Boolean,
     firstDate: {
       type: Number,
       validator: value => value % 1 === 0,
@@ -121,6 +127,9 @@ export default {
     },
     departureDay() {
       return format(this.person.dates.departure, 'EEE');
+    },
+    stayLength() {
+      return differenceInCalendarDays(this.person.dates.departure, this.person.dates.arrival);
     },
     personCost() {
       let price = sum(
@@ -159,7 +168,7 @@ export default {
     left: .33em;
     right: .33em;
   }
-  font-size: 80%;
+  font-size: 79%;
   color: white;
 
   .icon {
@@ -167,8 +176,6 @@ export default {
       left: .17em;
       right: .17em;
     }
-    font-size: 1.2em;
-    vertical-align: middle;
   }
 }
 </style>
