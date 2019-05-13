@@ -41,19 +41,7 @@ export default {
   },
   computed: mapState('user', ['loggedIn', 'user']),
   beforeCreate() {
-    this.$fireAuth.onAuthStateChanged(async user => {
-      this.$store.commit('user/setLoggedIn', user);
-      if (!user) return;
-      this.$store.commit('user/updateUser', {
-        id: user.uid,
-        name: user.displayName,
-        email: user.email,
-        picture: user.photoURL,
-      });
-      this.$store.commit('user/setAdmin', user.uid === 'LK7Jn91OK8NgXpBmttGCz2u5cPg2');
-      const userSnapshot = await this.$fireDb.ref(`users/${user.uid}`).once('value');
-      this.$store.commit('user/updateUser', userSnapshot.val());
-    });
+    this.$store.dispatch('user/bind', this);
   },
   async mounted() {
     const { user, additionalUserInfo } = await this.$fireAuth.getRedirectResult();
