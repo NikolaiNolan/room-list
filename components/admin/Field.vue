@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import filter from 'lodash/filter';
 import convert from 'convert-units';
+import filter from 'lodash/filter';
 
 import DateField from './DateField';
 import PhotoSelector from './PhotoSelector';
@@ -134,6 +134,7 @@ export default {
         name,
         photo: {
           url: photo.getUrl(),
+          reference: photo.getUrl().replace(/[^?]+\?(1s)?([0-9a-zA-Z-_]+)(\&.+)?/, '$2'),
           attributions: photo.html_attributions,
         },
         placeId,

@@ -35,6 +35,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    '~/plugins/asyncComputed',
     '~/plugins/filters',
     {
       src: '~/plugins/googleMaps',

@@ -3,7 +3,7 @@
     <template v-if="!photos.length">
       <img
         v-if="value && value.thumbnail"
-        :src="value.thumbnail"
+        :src="value.thumbnail.url"
         @click="getPhotos"
       />
       <button
@@ -60,7 +60,7 @@ export default {
     async getPhotos() {
       const response = await flickr.photos.search({
         content_type: 1,
-        extras: 'url_sq,url_s,url_z,url_c,url_l,url_o,color_codes',
+        extras: 'url_sq,url_s,url_m,url_z,url_c,url_l,url_o,color_codes',
         license: '1,2,3,4,5,6,7,8,9,10',
         per_page: 20,
         sort: 'interestingness-desc',
@@ -75,11 +75,24 @@ export default {
     async setPhoto({
       color_codes: colorString = '',
       owner,
-      url_sq: thumbnail,
-      url_z: small,
-      url_c: medium,
-      url_l: large,
-      url_o: original,
+      url_sq,
+      width_sq,
+      height_sq,
+      url_m,
+      width_m,
+      height_m,
+      url_z,
+      width_z,
+      height_z,
+      url_c,
+      width_c,
+      height_c,
+      url_l,
+      width_l,
+      height_l,
+      url_o,
+      width_o,
+      height_o,
     }) {
       let photoColors = null;
       let conColor = null;
@@ -95,11 +108,36 @@ export default {
       this.$emit('input', {
         credit: (response.body.person.realname || response.body.person.username)._content,
         link: response.body.person.photosurl._content,
-        thumbnail,
-        small,
-        medium,
-        large,
-        original,
+        thumbnail: {
+          url: url_sq,
+          width: +width_sq,
+          height: +height_sq,
+        },
+        500: {
+          url: url_m,
+          width: +width_m,
+          height: +height_m,
+        },
+        640: {
+          url: url_z,
+          width: +width_z,
+          height: +height_z,
+        },
+        800: {
+          url: url_c,
+          width: +width_c,
+          height: +height_c,
+        },
+        1024: {
+          url: url_l,
+          width: +width_l,
+          height: +height_l,
+        },
+        original: {
+          url: url_o,
+          width: +width_o,
+          height: +height_o,
+        },
         colors: photoColors,
       }, conColor);
       this.photos = [];

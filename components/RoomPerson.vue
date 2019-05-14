@@ -7,10 +7,12 @@
       class="person"
     >
       <VListTileAvatar class="hidden-xs-only">
-        <Avatar
-          v-if="person.picture"
-          :picture="person.picture"
-        />
+        <VAvatar v-if="person.picture">
+          <img
+            :src="person.picture"
+            alt
+          />
+        </VAvatar>
       </VListTileAvatar>
       <VListTileContent class="content">
         <VLayout align-center>
@@ -79,12 +81,10 @@ import filter from 'lodash/filter';
 import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
-import Avatar from './Avatar';
 import Price from './Price';
 
 export default {
   components: {
-    Avatar,
     Price,
   },
   props: {

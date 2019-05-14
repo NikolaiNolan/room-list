@@ -73,60 +73,75 @@ $colors = {
 }
 
 .blue
-  .v-avatar .picture
+  .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-image
   .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
   .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
   .theme--dark.v-chip
     background-color: $nikolai-colors.blue.secondary
-  .theme--dark.v-list .v-list__tile__sub-title
-    color: $nikolai-colors.blue.secondary
+    // color: $nikolai-colors.blue.secondary
+  .card div.v-avatar::before
+    border-bottom-color: $nikolai-colors.blue.primary
   .theme--dark.v-divider
     border-color: $nikolai-colors.blue.secondary
 .red
-  .v-avatar .picture
+  .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-image
   .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
   .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
   .theme--dark.v-chip
     background-color: $nikolai-colors.red.secondary
-  .theme--dark.v-list .v-list__tile__sub-title
-    color: $nikolai-colors.red.secondary
+    // color: $nikolai-colors.red.secondary
+  .card div.v-avatar::before
+    border-bottom-color: $nikolai-colors.red.primary
   .theme--dark.v-divider
     border-color: $nikolai-colors.red.secondary
 .green
-  .v-avatar .picture
+  .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-image
   .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
   .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
   .theme--dark.v-chip
     background-color: $nikolai-colors.green.secondary
-  .theme--dark.v-list .v-list__tile__sub-title
-    color: $nikolai-colors.green.secondary
+    // color: $nikolai-colors.green.secondary
+  .card div.v-avatar::before
+    border-bottom-color: $nikolai-colors.green.primary
   .theme--dark.v-divider
     border-color: $nikolai-colors.green.secondary
 .purple
-  .v-avatar .picture
+  .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-image
   .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
   .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
   .theme--dark.v-chip
     background-color: $nikolai-colors.purple.secondary
-  .theme--dark.v-list .v-list__tile__sub-title
-    color: $nikolai-colors.purple.secondary
+    // color: $nikolai-colors.purple.secondary
+  .card div.v-avatar::before
+    border-bottom-color: $nikolai-colors.purple.primary
   .theme--dark.v-divider
     border-color: $nikolai-colors.purple.secondary
 .orange
-  .v-avatar .picture
+  .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-image
   .theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat)
   .theme--dark.v-input--slider .v-slider__track, .theme--dark.v-input--slider .v-slider__track-fill
   .theme--dark.v-chip
     background-color: $nikolai-colors.orange.secondary
-  .theme--dark.v-list .v-list__tile__sub-title
-    color: $nikolai-colors.orange.secondary
+    // color: $nikolai-colors.orange.secondary
+  .card div.v-avatar::before
+    border-bottom-color: $nikolai-colors.orange.primary
   .theme--dark.v-divider
     border-color: $nikolai-colors.orange.secondary
+
+div.theme--dark.v-list
+  padding-top: 0
+  padding-bottom: 0
+  background-color: transparent
 
 div.v-list__tile__content
   overflow: visible
@@ -138,11 +153,32 @@ div.v-tooltip__content
 
 .theme--dark.v-input--slider span.v-slider__ticks
 label.theme--dark.v-label
+.theme--dark.v-list div.v-list__tile__sub-title
   color: white
+
+.v-list__tile
+  line-height: 1.2
+
+div.v-list__tile__sub-title
+  font-size: 13px
 
 div.accent--text
 i.accent--text
   color: white !important
   caret-color: white !important
+
+.v-avatar .v-avatar
+.v-avatar .v-icon
+  @supports (clip-path: polygon(0 0))
+    border-radius: 0;
+    clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+
+.v-list__tile__avatar .v-avatar .v-icon
+  clip-path: none;
+  background-color: transparent;
+
+.v-avatar img
+  @supports (clip-path: polygon(0 0))
+    border-radius: 0;
 
 @import '~vuetify/src/stylus/app'

@@ -29,5 +29,8 @@ export default {
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
   },
+  mounted() {
+    this.$store.dispatch('geolocation/bind');
+  },
 }
 </script>

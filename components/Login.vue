@@ -13,7 +13,12 @@
     @click="logout"
   >
     <VListTileAvatar v-if="user.picture">
-      <Avatar :picture="user.picture" />
+      <VAvatar>
+        <img
+          :src="user.picture"
+          alt
+        />
+      </VAvatar>
     </VListTileAvatar>
     <VListTileContent>
       <VListTileTitle>
@@ -30,15 +35,10 @@
 import auth from '~/plugins/auth';
 import { mapState } from 'vuex';
 
-import Avatar from './Avatar';
-
 export default {
   mixins: [
     auth,
   ],
-  components: {
-    Avatar,
-  },
   computed: mapState('user', ['loggedIn', 'user']),
   beforeCreate() {
     this.$store.dispatch('user/bind', this);

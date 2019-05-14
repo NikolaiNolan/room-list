@@ -4,10 +4,7 @@
     xl6
     tag="section"
   >
-    <VList
-      class="list pt-0 pb-0"
-      :class="{ 'mt-3': roomId }"
-    >
+    <VList :class="{ 'mt-3': roomId }">
       <VSubheader
         inset
         class="subheader"
@@ -173,10 +170,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list {
-  background-color: transparent;
-}
-
 .subheader {
   justify-content: space-between;
   font-weight: 600;
