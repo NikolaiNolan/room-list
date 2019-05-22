@@ -1,7 +1,13 @@
 import pkg from './package';
 
+const googleApi = 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0';
+
 export default {
   mode: 'universal',
+
+  env: {
+    googleApi,
+  },
 
   /*
    ** Headers of the page
@@ -64,7 +70,7 @@ export default {
         useOnly: ['auth', 'realtimeDb'],
         config: {
           development: {
-            apiKey: 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0',
+            apiKey: googleApi,
             authDomain: 'con-rooms.firebaseapp.com',
             databaseURL: 'https://con-rooms.firebaseio.com',
             projectId: 'con-rooms',
@@ -72,7 +78,7 @@ export default {
             messagingSenderId: '904693349598',
           },
           production: {
-            apiKey: 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0',
+            apiKey: googleApi,
             authDomain: 'con-rooms.firebaseapp.com',
             databaseURL: 'https://con-rooms.firebaseio.com',
             projectId: 'con-rooms',

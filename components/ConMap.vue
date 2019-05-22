@@ -40,7 +40,7 @@ export default {
       const color = nikolaiColors[this.color] || { primary: '', secondary: '' };
       const destination = this.hotelName ? `${this.hotelName.replace(/'/g, '')} ${this.city}` : this.city;
       return `https://maps.googleapis.com/maps/api/staticmap?${queryString.stringify({
-        key: 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0',
+        key: process.env.googleApi,
         markers: `color:0x${color.secondary.slice(1)}|${destination}`,
         path: `weight:1|color:0x${color.primary.slice(1)}ff|enc:${this.path}`,
         zoom: !this.path && 4,
