@@ -1,29 +1,28 @@
 <template>
   <div class="card">
     <VImg
-      v-if="photoSrc"
+      v-if="photoSrc && $vuetify.breakpoint.smAndUp"
       aspect-ratio="2"
       :src="photoSrc"
       :srcset="photoSrcset"
       sizes="285px"
-      class="mt-3"
     />
     <VListTile
       :href="href"
       target="_blank"
       rel="noopener"
     >
-      <VLayout align-start>
-        <VAvatar
-          v-if="icon"
-          class="mx-2"
-        >
+      <VLayout align-center>
+        <VAvatar v-if="icon">
           <VIcon>{{icon}}</VIcon>
         </VAvatar>
         <div class="content mr-2">
           {{smartQuotes(title)}}
           <br v-if="photoSrc" />
-          <small v-if="subtitle">
+          <small
+            v-if="subtitle"
+            class="d-inline-block"
+          >
             {{smartQuotes(subtitle)}}
           </small>
         </div>
@@ -61,9 +60,13 @@ export default {
   }
 
   /deep/ .v-avatar {
-    margin: {
-      top: -7px;
-      bottom: -7px;
+    @media (max-width: 599px) {
+      margin: 0 8px 0 -4px;
+    }
+
+    @media (min-width: 600px) {
+      align-self: flex-start;
+      margin: -7px 8px;
     }
 
     &::before {
@@ -79,11 +82,11 @@ export default {
   }
 
   .v-avatar ~ .content {
-    margin: {
-      top: 8px;
-      bottom: 8px;
+    @media (min-width: 600px) {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      min-height: 32px;
     }
-    min-height: 32px;
   }
 
   small {

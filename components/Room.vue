@@ -1,9 +1,5 @@
 <template>
-  <VFlex
-    xs12
-    xl6
-    tag="section"
-  >
+  <section>
     <VList :class="{ 'mt-3': roomId }">
       <VSubheader
         inset
@@ -61,7 +57,7 @@
         </VListTile>
       </template>
     </VList>
-  </VFlex>
+  </section>
 </template>
 
 <script>

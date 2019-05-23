@@ -1,12 +1,11 @@
 <template>
   <div>
-    <VDivider class="hidden-sm-and-up" />
-    <VDivider inset class="hidden-xs-only" />
+    <VDivider inset />
     <VListTile
       avatar
       class="person"
     >
-      <VListTileAvatar class="hidden-xs-only">
+      <VListTileAvatar>
         <VAvatar v-if="person.picture">
           <img
             :src="person.picture"
@@ -16,38 +15,44 @@
       </VListTileAvatar>
       <VListTileContent class="content">
         <VLayout align-center>
-          <div class="name">
-            {{person.givenName}}
-            <template v-if="multiple">{{person.familyInitial}}.</template>
-          </div>
-          <VFlex class="mx-2">
-            <VLayout
-              justify-space-between
-              align-center
-              class="dates"
-              :style="dateMargins"
-            >
-              {{arrivalDay}}
-              <VIcon
-                v-if="person.ride && person.ride.to"
-                small
-                class="icon pl-1"
+          <VLayout
+            :column="$vuetify.breakpoint.xs"
+            :align-center="$vuetify.breakpoint.smAndUp"
+            class="mr-2"
+          >
+            <VListTileTitle class="name">
+              {{person.givenName}}
+              <template v-if="multiple">{{person.familyInitial}}.</template>
+            </VListTileTitle>
+            <VFlex :class="{ 'ml-2' : $vuetify.breakpoint.smAndUp }">
+              <VLayout
+                justify-space-between
+                align-center
+                class="dates"
+                :style="dateMargins"
               >
-                mdi-car
-              </VIcon>
-              <VDivider class="divider mx-1" />
-              <VIcon
-                v-if="person.ride && person.ride.from"
-                small
-                class="icon pr-1"
-              >
-                mdi-car
-              </VIcon>
-              <template v-if="conLength < 4 || stayLength !== 1">
-                {{departureDay}}
-              </template>
-            </VLayout>
-          </VFlex>
+                {{arrivalDay}}
+                <VIcon
+                  v-if="person.ride && person.ride.to"
+                  small
+                  class="icon pl-1"
+                >
+                  mdi-car
+                </VIcon>
+                <VDivider class="divider mx-1" />
+                <VIcon
+                  v-if="person.ride && person.ride.from"
+                  small
+                  class="icon pr-1"
+                >
+                  mdi-car
+                </VIcon>
+                <template v-if="conLength < 4 || stayLength !== 1">
+                  {{departureDay}}
+                </template>
+              </VLayout>
+            </VFlex>
+          </VLayout>
           <Price
             :price="personCost"
             :to-canadian="user.canadian && !conCanadian"
@@ -113,6 +118,7 @@ export default {
       return differenceInCalendarDays(this.lastDate, this.firstDate);
     },
     dateMargins() {
+      if (this.$vuetify.breakpoint.xs) return;
       return {
         marginLeft: differenceInCalendarDays(this.person.dates.arrival, this.firstDate) / this.conLength * 100 + '%',
         marginRight: differenceInCalendarDays(this.lastDate, this.person.dates.departure) / this.conLength * 100 + '%',
@@ -142,15 +148,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.person /deep/ .v-list__tile {
-  @media (max-width: 599px) {
-    padding: {
-      left: 0;
-      right: 0;
-    }
-  }
-}
-
 .content {
   align-items: stretch;
 }

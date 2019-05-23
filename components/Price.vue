@@ -51,10 +51,13 @@ export default {
 }
 
 .icon {
-  color: inherit;
-  fill: currentColor;
+  margin: {
+    top: -1px;
+    bottom: -3px;
+  }
   width: 16px;
   height: 16px;
-  vertical-align: text-top;
+  color: inherit;
+  fill: currentColor;
 }
 </style>

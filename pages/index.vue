@@ -1,13 +1,13 @@
 <template>
   <VApp dark>
-    <VContent>
+    <main :style="consStyles">
       <Login />
       <Convention
         v-for="con of cons"
         :key="con.id"
         :con="con"
       />
-    </VContent>
+    </main>
   </VApp>
 </template>
 
@@ -22,9 +22,19 @@ export default {
     Convention,
     Login,
   },
-  computed: mapGetters({
-    cons: 'cons/cons',
-  }),
+  computed: {
+    ...mapGetters({
+      cons: 'cons/cons',
+    }),
+    consStyles() {
+      if (this.$vuetify.breakpoint.xs) return;
+      return `
+        display: flex;
+        height: 100vh;
+        overflow: auto;
+      `;
+    }
+  },
   beforeCreate() {
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
@@ -34,3 +44,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+html {
+  @media (min-width: 600px) {
+    overflow: hidden;
+  }
+}
+</style>

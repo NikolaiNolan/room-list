@@ -1,46 +1,25 @@
 <template>
-  <section :class="con.color">
-    <VContainer>
-      <VLayout wrap>
-        <VFlex
-          xs12
-          sm6
-          md4
-          lg6
-        >
-          <VLayout wrap>
-            <VFlex
-              xs12
-              lg6
-            >
-              <ConHeader :con="con" />
-            </VFlex>
-            <VFlex
-              xs12
-              lg6
-            >
-            </VFlex>
-          </VLayout>
-        </VFlex>
-        <VFlex
-          v-if="roomsAvailable"
-          xs12
-          sm6
-          md8
-          lg6
-        >
-          <VLayout wrap>
-            <Room
-              v-for="(number, roomId) of con.room.count"
-              :key="roomId"
-              :con="con"
-              :people-object="con.people && con.people[roomId]"
-              v-bind="{ roomId, userRoomId, firstDate, lastDate, cost }"
-            />
-          </VLayout>
-        </VFlex>
-      </VLayout>
-    </VContainer>
+  <section
+    class="con"
+    :class="con.color"
+    @wheel="scrollHorizontally"
+  >
+    <div :class="containerClasses">
+      <ConHeader :con="con" />
+      <div
+        v-if="roomsAvailable"
+        :class="{ 'ml-2': $vuetify.breakpoint.smAndUp }"
+        :style="roomsStyles"
+      >
+        <Room
+          v-for="(number, roomId) of con.room.count"
+          :key="roomId"
+          :con="con"
+          :people-object="con.people && con.people[roomId]"
+          v-bind="{ roomId, userRoomId, firstDate, lastDate, cost }"
+        />
+      </div>
+    </div>
   </section>
 </template>
 
@@ -77,6 +56,20 @@ export default {
       gasCost: 'config/gasCost',
       mpg: 'config/mpg',
     }),
+    containerClasses() {
+      return {
+        'pa-3': this.$vuetify.breakpoint.smAndDown,
+        'd-flex': this.$vuetify.breakpoint.smAndUp,
+        'pa-4': this.$vuetify.breakpoint.mdAndUp,
+      };
+    },
+    roomsStyles() {
+      if (this.$vuetify.breakpoint.xs) return `
+        margin-left: -16px;
+        margin-right: -16px;
+      `;
+      return 'width: 480px;';
+    },
     roomsAvailable() {
       return this.con.room && this.con.room.count;
     },
@@ -139,5 +132,23 @@ export default {
       };
     }
   },
+  methods: {
+    scrollHorizontally() {
+      if (window.innerWidth < 600) return;
+      const { scrollTop, scrollHeight, clientHeight, parentNode } = this.$el;
+      if (event.deltaY < 0 && Math.ceil(scrollTop) > 0) return;
+      if (event.deltaY > 0 && Math.floor(scrollHeight - scrollTop) > clientHeight) return;
+      event.stopPropagation();
+      event.preventDefault();
+      parentNode.scrollLeft += event.deltaY;
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.con {
+  flex-shrink: 0;
+  overflow: auto;
+}
+</style>
