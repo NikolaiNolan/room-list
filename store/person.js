@@ -1,6 +1,5 @@
 export const actions = {
-  async add({ rootState }, { conId, roomId, options }) {
-    const personId = rootState.user.user.id;
+  async add({ rootState }, { conId, roomId, personId, options }) {
     const userSnapshot = await this.$fireDb.ref(`users/${personId}`).once('value');
     const { familyName, givenName, picture } = userSnapshot.val();
     this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).update({

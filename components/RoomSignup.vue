@@ -1,5 +1,12 @@
 <template>
   <section class="room-signup">
+    <VListTile v-if="admin">
+      <VSelect
+        v-model="personId"
+        :items="userIds"
+        color="white"
+      />
+    </VListTile>
     <VListTile>
       <VListTileAvatar>
         <VIcon title="Arrival/departure dates">mdi-calendar-range</VIcon>
@@ -56,6 +63,7 @@
 import convert from 'convert-units';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -76,9 +84,12 @@ export default {
       rideTo: false,
       rideFrom: false,
       step: convert(1).from('d').to('ms'),
+      personId: "LK7Jn91OK8NgXpBmttGCz2u5cPg2",
     };
   },
   computed: {
+    ...mapState('user', ['admin', 'user']),
+    ...mapState('users', ['users']),
     arrivalDate() {
       return this.dayRange[0];
     },
@@ -89,6 +100,9 @@ export default {
       return eachDayOfInterval({ start: this.firstDate, end: this.lastDate })
         .map(date => format(date, 'EEE'));
     },
+    userIds() {
+      return this.users.map(({ '.key': value, name: text }) => ({ text, value }));
+    }
   },
   watch: {
     firstDate: {
@@ -113,19 +127,35 @@ export default {
       if (this.arrivalDate !== departureDate) return;
       this.dayRange = [this.arrivalDate, departureDate + this.step];
     },
+    'user.id': {
+      immediate: true,
+      handler(userId) {
+        this.personId = userId;
+      },
+    },
+    admin: {
+      immediate: true,
+      handler(admin) {
+        if (admin) this.$store.dispatch('users/bind', this);
+      },
+    },
   },
   methods: {
     joinRoom() {
-      this.$emit('addPerson', {
-        dates: {
-          arrival: this.arrivalDate,
-          departure: this.departureDate,
-        },
-        ride: {
-          to: this.rideTo || null,
-          from: this.rideFrom || null,
-        },
-      });
+      this.$emit(
+        'addPerson',
+        this.personId,
+        {
+          dates: {
+            arrival: this.arrivalDate,
+            departure: this.departureDate,
+          },
+          ride: {
+            to: this.rideTo || null,
+            from: this.rideFrom || null,
+          },
+        }
+      );
       this.$emit('close');
     },
   },

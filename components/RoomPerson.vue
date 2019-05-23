@@ -47,7 +47,7 @@
                 >
                   mdi-car
                 </VIcon>
-                <template v-if="conLength < 4 || stayLength !== 1">
+                <template v-if="conLength < 3 || stayLength !== 1">
                   {{departureDay}}
                 </template>
               </VLayout>
@@ -62,14 +62,13 @@
       </VListTileContent>
       <VListTileAction>
         <VBtn
+          v-if="user && person.id === user.id || admin"
+          :title="person.id === user.id ? 'Leave this room' : 'Remove this person'"
           icon
           ripple
           @click="$emit('removePerson')"
         >
-          <VIcon
-            v-if="user && person.id === user.id"
-            title="Leave this room"
-          >
+          <VIcon>
             mdi-account-minus
           </VIcon>
         </VBtn>
@@ -113,7 +112,7 @@ export default {
     },
   },
   computed: {
-    ...mapState('user', ['user']),
+    ...mapState('user', ['admin', 'user']),
     conLength() {
       return differenceInCalendarDays(this.lastDate, this.firstDate);
     },

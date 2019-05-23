@@ -9,6 +9,7 @@
   </VBtn>
   <VListTile
     v-else
+    :title="user.email"
     avatar
     @click="logout"
   >

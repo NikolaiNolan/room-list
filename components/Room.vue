@@ -8,7 +8,7 @@
         {{roomType | capitalize}}
         <template v-if="con.room.count > 1">{{roomId + 1}}</template>
         <span class="caption">
-          {{people.length}}/{{max}}
+          {{people.length}}/{{max}} guests
         </span>
       </VSubheader>
       <RoomPerson
@@ -20,7 +20,7 @@
         v-bind="{ firstDate, lastDate, cost }"
         @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
       />
-      <template v-if="people.length < max && userRoomId === null">
+      <template v-if="(people.length < max && userRoomId === null) || admin">
         <VDivider inset />
         <VListGroup
           v-model="formOpen"
@@ -31,17 +31,17 @@
               <VListTileAvatar>
                 <VIcon>mdi-account-plus</VIcon>
               </VListTileAvatar>
-                <VLayout justify-space-between align-center>
-                  Join this {{roomType}}
-                  <Price :price="cost[`add${people.length ? 'Person' : 'Room'}`]" />
-                </VLayout>
+              <VLayout justify-space-between align-center>
+                Join this {{roomType}}
+                <Price :price="cost[`add${people.length ? 'Person' : 'Room'}`]" />
+              </VLayout>
             </VListTile>
           </template>
           <RoomSignup
             :ride="con.ride.available"
             v-bind="{ roomId, firstDate, lastDate }"
             @close="formOpen = false"
-            @addPerson="options => addPerson({ conId: con.id, roomId, options })"
+            @addPerson="(personId, options) => addPerson({ conId: con.id, roomId, personId, options })"
           />
         </VListGroup>
       </template>
@@ -51,9 +51,9 @@
           <VListTileAvatar>
             <VIcon>mdi-account-arrow-right</VIcon>
           </VListTileAvatar>
-          <VListTileContent>
+          <VLayout justify-space-between align-center>
             Move to this {{roomType}}
-          </VListTileContent>
+          </VLayout>
         </VListTile>
       </template>
     </VList>
@@ -116,7 +116,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('user', ['loggedIn', 'user']),
+    ...mapState('user', ['loggedIn', 'admin', 'user']),
     ...mapGetters({
       roomMax: 'config/roomMax',
       suiteMax: 'config/suiteMax',
