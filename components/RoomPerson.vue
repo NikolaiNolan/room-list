@@ -55,8 +55,8 @@
           </VLayout>
           <Price
             :price="personCost"
-            :to-canadian="user.canadian && !conCanadian"
-            :from-canadian="conCanadian && !user.canadian"
+            :to-canadian="user && user.canadian && !conCanadian"
+            :from-canadian="user && conCanadian && !user.canadian"
           />
         </VLayout>
       </VListTileContent>
