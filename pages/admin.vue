@@ -19,6 +19,7 @@
             >
               {{field.name}}
             </th>
+            <th>Notes</th>
           </tr>
         </thead>
         <tbody>
@@ -126,11 +127,6 @@ export default {
           path: 'color',
           name: 'Color',
         },
-        {
-          path: 'notes',
-          name: 'Notes',
-          type: 'textarea',
-        }
       ],
     };
   },

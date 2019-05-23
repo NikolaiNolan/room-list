@@ -84,7 +84,7 @@ export default {
       rideTo: false,
       rideFrom: false,
       step: convert(1).from('d').to('ms'),
-      personId: "LK7Jn91OK8NgXpBmttGCz2u5cPg2",
+      personId: null,
     };
   },
   computed: {

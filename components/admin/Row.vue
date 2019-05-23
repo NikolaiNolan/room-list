@@ -13,6 +13,15 @@
       />
     </td>
     <td>
+      <Field
+        type="textarea"
+        :dbRef="$fireDb.ref('notes')"
+        :con="con"
+        :name="con.id"
+        :value="notes && notes['.value']"
+      />
+    </td>
+    <td>
       <button @dblclick="con.ref.remove()">Delete</button>
     </td>
   </tr>
@@ -44,7 +53,13 @@ export default {
   data() {
     return {
       get,
+      notes: null,
     };
   },
+  firebase() {
+    return {
+      notes: this.$fireDb.ref(`notes/${this.con.id}`),
+    }
+  }
 };
 </script>

@@ -1,9 +1,29 @@
 {
 	"rules": {
-		".read": true,
-		".write": true,
+    ".read": "root.child('users/' + auth.uid + '/admin').val() === true",
+    ".write": "root.child('users/' + auth.uid + '/admin').val() === true",
+    "config": {
+      ".read": true
+    },
 		"cons": {
-			".indexOn": "dates/start"
-		}
+      ".read": true,
+      ".indexOn": "dates/start",
+      "$conId": {
+        "people": {
+          "$roomId": {
+            "$personId": {
+              ".write": "auth.uid === $personId"
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      ".indexOn": "name",
+      "$userId": {
+        ".read": "auth.uid === $userId",
+        ".write": "auth.uid === $userId"
+      }
+    }
 	}
 }

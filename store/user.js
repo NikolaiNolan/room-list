@@ -33,9 +33,10 @@ export const actions = {
         email: user.email,
         picture: user.photoURL,
       });
-      commit('setAdmin', user.uid === 'LK7Jn91OK8NgXpBmttGCz2u5cPg2');
       const userSnapshot = await app.$fireDb.ref(`users/${user.uid}`).once('value');
-      commit('updateUser', userSnapshot.val());
+      const userProfile = userSnapshot.val();
+      commit('setAdmin', userProfile.admin);
+      commit('updateUser', userProfile);
     });
   },
 };
