@@ -10,7 +10,10 @@
           ${con.photo[640].url} ${con.photo[640].width}w,
           ${con.photo[800].url} ${con.photo[800].width}w,
           ${con.photo[1024].url} ${con.photo[1024].width}w`"
-        sizes="285px"
+        :sizes="`
+          (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
+          288px
+        `"
         class="photo"
       />
       <h2 class="display-1">

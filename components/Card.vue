@@ -5,7 +5,10 @@
       aspect-ratio="2"
       :src="photoSrc"
       :srcset="photoSrcset"
-      sizes="285px"
+      :sizes="`
+        (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
+        288px
+      `"
       class="hidden-xs-only"
     />
     <VListTile
