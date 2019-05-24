@@ -1,6 +1,7 @@
 <template>
   <VApp dark>
     <main :style="consStyles">
+      <Header />
       <Login />
       <Convention
         v-for="con of cons"
@@ -15,11 +16,13 @@
 import { mapGetters } from 'vuex';
 
 import Convention from '~/components/Convention';
+import Header from '~/components/Header';
 import Login from '~/components/Login';
 
 export default {
   components: {
     Convention,
+    Header,
     Login,
   },
   computed: {

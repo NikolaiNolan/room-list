@@ -101,16 +101,50 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-      // Run ESLint on save
-      // if (ctx.isDev && ctx.isClient) {
-      //   config.module.rules.push({
-      //     enforce: 'pre',
-      //     test: /\.(js|vue)$/,
-      //     loader: 'eslint-loader',
-      //     exclude: /(node_modules)/,
-      //   });
-      // }
+    extend(config) {
+      const svgRule = config.module.rules.find(rule => rule.test.test('.svg'));
+      svgRule.test = /\.(png|jpe?g|gif|webp)$/;
+      config.module.rules.push({
+        test: /\.svg$/,
+        oneOf: [
+          {
+            resourceQuery: /inline/,
+            use: [
+              'vue-loader',
+              {
+                loader: 'svg-to-vue-component/loader',
+                options: {
+                  svgoConfig: {
+                    plugins: [
+                      { removeXMLNS: true },
+                      { cleanupNumericValues: { floatPrecision: 2 } },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+          {
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  name: 'assets/[name].[hash:8].[ext]',
+                  limit: 8192,
+                },
+              },
+              {
+                loader: 'image-webpack-loader',
+                options: {
+                  svgo: {
+                    cleanupNumericValues: { floatPrecision: 2 },
+                  },
+                },
+              },
+            ],
+          },
+        ],
+      });
     },
     transpile: [
       /^vue2-google-maps($|\/)/,

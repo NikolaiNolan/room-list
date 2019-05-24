@@ -44,7 +44,7 @@ export default {
         markers: `color:0x${color.secondary.slice(1)}|${destination}`,
         path: `weight:1|color:0x${color.primary.slice(1)}ff|enc:${this.path}`,
         zoom: !this.path && 4,
-        size: '285x142',
+        size: '288x144',
         scale: 2,
         style1: 'visibility:off',
         style2: 'feature:landscape|visibility:on|color:0xeeeeee',
