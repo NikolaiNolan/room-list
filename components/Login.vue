@@ -1,16 +1,19 @@
 <template>
   <VBtn
     v-if="!loggedIn"
+    block
     depressed
-    class="text-none"
+    class="ma-0 text-none"
     @click="login"
   >
+    <VIcon left>mdi-account</VIcon>
     Log In
   </VBtn>
   <VListTile
     v-else
     :title="user.email"
     avatar
+    class="user"
     @click="logout"
   >
     <VListTileAvatar v-if="user.picture">
@@ -66,3 +69,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.user {
+  @include margin(null -16px);
+  text-shadow: 0 0 .25em #7b6455;
+}
+</style>

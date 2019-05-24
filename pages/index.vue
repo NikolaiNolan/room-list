@@ -5,7 +5,6 @@
       @wheel="scrollHorizontally"
     >
       <Header :class="backgroundColor" />
-      <Login />
       <Convention
         v-for="con of cons"
         :key="con.id"
@@ -26,13 +25,11 @@ import { mapGetters } from 'vuex';
 
 import Convention from '~/components/Convention';
 import Header from '~/components/Header';
-import Login from '~/components/Login';
 
 export default {
   components: {
     Convention,
     Header,
-    Login,
   },
   computed: {
     ...mapGetters({
@@ -75,7 +72,9 @@ html {
   @include min-width(sm) {
     display: flex;
     height: 100vh;
-    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 }
 </style>
