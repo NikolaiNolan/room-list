@@ -51,12 +51,8 @@ export default {
 }
 
 .icon {
-  margin: {
-    top: -1px;
-    bottom: -3px;
-  }
-  width: 16px;
-  height: 16px;
+  @include margin(-1px null -3px);
+  @include size(16px);
   color: inherit;
   fill: currentColor;
 }

@@ -4,12 +4,11 @@
     :class="con.color"
     @wheel="scrollHorizontally"
   >
-    <div :class="containerClasses">
+    <div class="con__inner">
       <ConHeader :con="con" />
       <div
         v-if="roomsAvailable"
-        :class="{ 'ml-2': $vuetify.breakpoint.smAndUp }"
-        :style="roomsStyles"
+        class="rooms"
       >
         <Room
           v-for="(number, roomId) of con.room.count"
@@ -56,20 +55,6 @@ export default {
       gasCost: 'config/gasCost',
       mpg: 'config/mpg',
     }),
-    containerClasses() {
-      return {
-        'pa-3': this.$vuetify.breakpoint.smAndDown,
-        'd-flex': this.$vuetify.breakpoint.smAndUp,
-        'pa-4': this.$vuetify.breakpoint.mdAndUp,
-      };
-    },
-    roomsStyles() {
-      if (this.$vuetify.breakpoint.xs) return `
-        margin-left: -16px;
-        margin-right: -16px;
-      `;
-      return 'width: 480px;';
-    },
     roomsAvailable() {
       return this.con.room && this.con.room.count;
     },
@@ -150,5 +135,28 @@ export default {
 .con {
   flex-shrink: 0;
   overflow: auto;
+
+  &__inner {
+    padding: 16px;
+
+    @include min-width(sm) {
+      display: flex;
+    }
+
+    @include min-width(md) {
+      padding: 24px;
+    }
+  }
+}
+
+.rooms {
+  @include max-width(sm) {
+    @include margin(null -16px);
+  }
+
+  @include min-width(sm) {
+    margin-left: 8px;
+    width: 480px;
+  }
 }
 </style>

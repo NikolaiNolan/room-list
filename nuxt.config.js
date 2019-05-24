@@ -1,3 +1,5 @@
+import { includePaths } from 'bourbon';
+
 import pkg from './package';
 
 const googleApi = 'AIzaSyAgROM5KySy8S6Yga0rWamQjNzpr7KADk0';
@@ -56,6 +58,7 @@ export default {
    */
   modules: [
     '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
     [
       '@nuxtjs/vuetify',
       {
@@ -92,6 +95,16 @@ export default {
 
   vuetify: {
     iconfont: 'mdi',
+  },
+
+  /*
+  ** Style resources configuration
+  */
+  styleResources: {
+    scss: [
+      `${includePaths[0]}/*.scss`,
+      '~/assets/scss/utils/*.scss',
+    ],
   },
 
   /*

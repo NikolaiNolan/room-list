@@ -1,11 +1,12 @@
 <template>
   <div class="card">
     <VImg
-      v-if="photoSrc && $vuetify.breakpoint.smAndUp"
+      v-if="photoSrc"
       aspect-ratio="2"
       :src="photoSrc"
       :srcset="photoSrcset"
       sizes="285px"
+      class="hidden-xs-only"
     />
     <VListTile
       :href="href"
@@ -52,16 +53,13 @@ export default {
 <style lang="scss" scoped>
 .card {
   /deep/ .v-list__tile {
-    padding: {
-      left: 0;
-      right: 0;
-    }
+    @include padding(null 0);
     height: auto;
   }
 
   /deep/ .v-avatar {
     @media (max-width: 599px) {
-      margin: 0 8px 0 -4px;
+      @include margin(null 8px null -4px);
     }
 
     @media (min-width: 600px) {
@@ -69,11 +67,8 @@ export default {
       margin: -7px 8px;
     }
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: -2px;
-      top: -8px;
+    @include generated-block(before) {
+      @include position(absolute, -8px null null -2px);
       border: solid;
       border-width: 0 26px 15px;
       border-color: transparent;
@@ -83,8 +78,7 @@ export default {
 
   .v-avatar ~ .content {
     @media (min-width: 600px) {
-      margin-top: 8px;
-      margin-bottom: 8px;
+      @include margin(8px null);
       min-height: 32px;
     }
   }

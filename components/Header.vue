@@ -1,30 +1,20 @@
 <template>
   <VLayout
     tag="header"
-    :column="$vuetify.breakpoint.smAndUp"
+    justify-center
     align-center
-    class="header pa-4"
-    :style="$vuetify.breakpoint.smAndUp && `width: 288px`"
+    class="header pa-3"
+    @wheel="scrollHorizontally"
   >
-    <Logo
-      class="logo"
-      :class="{
-        'mr-3': $vuetify.breakpoint.xs,
-        'mb-3': $vuetify.breakpoint.smAndUp,
-      }"
-      :style="logoStyles"
-    />
-    <h1
-      class="heading"
-      :class="`display-${$vuetify.breakpoint.xs ? 1 : 2}`"
-    >
-      <TransformAlternates>Nikolai’s</TransformAlternates>
-      <TransformAlternates>Con Room</TransformAlternates>
-      &amp;&nbsp;<TransformAlternates>Ride List</TransformAlternates>
+    <Logo class="logo" />
+    <h1 class="heading display-1">
+      <TransformAlternates>Nikolai’s
+        Con Room
+        &amp;&nbsp;Ride&nbsp;List</TransformAlternates>
       <span class="shadow" aria-hidden="true">
-        <TransformAlternates>Nikolai’s</TransformAlternates>
-        <TransformAlternates>Con Room</TransformAlternates>
-        &amp;&nbsp;<TransformAlternates>Ride List</TransformAlternates>
+        <TransformAlternates>Nikolai’s
+          Con Room
+          &amp;&nbsp;Ride&nbsp;List</TransformAlternates>
       </span>
     </h1>
     <picture>
@@ -76,18 +66,14 @@ export default {
     Logo,
     TransformAlternates,
   },
-  computed: {
-    logoStyles() {
-      if (this.$vuetify.breakpoint.xs) return `
-        width: 96px;
-        height: 111px;
-      `;
-      return `
-        width: 192px;
-        height: 222px;
-      `;
-    }
-  }
+  methods: {
+    scrollHorizontally() {
+      if (window.innerWidth < 600) return;
+      event.stopPropagation();
+      event.preventDefault();
+      this.$el.parentNode.scrollLeft += event.deltaY;
+    },
+  },
 };
 </script>
 
@@ -96,32 +82,59 @@ export default {
   position: relative;
   z-index: 0;
   flex: none;
+
+  @include min-width(sm) {
+    flex-direction: column;
+    justify-content: flex-start;
+    width: $header-width - 16px;
+  }
+
+  @include min-width(md) {
+    padding: 24px !important;
+    width: $header-width;
+  }
 }
 
 .logo {
   position: relative;
   z-index: 1;
   flex-shrink: 0;
+
+  @include max-width(sm) {
+    @include size(96px, 111px);
+    margin-right: 16px;
+  }
+
+  @include min-width(sm) {
+    @include size(192px, 222px);
+    margin-bottom: 16px;
+  }
 }
 
 .heading {
   position: relative;
   z-index: 0;
+  width: 5em;
+  line-height: 36px !important;
+
+  @include min-width(405px) {
+    width: 8em;
+  }
+
+  @include min-width(sm) {
+    width: auto;
+    font-size: 48px !important;
+    line-height: 52px !important;
+  }
 }
 
-.background,
-.shadow {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.background {
+  @include cover-background;
 }
 
 .shadow {
+  @include cover-background;
   color: transparent;
-  text-shadow: 0 0 2em rgba(123, 100, 85, .5);
+  text-shadow: 0 0 2em #7b6455;
 }
 </style>

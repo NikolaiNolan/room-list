@@ -16,15 +16,14 @@
       <VListTileContent class="content">
         <VLayout align-center>
           <VLayout
-            :column="$vuetify.breakpoint.xs"
-            :align-center="$vuetify.breakpoint.smAndUp"
-            class="mr-2"
+            column
+            class="content__pertinent mr-2"
           >
             <VListTileTitle class="name">
               {{person.givenName}}
               <template v-if="multiple">{{person.familyInitial}}.</template>
             </VListTileTitle>
-            <VFlex :class="{ 'ml-2' : $vuetify.breakpoint.smAndUp }">
+            <VFlex>
               <VLayout
                 justify-space-between
                 align-center
@@ -117,7 +116,6 @@ export default {
       return differenceInCalendarDays(this.lastDate, this.firstDate);
     },
     dateMargins() {
-      if (this.$vuetify.breakpoint.xs) return;
       return {
         marginLeft: differenceInCalendarDays(this.person.dates.arrival, this.firstDate) / this.conLength * 100 + '%',
         marginRight: differenceInCalendarDays(this.lastDate, this.person.dates.departure) / this.conLength * 100 + '%',
@@ -149,10 +147,21 @@ export default {
 <style lang="scss" scoped>
 .content {
   align-items: stretch;
+
+  &__pertinent {
+    @include min-width(sm) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
 }
 
 .name {
   width: 7em;
+
+  @include min-width(sm) {
+    margin-right: 8px;
+  }
 }
 
 .dates {

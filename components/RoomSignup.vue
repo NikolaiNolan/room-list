@@ -169,10 +169,7 @@ export default {
   }
 
   /deep/ .v-slider {
-    margin: {
-      left: 1.2em;
-      right: 1.2em;
-    }
+    @include margin(null 1.2em);
     font-size: 80%;
   }
 

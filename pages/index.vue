@@ -1,6 +1,6 @@
 <template>
   <VApp dark>
-    <main :style="consStyles">
+    <main class="cons">
       <Header />
       <Login />
       <Convention
@@ -25,19 +25,9 @@ export default {
     Header,
     Login,
   },
-  computed: {
-    ...mapGetters({
-      cons: 'cons/cons',
-    }),
-    consStyles() {
-      if (this.$vuetify.breakpoint.xs) return;
-      return `
-        display: flex;
-        height: 100vh;
-        overflow: auto;
-      `;
-    }
-  },
+  computed: mapGetters({
+    cons: 'cons/cons',
+  }),
   beforeCreate() {
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
@@ -50,8 +40,18 @@ export default {
 
 <style lang="scss">
 html {
-  @media (min-width: 600px) {
+  @include min-width(sm) {
     overflow: hidden;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.cons {
+  @include min-width(sm) {
+    display: flex;
+    height: 100vh;
+    overflow: auto;
   }
 }
 </style>

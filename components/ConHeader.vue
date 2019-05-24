@@ -3,8 +3,8 @@
     <div class="column mb-3">
       <VImg
         v-if="con.photo"
-        :aspect-ratio="$vuetify.breakpoint.xs ? 1.33 : 1"
-        :position="$vuetify.breakpoint.xs ? 'center 25%' : 'top'"
+        aspect-ratio="1.33"
+        position="center 25%"
         :src="con.photo[500].url"
         :srcset="`${con.photo[500].url} ${con.photo[500].width}w,
           ${con.photo[640].url} ${con.photo[640].width}w,
@@ -64,21 +64,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 600px) {
+@include min-width(sm) {
   .header {
-    @media (max-height: 820px) {
+    @include max-height(820px) {
       display: flex;
     }
   }
 
   .column {
-    width: 288px;
+    width: $header-width;
   }
 
   .column:last-child {
-    @media (max-height: 820px) {
+    @include max-height(820px) {
       margin-left: 16px;
-      width: 224px;
+      width: $header-width - 64px;
+    }
+  }
+
+  .photo {
+    /deep/ .v-responsive__sizer {
+      padding-bottom: 100% !important;
+    }
+
+    /deep/ .v-image__image {
+      background-position: top !important;
     }
   }
 }
