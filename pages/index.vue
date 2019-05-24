@@ -1,6 +1,9 @@
 <template>
   <VApp dark>
-    <main class="cons">
+    <main
+      class="cons"
+      @wheel="scrollHorizontally"
+    >
       <Header :class="backgroundColor" />
       <Login />
       <Convention
@@ -48,6 +51,13 @@ export default {
   },
   mounted() {
     this.$store.dispatch('geolocation/bind');
+  },
+  methods: {
+    scrollHorizontally() {
+      if (window.innerWidth < this.$vuetify.breakpoint.thresholds.xs) return;
+      event.preventDefault();
+      event.currentTarget.scrollLeft += event.deltaY;
+    },
   },
 }
 </script>

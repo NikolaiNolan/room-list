@@ -9,7 +9,7 @@
         (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
         288px
       `"
-      class="hidden-xs-only"
+      class="photo"
     />
     <VListTile
       :href="href"
@@ -60,12 +60,16 @@ export default {
     height: auto;
   }
 
-  /deep/ .v-avatar {
-    @media (max-width: 599px) {
-      @include margin(null 8px null -4px);
+  .photo {
+    @media (max-width: map-get($grid-breakpoints, sm) - 1), (max-height: 700px - 1) {
+      display: none;
     }
+  }
 
-    @media (min-width: 600px) {
+  /deep/ .v-avatar {
+    @include margin(null 8px null -4px);
+
+    @media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
       align-self: flex-start;
       margin: -7px 8px;
     }
@@ -80,7 +84,7 @@ export default {
   }
 
   .v-avatar ~ .content {
-    @media (min-width: 600px) {
+    @media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
       @include margin(8px null);
       min-height: 32px;
     }

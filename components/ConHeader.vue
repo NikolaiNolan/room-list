@@ -1,37 +1,38 @@
 <template>
-  <header class="header">
-    <div class="column mb-3">
-      <VImg
-        v-if="con.photo"
-        aspect-ratio="1.33"
-        position="center 25%"
-        :src="con.photo[500].url"
-        :srcset="`${con.photo[500].url} ${con.photo[500].width}w,
-          ${con.photo[640].url} ${con.photo[640].width}w,
-          ${con.photo[800].url} ${con.photo[800].width}w,
-          ${con.photo[1024].url} ${con.photo[1024].width}w`"
-        :sizes="`
-          (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
-          288px
-        `"
-        class="photo"
-      />
-      <h2 class="display-1">
-        <TransformAlternates>{{con.name}}</TransformAlternates>
-      </h2>
+  <VLayout
+    tag="header"
+    column
+    class="header"
+  >
+    <img
+      v-if="con.photo"
+      :src="con.photo[500].url"
+      :srcset="`${con.photo[500].url} ${con.photo[500].width}w,
+        ${con.photo[640].url} ${con.photo[640].width}w,
+        ${con.photo[800].url} ${con.photo[800].width}w,
+        ${con.photo[1024].url} ${con.photo[1024].width}w`"
+      :sizes="`
+        (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
+        288px
+      `"
+      class="photo mb-2"
+    />
+    <h2 class="display-1">
+      <TransformAlternates>{{con.name}}</TransformAlternates>
+    </h2>
+    <VList>
       <ConDates
         v-if="con.dates && con.dates.start && con.dates.end"
         :start="con.dates.start"
         :end="con.dates.end"
+        class="mt-1"
       />
-    </div>
-    <VList class="column">
       <ConHotel
         v-if="con.hotel"
         :name="con.hotel.name"
         :link="con.hotel.link"
         :photoReference="con.hotel.photo.reference"
-        class="mb-3"
+        class="mt-3"
       />
       <ConMap
         v-if="con.city"
@@ -39,9 +40,10 @@
         :color="con.color"
         :hotelName="con.hotel && con.hotel.name"
         :hotelPlaceId="con.hotel && con.hotel.placeId"
+        class="mt-2"
       />
     </VList>
-  </header>
+  </VLayout>
 </template>
 
 <script>
@@ -67,32 +69,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@include min-width(sm) {
-  .header {
-    @include max-height(820px) {
-      display: flex;
-    }
-  }
-
-  .column {
+.header {
+  @include min-width(sm) {
+    padding: 16px;
+    box-sizing: content-box;
     width: $header-width;
   }
 
-  .column:last-child {
-    @include max-height(820px) {
-      margin-left: 16px;
-      width: $header-width - 64px;
-    }
-  }
-
-  .photo {
-    /deep/ .v-responsive__sizer {
-      padding-bottom: 100% !important;
-    }
-
-    /deep/ .v-image__image {
-      background-position: top !important;
-    }
+  @media (min-width: map-get($grid-breakpoints, md)) and (min-height: 700px) {
+    padding: 24px;
   }
 }
+
+.photo {
+  @include object-fit(cover, center 25%);
+  width: 100%;
+  min-height: 0;
+  height: calc((100vw - 16px - 16px) * .75);
+
+  @include min-width(sm) {
+    height: $header-width;
+  }
+}
+
 </style>

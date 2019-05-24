@@ -1,25 +1,24 @@
 <template>
-  <section
+  <VLayout
+    tag="section"
     class="con"
     :class="con.color"
-    @wheel="scrollHorizontally"
   >
-    <div class="con__inner">
-      <ConHeader :con="con" />
-      <div
-        v-if="roomsAvailable"
-        class="rooms"
-      >
-        <Room
-          v-for="(number, roomId) of con.room.count"
-          :key="roomId"
-          :con="con"
-          :people-object="con.people && con.people[roomId]"
-          v-bind="{ roomId, userRoomId, firstDate, lastDate, cost }"
-        />
-      </div>
+    <ConHeader :con="con" />
+    <div
+      v-if="roomsAvailable"
+      class="rooms"
+      @wheel="scrollHorizontally"
+    >
+      <Room
+        v-for="(number, roomId) of con.room.count"
+        :key="roomId"
+        :con="con"
+        :people-object="con.people && con.people[roomId]"
+        v-bind="{ roomId, userRoomId, firstDate, lastDate, cost }"
+      />
     </div>
-  </section>
+  </VLayout>
 </template>
 
 <script>
@@ -119,13 +118,10 @@ export default {
   },
   methods: {
     scrollHorizontally() {
-      if (window.innerWidth < 600) return;
-      const { scrollTop, scrollHeight, clientHeight, parentNode } = this.$el;
-      if (event.deltaY < 0 && Math.ceil(scrollTop) > 0) return;
-      if (event.deltaY > 0 && Math.floor(scrollHeight - scrollTop) > clientHeight) return;
-      event.stopPropagation();
-      event.preventDefault();
-      parentNode.scrollLeft += event.deltaY;
+      const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
+      if (event.deltaY < 0 && Math.ceil(scrollTop) === 0) return;
+      if (event.deltaY > 0 && Math.floor(scrollHeight - scrollTop) === clientHeight) return;
+      event.stopImmediatePropagation();
     },
   },
 };
@@ -134,18 +130,10 @@ export default {
 <style lang="scss" scoped>
 .con {
   flex-shrink: 0;
-  overflow: auto;
 
-  &__inner {
+  @include max-width(sm) {
+    flex-direction: column;
     padding: 16px;
-
-    @include min-width(sm) {
-      display: flex;
-    }
-
-    @include min-width(md) {
-      padding: 24px;
-    }
   }
 }
 
@@ -155,8 +143,16 @@ export default {
   }
 
   @include min-width(sm) {
-    margin-left: 8px;
+    @include padding(16px 16px 16px null);
+    margin-left: -16px;
+    box-sizing: content-box;
     width: 480px;
+    overflow: auto;
+  }
+
+  @media (min-width: map-get($grid-breakpoints, md)) and (min-height: 700px) {
+    margin-left: -24px;
+    @include padding(24px 24px 24px 8px);
   }
 }
 </style>

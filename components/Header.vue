@@ -4,7 +4,6 @@
     justify-center
     align-center
     class="header pa-3"
-    @wheel="scrollHorizontally"
   >
     <Logo class="logo" />
     <h1 class="heading display-1">
@@ -66,14 +65,6 @@ export default {
     Logo,
     TransformAlternates,
   },
-  methods: {
-    scrollHorizontally() {
-      if (window.innerWidth < 600) return;
-      event.stopPropagation();
-      event.preventDefault();
-      this.$el.parentNode.scrollLeft += event.deltaY;
-    },
-  },
 };
 </script>
 
@@ -89,7 +80,7 @@ export default {
     width: $header-width - 16px;
   }
 
-  @include min-width(md) {
+  @media (min-width: map-get($grid-breakpoints, md)) and (min-height: 700px) {
     padding: 24px !important;
     width: $header-width;
   }
@@ -116,7 +107,6 @@ export default {
   position: relative;
   z-index: 0;
   width: 5em;
-  line-height: 36px !important;
 
   @include min-width(405px) {
     width: 8em;
@@ -125,7 +115,7 @@ export default {
   @include min-width(sm) {
     width: auto;
     font-size: 48px !important;
-    line-height: 52px !important;
+    line-height: 50px !important;
   }
 }
 
