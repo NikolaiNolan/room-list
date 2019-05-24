@@ -99,6 +99,7 @@ export default {
   position: relative;
   z-index: 1;
   flex-shrink: 0;
+  fill: currentColor;
 
   @include max-width(sm) {
     @include size(96px, 111px);
@@ -130,6 +131,10 @@ export default {
 
 .background {
   @include cover-background;
+
+  @include min-width(sm) {
+    object-position: top;
+  }
 }
 
 .shadow {

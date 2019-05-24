@@ -1,7 +1,7 @@
 <template>
   <VApp dark>
     <main class="cons">
-      <Header />
+      <Header :class="backgroundColor" />
       <Login />
       <Convention
         v-for="con of cons"
@@ -13,6 +13,12 @@
 </template>
 
 <script>
+import countBy from 'lodash/countBy';
+import filter from 'lodash/filter';
+import last from 'lodash/last';
+import map from 'lodash/map';
+import sortBy from 'lodash/sortBy';
+import toPairs from 'lodash/toPairs';
 import { mapGetters } from 'vuex';
 
 import Convention from '~/components/Convention';
@@ -25,9 +31,17 @@ export default {
     Header,
     Login,
   },
-  computed: mapGetters({
-    cons: 'cons/cons',
-  }),
+  computed: {
+    ...mapGetters({
+      cons: 'cons/cons',
+    }),
+    backgroundColor() {
+      if (!this.cons.length) return;
+      const sortedColors = sortBy(map(countBy(this.cons.slice(1), 'color'), (count, color) => ({ count, color })), 'count');
+      const leastFrequentCount = sortedColors[0].count;
+      return last(filter(sortedColors, { count: leastFrequentCount })).color;
+    },
+  },
   beforeCreate() {
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
