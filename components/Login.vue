@@ -55,15 +55,13 @@ export default {
       picture
     } = additionalUserInfo.profile;
     const canadian = familyName === 'Easterbrook' || null;
-    this.$fireDb.ref('users').update({
-      [user.uid]: {
-        email,
-        familyName,
-        givenName,
-        name,
-        picture,
-        canadian,
-      },
+    this.$fireDb.ref(`users/${user.uid}`).update({
+      email,
+      familyName,
+      givenName,
+      name,
+      picture,
+      canadian,
     });
   },
 }
