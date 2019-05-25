@@ -17,13 +17,17 @@ module.exports = (req, res) => {
       return db.ref('config').update({ gasCost });
     });
 
-  console.log(req, res);
-
   return Promise.all([
     updateExchange(),
     updateGasCost(),
     lastUpdatedRef.set(admin.database.ServerValue.TIMESTAMP),
   ])
-    .then(() => res.status(200).end())
-    .catch(() => res.status(400).end());
+    .then(() => {
+      if (!res) return;
+      res.status(200).end();
+    )
+    .catch(() => {
+      if (!res) return;
+      res.status(400).end();
+    );
 };
