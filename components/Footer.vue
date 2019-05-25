@@ -8,6 +8,20 @@
     <div>
       <h2 class="heading d-inline">Photos courtesy of</h2>
       <ul class="credits d-inline">
+        <li class="credit d-inline">
+          <a
+            href="https://www.flickr.com/photos/dominicotine/"
+            target="_blank"
+            rel="noopener"
+            class="credit__link"
+          >Dominick Guzzo</a>
+          (<a
+            href="https://creativecommons.org/licenses/by-nc-sa/2.0/"
+            target="_blank"
+            rel="noopener"
+            class="credit__link"
+          >CC BY-NC-SA</a>)
+        </li>
         <template v-for="con of cons">
           <li
             :key="con.id"
