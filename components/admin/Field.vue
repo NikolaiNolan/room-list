@@ -135,7 +135,13 @@ export default {
         photo: {
           url: photo.getUrl(),
           reference: photo.getUrl().replace(/[^?]+\?(1s)?([0-9a-zA-Z-_]+)(\&.+)?/, '$2'),
-          attributions: photo.html_attributions,
+          attributions: photo.html_attributions.map(attribution => {
+            const attributionData = attribution.match(/href="(.*)".*>(.*)</);
+            return {
+              name: attributionData[2],
+              link: attributionData[1],
+            };
+          }),
         },
         placeId,
       });

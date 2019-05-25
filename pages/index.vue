@@ -4,12 +4,13 @@
       class="cons"
       @wheel="scrollHorizontally"
     >
-      <Header :class="backgroundColor" />
+      <Header :class="lastBackgroundColor" />
       <Convention
         v-for="con of cons"
         :key="con.id"
         :con="con"
       />
+      <Footer :class="firstBackgroundColor" />
     </main>
   </VApp>
 </template>
@@ -24,23 +25,33 @@ import toPairs from 'lodash/toPairs';
 import { mapGetters } from 'vuex';
 
 import Convention from '~/components/Convention';
+import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 
 export default {
   components: {
     Convention,
+    Footer,
     Header,
   },
   computed: {
     ...mapGetters({
       cons: 'cons/cons',
     }),
-    backgroundColor() {
+    backgroundColors() {
       if (!this.cons.length) return;
       const sortedColors = sortBy(map(countBy(this.cons.slice(1), 'color'), (count, color) => ({ count, color })), 'count');
       const leastFrequentCount = sortedColors[0].count;
-      return last(filter(sortedColors, { count: leastFrequentCount })).color;
+      return filter(sortedColors, { count: leastFrequentCount });
     },
+    firstBackgroundColor() {
+      if (!this.backgroundColors) return;
+      return this.backgroundColors[0].color;
+    },
+    lastBackgroundColor() {
+      if (!this.backgroundColors) return;
+      return last(this.backgroundColors).color;
+    }
   },
   beforeCreate() {
     this.$store.dispatch('config/bind', this);

@@ -29,8 +29,9 @@
 <script>
 import getUnixTime from 'date-fns/getUnixTime';
 import subYears from 'date-fns/subYears';
-import flickrColors from '~/plugins/flickrColors';
 import Flickr from 'flickr-sdk';
+import flickrColors from '~/plugins/flickrColors';
+import flickrLicenses from '~/plugins/flickrLicenses';
 import find from 'lodash/find';
 import map from 'lodash/map';
 import reducedColors from '~/plugins/reducedColors';
@@ -60,7 +61,7 @@ export default {
     async getPhotos() {
       const response = await flickr.photos.search({
         content_type: 1,
-        extras: 'url_sq,url_s,url_m,url_z,url_c,url_l,url_o,color_codes',
+        extras: 'license,url_sq,url_s,url_m,url_z,url_c,url_l,url_o,color_codes',
         license: '1,2,3,4,5,6,7,8,9,10',
         per_page: 20,
         sort: 'interestingness-desc',
@@ -75,6 +76,7 @@ export default {
     async setPhoto({
       color_codes: colorString = '',
       owner,
+      license,
       url_sq,
       width_sq,
       height_sq,
@@ -108,6 +110,7 @@ export default {
       this.$emit('input', {
         credit: (response.body.person.realname || response.body.person.username)._content,
         link: response.body.person.photosurl._content,
+        license: flickrLicenses[license] || null,
         thumbnail: {
           url: url_sq,
           width: +width_sq,
