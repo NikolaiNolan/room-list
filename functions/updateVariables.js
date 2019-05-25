@@ -17,6 +17,8 @@ module.exports = (req, res) => {
       return db.ref('config').update({ gasCost });
     });
 
+  console.log(req, res);
+
   return Promise.all([
     updateExchange(),
     updateGasCost(),
