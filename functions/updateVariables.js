@@ -25,9 +25,9 @@ module.exports = (req, res) => {
     .then(() => {
       if (!res) return;
       res.status(200).end();
-    )
+    })
     .catch(() => {
       if (!res) return;
       res.status(400).end();
-    );
+    });
 };
