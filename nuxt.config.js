@@ -51,6 +51,7 @@ export default {
       src: '~/plugins/googleMaps',
       mode: 'client',
     },
+    '~/plugins/lazyImage',
     '~/plugins/materialDesignIcons',
     '~/plugins/vueFire',
   ],

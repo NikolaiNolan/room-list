@@ -75,6 +75,14 @@ html {
     overflow: hidden;
   }
 }
+
+// .v-lazy-image {
+//   transition: opacity .3s cubic-bezier(.25, .8, .5, 1);
+
+//   &:not(&-loaded) {
+//     opacity: 0;
+//   }
+// }
 </style>
 
 <style lang="scss" scoped>

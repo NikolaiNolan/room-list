@@ -9,7 +9,18 @@
       align-center
       class="header__top pa-3"
     >
-      <picture>
+      <VLazyImage
+        use-picture
+        src="~/assets/images/background/576.jpg"
+        srcset="
+          ~/assets/images/background/576.jpg 576w,
+          ~/assets/images/background/768.jpg 584w
+        "
+        sizes="288px"
+        alt
+        :intersection-options="$intersectionOptions"
+        class="background"
+      >
         <source
           :media="`(max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px)`"
           type="image/webp"
@@ -35,17 +46,7 @@
           "
           sizes="288px"
         />
-        <img
-          src="~/assets/images/background/576.jpg"
-          srcset="
-            ~/assets/images/background/576.jpg 576w,
-            ~/assets/images/background/768.jpg 584w
-          "
-          sizes="288px"
-          alt
-          class="background"
-        />
-      </picture>
+      </VLazyImage>
       <Logo class="logo" />
       <h1 class="heading display-1">
         <TransformAlternates>Nikolai’s
@@ -110,7 +111,7 @@ export default {
   }
 }
 
-.background {
+.background /deep/ img{
   @include cover-background;
 
   @include min-width(sm) {

@@ -1,14 +1,16 @@
 <template>
   <div class="card">
-    <VImg
+    <VLazyImage
       v-if="photoSrc"
-      aspect-ratio="2"
+      :src-placeholder="$placeholder"
       :src="photoSrc"
       :srcset="photoSrcset"
       :sizes="`
         (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
         288px
       `"
+      alt
+      :intersection-options="$intersectionOptions"
       class="photo"
     />
     <VListTile
@@ -61,6 +63,9 @@ export default {
   }
 
   .photo {
+    @include size($header-width, $header-width / 2);
+    @include object-fit(cover);
+
     @media (max-width: map-get($grid-breakpoints, sm) - 1), (max-height: 700px - 1) {
       display: none;
     }

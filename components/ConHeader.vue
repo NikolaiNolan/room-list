@@ -4,8 +4,9 @@
     column
     class="header"
   >
-    <img
+    <VLazyImage
       v-if="con.photo"
+      :src-placeholder="$placeholder"
       :src="con.photo[500].url"
       :srcset="`${con.photo[500].url} ${con.photo[500].width}w,
         ${con.photo[640].url} ${con.photo[640].width}w,
@@ -15,6 +16,8 @@
         (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),
         288px
       `"
+      alt
+      :intersection-options="$intersectionOptions"
       class="photo mb-2"
     />
     <h2 class="display-1">

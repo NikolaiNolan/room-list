@@ -7,9 +7,11 @@
     >
       <VListTileAvatar>
         <VAvatar v-if="person.picture">
-          <img
+          <VLazyImage
+            :src-placeholder="$placeholder"
             :src="person.picture"
             alt
+            :intersection-options="$intersectionOptions"
           />
         </VAvatar>
       </VListTileAvatar>
