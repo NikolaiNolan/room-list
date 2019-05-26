@@ -21,7 +21,14 @@
       class="photo d-block mb-2"
     />
     <h2 class="display-1">
-      <TransformAlternates>{{con.name}}</TransformAlternates>
+      <a
+        :href="con.link"
+        target="_blank"
+        rel="noopener"
+        class="heading__link"
+      >
+        <TransformAlternates>{{con.name}}</TransformAlternates>
+      </a>
     </h2>
     <VList>
       <ConDates
@@ -95,4 +102,8 @@ export default {
   }
 }
 
+.heading__link {
+  color: inherit;
+  text-decoration: none;
+}
 </style>

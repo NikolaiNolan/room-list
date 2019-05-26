@@ -3,6 +3,7 @@
     <GmapAutocomplete
       v-if="type === 'places'"
       :value="value"
+      class="place"
       @place_changed="setPlace"
     />
     <DateField
@@ -167,6 +168,10 @@ export default {
 <style lang="scss" scoped>
 .number {
   width: 2.5em;
+}
+
+.place {
+  width: 20em;
 }
 
 .date {

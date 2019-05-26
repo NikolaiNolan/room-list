@@ -84,6 +84,10 @@ export default {
           type: 'number',
         },
         {
+          path: 'link',
+          name: 'Link',
+        },
+        {
           path: 'hotel/name',
           name: 'Location',
           type: 'places',
@@ -157,3 +161,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+html {
+  overflow: auto;
+}
+</style>
