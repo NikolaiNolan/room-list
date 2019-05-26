@@ -44,7 +44,7 @@ export default {
     auth,
   ],
   computed: mapState('user', ['loggedIn', 'user']),
-  beforeCreate() {
+  beforeMount() {
     this.$store.dispatch('user/bind', this);
   },
   async mounted() {

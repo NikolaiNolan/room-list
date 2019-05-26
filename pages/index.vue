@@ -53,12 +53,10 @@ export default {
       return last(this.backgroundColors).color;
     }
   },
-  beforeCreate() {
+  beforeMount() {
+    this.$store.dispatch('geolocation/bind');
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
-  },
-  mounted() {
-    this.$store.dispatch('geolocation/bind');
   },
   methods: {
     scrollHorizontally() {

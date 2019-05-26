@@ -145,7 +145,7 @@ export default {
       });
     },
   },
-  beforeCreate() {
+  beforeMount() {
     this.$store.dispatch('config/bind', this);
     this.$store.dispatch('cons/bind', this);
   },
