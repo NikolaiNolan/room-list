@@ -2,10 +2,13 @@
   <Card
     :photo-src="map"
     :href="directionsLink"
-    icon="mdi-map-marker"
     :title="city"
     :subtitle="duration"
-  />
+  >
+    <template v-slot:icon>
+      <MapMarkerIcon />
+    </template>
+  </Card>
 </template>
 
 <script>
@@ -15,10 +18,12 @@ import queryString from 'query-string';
 import { mapState } from 'vuex';
 
 import Card from './Card';
+import MapMarkerIcon from 'vue-material-design-icons/MapMarker.vue';
 
 export default {
   components: {
     Card,
+    MapMarkerIcon,
   },
   props: {
     city: {

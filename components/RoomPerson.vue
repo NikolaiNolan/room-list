@@ -39,21 +39,17 @@
                 :style="dateMargins"
               >
                 {{arrivalDay}}
-                <VIcon
+                <CarIcon
                   v-if="person.ride && person.ride.to"
-                  small
-                  class="icon pl-1"
-                >
-                  mdi-car
-                </VIcon>
+                  :size="16"
+                  class="pl-1"
+                />
                 <VDivider class="divider mx-1" />
-                <VIcon
+                <CarIcon
                   v-if="person.ride && person.ride.from"
-                  small
-                  class="icon pr-1"
-                >
-                  mdi-car
-                </VIcon>
+                  :size="16"
+                  class="pr-1"
+                />
                 <template v-if="conLength < 3 || stayLength !== 1">
                   {{departureDay}}
                 </template>
@@ -75,9 +71,7 @@
           ripple
           @click="$emit('removePerson')"
         >
-          <VIcon>
-            mdi-account-minus
-          </VIcon>
+          <AccountMinusIcon />
         </VBtn>
       </VListTileAction>
     </VListTile>
@@ -92,10 +86,14 @@ import filter from 'lodash/filter';
 import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
+import AccountMinusIcon from 'vue-material-design-icons/AccountMinus.vue';
+import CarIcon from 'vue-material-design-icons/Car.vue';
 import Price from './Price';
 
 export default {
   components: {
+    AccountMinusIcon,
+    CarIcon,
     Price,
   },
   props: {

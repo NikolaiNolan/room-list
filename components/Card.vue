@@ -19,8 +19,8 @@
       rel="noopener"
     >
       <VLayout align-center>
-        <VAvatar v-if="icon">
-          <VIcon>{{icon}}</VIcon>
+        <VAvatar v-if="$slots.icon">
+          <slot name="icon" />
         </VAvatar>
         <div class="content mr-2">
           {{smartQuotes(title)}}
@@ -45,7 +45,6 @@ export default {
     photoSrc: String,
     photoSrcset: String,
     href: String,
-    icon: String,
     title: String,
     subtitle: String,
   },
@@ -86,6 +85,11 @@ export default {
       border-width: 0 26px 15px;
       border-color: transparent;
       transition: background .3s cubic-bezier(.25, .8, .5, 1);
+    }
+
+    .material-design-icon {
+      @include flex(row, center, center);
+      @include size(inherit);
     }
   }
 

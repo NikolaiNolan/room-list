@@ -78,6 +78,33 @@ html {
   }
 }
 
+.material-design-icon {
+  display: inline-block;
+
+  &.left {
+    margin-right: 8px;
+  }
+
+  .material-design-icon__svg {
+    display: block;
+  }
+}
+
+// .material-design-icon {
+//   display: inline-flex;
+//   align-self: center;
+//   position: relative;
+//   height: 1em;
+//   width: 1em;
+// }
+// .material-design-icon > .material-design-icon__svg {
+//   height: 1em;
+//   width: 1em;
+//   fill: currentColor;
+//   position: absolute;
+//   bottom: -0.125em;
+// }
+
 // .v-lazy-image {
 //   transition: opacity .3s cubic-bezier(.25, .8, .5, 1);
 

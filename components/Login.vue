@@ -6,7 +6,7 @@
     class="ma-0 text-none"
     @click="login"
   >
-    <VIcon left>mdi-account</VIcon>
+    <AccountIcon class="left" />
     Log In
   </VBtn>
   <VListTile
@@ -41,10 +41,15 @@
 import auth from '~/plugins/auth';
 import { mapState } from 'vuex';
 
+import AccountIcon from 'vue-material-design-icons/Account.vue';
+
 export default {
   mixins: [
     auth,
   ],
+  components: {
+    AccountIcon,
+  },
   computed: mapState('user', ['loggedIn', 'user']),
   async mounted() {
     const { user, additionalUserInfo } = await this.$fireAuth.getRedirectResult();

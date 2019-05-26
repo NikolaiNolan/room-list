@@ -170,10 +170,6 @@ export default {
     ],
   },
 
-  vuetify: {
-    iconfont: 'mdi',
-  },
-
   build: {
     extend(config) {
       const svgRule = config.module.rules.find(rule => rule.test.test('.svg'));

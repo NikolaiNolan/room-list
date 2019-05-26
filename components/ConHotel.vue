@@ -3,17 +3,22 @@
     :photo-src="hotelPhotoSrc"
     :photo-srcset="hotelPhotoSrcSet"
     :href="link"
-    icon="mdi-hotel"
     :title="name"
-  />
+  >
+    <template v-slot:icon>
+      <HotelIcon />
+    </template>
+  </Card>
 </template>
 
 <script>
 import Card from './Card';
+import HotelIcon from 'vue-material-design-icons/Hotel.vue';
 
 export default {
   components: {
     Card,
+    HotelIcon,
   },
   props: {
     name: {

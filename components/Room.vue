@@ -30,7 +30,7 @@
           <template v-slot:activator>
             <VListTile @click="showForm($event)">
               <VListTileAvatar>
-                <VIcon>mdi-account-plus</VIcon>
+                <AccountPlusIcon />
               </VListTileAvatar>
               <VLayout justify-space-between align-center>
                 Join this {{roomType}}
@@ -50,7 +50,7 @@
         <VDivider inset />
         <VListTile @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })">
           <VListTileAvatar>
-            <VIcon>mdi-account-arrow-right</VIcon>
+            <AccountArrowRightIcon />
           </VListTileAvatar>
           <VLayout justify-space-between align-center>
             Move to this {{roomType}}
@@ -69,12 +69,16 @@ import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
+import AccountPlusIcon from 'vue-material-design-icons/AccountPlus.vue';
+import AccountArrowRightIcon from 'vue-material-design-icons/AccountArrowRight.vue';
 import Price from './Price';
 import RoomPerson from './RoomPerson';
 import RoomSignup from './RoomSignup';
 
 export default {
   components: {
+    AccountArrowRightIcon,
+    AccountPlusIcon,
     Price,
     RoomPerson,
     RoomSignup,
