@@ -11,7 +11,7 @@
       `"
       alt
       :intersection-options="$intersectionOptions"
-      class="photo d-block"
+      class="photo"
     />
     <VListTile
       :href="href"
@@ -65,6 +65,7 @@ export default {
   .photo {
     @include size($header-width, $header-width / 2);
     @include object-fit(cover);
+    display: block;
 
     @media (max-width: map-get($grid-breakpoints, sm) - 1), (max-height: 700px - 1) {
       display: none;
