@@ -146,8 +146,9 @@ export default {
     },
   },
   beforeMount() {
+    this.$store.dispatch('user/bind', this);
+    this.$store.dispatch('cons/adminBind', this);
     this.$store.dispatch('config/bind', this);
-    this.$store.dispatch('cons/bind', this);
   },
   methods: {
     addCon() {

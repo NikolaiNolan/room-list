@@ -40,7 +40,7 @@ export default {
     }),
     backgroundColors() {
       if (!this.cons.length) return;
-      const sortedColors = sortBy(map(countBy(this.cons.slice(1), 'color'), (count, color) => ({ count, color })), 'count');
+      const sortedColors = sortBy(map(countBy(this.cons, 'color'), (count, color) => ({ count, color })), 'count');
       const leastFrequentCount = sortedColors[0].count;
       return filter(sortedColors, { count: leastFrequentCount });
     },
@@ -55,8 +55,9 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch('geolocation/bind');
-    this.$store.dispatch('config/bind', this);
+    this.$store.dispatch('user/bind', this);
     this.$store.dispatch('cons/bind', this);
+    this.$store.dispatch('config/bind', this);
   },
   methods: {
     scrollHorizontally() {

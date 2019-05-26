@@ -44,9 +44,6 @@ export default {
     auth,
   ],
   computed: mapState('user', ['loggedIn', 'user']),
-  beforeMount() {
-    this.$store.dispatch('user/bind', this);
-  },
   async mounted() {
     const { user, additionalUserInfo } = await this.$fireAuth.getRedirectResult();
     if (!user || !additionalUserInfo) return;

@@ -22,7 +22,7 @@
       />
     </td>
     <td>
-      <button @dblclick="con.ref.remove()">Delete</button>
+      <button @dblclick="dbRef.remove()">Delete</button>
     </td>
   </tr>
 </template>

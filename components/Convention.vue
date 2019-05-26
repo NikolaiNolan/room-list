@@ -55,7 +55,7 @@ export default {
       mpg: 'config/mpg',
     }),
     roomsAvailable() {
-      return this.con.room && this.con.room.count;
+      return this.con.room && this.con.room.count && this.cost;
     },
     firstDate() {
       if (!this.con.dates.daysEarly) return this.con.dates.start;
