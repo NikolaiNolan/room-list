@@ -1,3 +1,4 @@
+import isAfter from 'date-fns/isAfter';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import { firebaseAction } from 'vuexfire';
@@ -8,6 +9,14 @@ export const state = () => ({
 
 export const getters = {
   cons: ({ cons }) => sortBy(
+    map(cons, (con, id) => ({ ...con, id }))
+      .filter(({ dates }) => {
+        if (isAfter(dates.start, new Date())) return true;
+        return false;
+      }),
+  'dates.start'
+  ),
+  adminCons: ({ cons }) => sortBy(
     map(cons, (con, id) => ({ ...con, id })),
     'dates.start'
   ),

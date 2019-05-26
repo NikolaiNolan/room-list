@@ -6,7 +6,7 @@
     >
       <Header :class="lastBackgroundColor" />
       <Convention
-        v-for="con of cons"
+        v-for="con of (admin ? adminCons : cons)"
         :key="con.id"
         :con="con"
       />
@@ -22,7 +22,7 @@ import last from 'lodash/last';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import toPairs from 'lodash/toPairs';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import Convention from '~/components/Convention';
 import Footer from '~/components/Footer';
@@ -35,8 +35,10 @@ export default {
     Header,
   },
   computed: {
+    ...mapState('user', ['admin']),
     ...mapGetters({
       cons: 'cons/cons',
+      adminCons: 'cons/adminCons',
     }),
     backgroundColors() {
       if (!this.cons.length) return;

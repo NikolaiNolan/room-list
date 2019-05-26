@@ -15,7 +15,16 @@
           />
         </VAvatar>
       </VListTileAvatar>
-      <VListTileContent class="content">
+      <VListTileAction v-if="admin">
+        <VCheckbox
+          v-model="paid"
+          @change="$emit('setPaid', paid)"
+        />
+      </VListTileAction>
+      <VListTileContent
+        class="content"
+        :class="{ paid: admin && paid }"
+      >
         <VLayout align-center>
           <VLayout class="content__pertinent mr-2">
             <VListTileTitle class="name">
@@ -109,6 +118,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      paid: this.person.paid,
+    };
+  },
   computed: {
     ...mapState('user', ['admin', 'user']),
     conLength() {
@@ -144,6 +158,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.paid {
+  text-decoration: line-through;
+}
+
 .content {
   align-items: stretch;
 

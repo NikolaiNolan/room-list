@@ -19,4 +19,7 @@ export const actions = {
   remove(context, { conId, roomId, personId }) {
     this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).remove();
   },
+  setPaid(context, { conId, roomId, personId, paid }) {
+    this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).update({ paid: paid || null });
+  },
 };

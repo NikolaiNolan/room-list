@@ -18,7 +18,7 @@
       `"
       alt
       :intersection-options="$intersectionOptions"
-      class="photo mb-2"
+      class="photo d-block mb-2"
     />
     <h2 class="display-1">
       <TransformAlternates>{{con.name}}</TransformAlternates>

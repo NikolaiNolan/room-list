@@ -19,6 +19,7 @@
         :con-canadian="con.canadian"
         v-bind="{ firstDate, lastDate, cost }"
         @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
+        @setPaid="paid => setPaid({ conId: con.id, roomId, personId: person.id, paid })"
       />
       <template v-if="(people.length < max && userRoomId === null) || admin">
         <VDivider inset />
@@ -64,6 +65,7 @@
 import auth from '~/plugins/auth';
 import countBy from 'lodash/countBy';
 import map from 'lodash/map';
+import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
@@ -125,13 +127,12 @@ export default {
       return this.con.room.suite ? 'suite' : 'room';
     },
     people() {
-      return sortBy(
-        map(
-          this.peopleObject,
-          (person, id) => ({ ...person, id }),
-        ),
-        ['givenName', 'familyInitial'],
+      const peopleArray = map(
+        this.peopleObject,
+        (person, id) => ({ ...person, id }),
       );
+      if (this.admin) return orderBy(peopleArray, ['paid', 'givenName', 'familyInitial'], ['desc']);
+      return sortBy(peopleArray, ['givenName', 'familyInitial']);
     },
     nameCount() {
       return countBy(this.peopleObject, 'givenName');
@@ -155,6 +156,7 @@ export default {
       addPerson: 'person/add',
       movePerson: 'person/move',
       removePerson: 'person/remove',
+      setPaid: 'person/setPaid',
     }),
     showForm(event) {
       if (this.loggedIn) return;

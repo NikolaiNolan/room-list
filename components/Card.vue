@@ -11,7 +11,7 @@
       `"
       alt
       :intersection-options="$intersectionOptions"
-      class="photo"
+      class="photo d-block"
     />
     <VListTile
       :href="href"
