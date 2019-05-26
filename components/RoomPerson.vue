@@ -15,10 +15,7 @@
       </VListTileAvatar>
       <VListTileContent class="content">
         <VLayout align-center>
-          <VLayout
-            column
-            class="content__pertinent mr-2"
-          >
+          <VLayout class="content__pertinent mr-2">
             <VListTileTitle class="name">
               {{person.givenName}}
               <template v-if="multiple">{{person.familyInitial}}.</template>
@@ -149,8 +146,11 @@ export default {
   align-items: stretch;
 
   &__pertinent {
+    @include max-width(sm) {
+      flex-direction: column;
+    }
+
     @include min-width(sm) {
-      flex-direction: row;
       align-items: center;
     }
   }

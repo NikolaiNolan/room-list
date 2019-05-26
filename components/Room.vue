@@ -169,7 +169,6 @@ export default {
 .subheader {
   justify-content: space-between;
   font-weight: 600;
-  color: white;
 }
 
 .signup::before,
