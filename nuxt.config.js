@@ -46,7 +46,6 @@ export default {
 
   plugins: [
     '~/plugins/asyncComputed',
-    '~/plugins/filters',
     {
       src: '~/plugins/googleMaps',
       mode: 'client',
@@ -132,7 +131,9 @@ export default {
         }
       },
     }],
-    ['@nuxtjs/pwa', { icon: false }],
+    ['@nuxtjs/pwa', {
+      icon: false
+    }],
     '@nuxtjs/style-resources',
     ['@nuxtjs/vuetify', {
       materialIcons: false,

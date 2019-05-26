@@ -5,7 +5,7 @@
         inset
         class="subheader"
       >
-        {{roomType | capitalize}}
+        {{roomType[0].toUpperCase()}}{{roomType.slice(1)}}
         <template v-if="con.room.count > 1">{{roomId + 1}}</template>
         <span class="caption">
           {{people.length}}/{{max}} guests
