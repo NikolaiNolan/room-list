@@ -11,37 +11,39 @@ export default {
     googleApi,
   },
 
-  /*
-   ** Headers of the page
-   */
   head: {
-    title: pkg.name,
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description },
-    ],
+    title: pkg.description,
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Montserrat+Alternates:600,700' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
   },
 
-  /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
+  manifest: {
+    short_name: 'Room List',
+    name: 'Nikolai’s Con Room & Ride List',
+    author: 'Nikolai Nolan',
+    description: 'Nikolai’s list of convention rooms and rides for friends who want to join the fun.',
+    theme_color: '#dd731d',
+    background_color: '#dd731d',
+    ogHost: 'https://conrooms.com',
+    ogImage: {
+      path: '/og.png',
+      width: 1200,
+      height: 626,
+    },
+    twitterSite: 'Nikolai',
+    twitterCreator: 'Nikolai',
+    start_url: '/',
+    display: 'standalone',
+    nativeUI: true,
+  },
 
-  /*
-   ** Global CSS
-   */
+  loading: false,
+
   css: [
     '~/assets/stylus/main',
   ],
 
-  /*
-   ** Plugins to load before mounting the App
-   */
   plugins: [
     '~/plugins/asyncComputed',
     '~/plugins/filters',
@@ -53,11 +55,11 @@ export default {
     '~/plugins/vueFire',
   ],
 
-  /*
-   ** Nuxt.js modules
-   */
   modules: [
-    '@nuxtjs/pwa',
+    [
+      '@nuxtjs/pwa',
+      { icon: false },
+    ],
     '@nuxtjs/style-resources',
     [
       '@nuxtjs/vuetify',
@@ -93,13 +95,6 @@ export default {
     ],
   ],
 
-  vuetify: {
-    iconfont: 'mdi',
-  },
-
-  /*
-  ** Style resources configuration
-  */
   styleResources: {
     scss: [
       `${includePaths[0]}/*.scss`,
@@ -107,13 +102,11 @@ export default {
     ],
   },
 
-  /*
-   ** Build configuration
-   */
+  vuetify: {
+    iconfont: 'mdi',
+  },
+
   build: {
-    /*
-     ** You can extend webpack config here
-     */
     extend(config) {
       const svgRule = config.module.rules.find(rule => rule.test.test('.svg'));
       svgRule.test = /\.(png|jpe?g|gif|webp)$/;

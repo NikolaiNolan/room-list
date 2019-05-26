@@ -1,7 +1,7 @@
 {
   "name": "room-list",
   "version": "1.0.0",
-  "description": "Nikolai&#39;s Con Room &amp; Ride List",
+  "description": "Nikolai’s Con Room & Ride List",
   "author": "Nikolai Nolan",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
     "deploy": "nuxt generate && firebase deploy"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^2.6.0",
+    "@nuxtjs/pwa": "^3.0.0-beta.16",
     "@nuxtjs/style-resources": "^0.1.2",
     "@nuxtjs/vuetify": "^0.5.5",
     "bourbon": "^5.1.0",
