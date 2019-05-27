@@ -6,9 +6,9 @@
     >
       <Header :class="lastBackgroundColor" />
       <Convention
-        v-for="con of (admin ? adminCons : cons)"
+        v-for="(con, index) of (admin ? adminCons : cons)"
         :key="con.id"
-        :con="con"
+        :con="{ ...con, index }"
       />
       <Footer :class="firstBackgroundColor" />
     </main>

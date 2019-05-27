@@ -1,6 +1,7 @@
 <template>
   <div class="card">
-    <VLazyImage
+    <component
+      :is="noLazy ? 'img' : 'VLazyImage'"
       v-if="photoSrc"
       :src-placeholder="$placeholder"
       :src="photoSrc"
@@ -42,6 +43,7 @@ import smartQuotes from 'smartquotes';
 
 export default {
   props: {
+    noLazy: Boolean,
     photoSrc: String,
     photoSrcset: String,
     href: String,

@@ -4,7 +4,8 @@
     column
     class="header"
   >
-    <VLazyImage
+    <component
+      :is="con.index <= 1 ? 'img' : 'VLazyImage'"
       v-if="con.photo"
       :src-placeholder="$placeholder"
       :src="con.photo[500].url"
@@ -39,17 +40,12 @@
       />
       <ConHotel
         v-if="con.hotel"
-        :name="con.hotel.name"
-        :link="con.hotel.link"
-        :photoReference="con.hotel.photo.reference"
+        :con="con"
         class="mt-3"
       />
       <ConMap
         v-if="con.city"
-        :city="con.city"
-        :color="con.color"
-        :hotelName="con.hotel && con.hotel.name"
-        :hotelPlaceId="con.hotel && con.hotel.placeId"
+        :con="con"
         class="mt-2"
       />
     </VList>

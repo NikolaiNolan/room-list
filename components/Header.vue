@@ -14,6 +14,7 @@
         class="header__top pa-3"
       >
         <ResponsivePicture
+          no-lazy
           template="background/%width%.jpg"
           webp
           :mobile-variants="[800, 1000, 1200]"

@@ -1,9 +1,10 @@
 <template>
   <Card
+    :no-lazy="con.index <= 1"
     :photo-src="hotelPhotoSrc"
     :photo-srcset="hotelPhotoSrcSet"
-    :href="link"
-    :title="name"
+    :href="con.hotel.link"
+    :title="con.hotel.name"
   >
     <template v-slot:icon>
       <HotelIcon />
@@ -21,14 +22,15 @@ export default {
     HotelIcon,
   },
   props: {
-    name: {
-      type: String,
+    con: {
+      type: Object,
       required: true,
     },
-    link: String,
-    photoReference: String,
   },
   computed: {
+    photoReference() {
+      return this.con.hotel.photo.reference;
+    },
     hotelPhotoSrc() {
       if (!this.photoReference) return null;
       return `https://maps.googleapis.com/maps/api/place/photo?key=${process.env.googleApi}&photoreference=${this.photoReference}&maxwidth=300`;

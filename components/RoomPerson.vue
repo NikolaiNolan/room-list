@@ -7,7 +7,8 @@
     >
       <VListTileAvatar>
         <VAvatar v-if="person.picture">
-          <VLazyImage
+          <component
+            :is="conIndex <= 1 ? 'img' : 'VLazyImage'"
             :src-placeholder="$placeholder"
             :src="person.picture"
             alt
@@ -102,6 +103,10 @@ export default {
       required: true,
     },
     multiple: Boolean,
+    conIndex: {
+      type: Number,
+      required: true,
+    },
     conCanadian: Boolean,
     firstDate: {
       type: Number,
