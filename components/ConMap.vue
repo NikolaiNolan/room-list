@@ -5,6 +5,12 @@
     :href="directionsLink"
     :title="city"
     :subtitle="duration"
+    v-observe-visibility="{
+      callback: setVisible,
+      intersection: $intersectionOptions,
+      once: true,
+      throttle: 300,
+    }"
   >
     <template v-slot:icon>
       <MapMarkerIcon />
@@ -41,7 +47,9 @@ export default {
   },
   data() {
     return {
+      visible: false,
       directionsService: null,
+      route: null,
     };
   },
   computed: {
@@ -80,28 +88,36 @@ export default {
       })}`
     }
   },
-  asyncComputed: {
-    async route() {
-      if (!this.location || !this.directionsService) return;
-      const response = await new Promise((resolve, reject) => {
-        this.directionsService.route({
-          origin: `${this.location.lat} ${this.location.lng}`,
-          destination: this.hotelName ? `${this.hotelName} ${this.city}` : this.city,
-          travelMode: 'DRIVING',
-        }, (response, status) => {
-          if (status == 'OK') {
-            resolve(response);
-            return;
-          }
-          reject(status);
-        })
-      });
-      return response.routes[0];
-    },
+  created() {
+    this.$watch(
+      (vm) => (vm.$vuetify.breakpoint.xs, vm.visible, vm.location, vm.directionsService, Date.now()),
+      async () => {
+        if (this.$vuetify.breakpoint.xs || !this.visible || !this.location || !this.directionsService) return;
+        const response = await new Promise((resolve, reject) => {
+          this.directionsService.route({
+            origin: `${this.location.lat} ${this.location.lng}`,
+            destination: this.hotelName ? `${this.hotelName} ${this.city}` : this.city,
+            travelMode: 'DRIVING',
+          }, (response, status) => {
+            if (status == 'OK') {
+              resolve(response);
+              return;
+            }
+            reject(status);
+          })
+        });
+        this.route = response.routes[0];
+      },
+    );
   },
   async mounted() {
     await this.$gmapApiPromiseLazy();
     this.directionsService = new window.google.maps.DirectionsService();
+  },
+  methods: {
+    async setVisible(visible) {
+      this.visible = visible;
+    },
   },
 };
 </script>

@@ -45,7 +45,6 @@ export default {
   ],
 
   plugins: [
-    '~/plugins/asyncComputed',
     {
       src: '~/plugins/googleMaps',
       mode: 'client',
@@ -53,6 +52,7 @@ export default {
     '~/plugins/imageContext',
     '~/plugins/lazyImage',
     '~/plugins/materialDesignIcons',
+    '~/plugins/observeVisibility',
     '~/plugins/vueFire',
   ],
 
