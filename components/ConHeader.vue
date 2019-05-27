@@ -10,7 +10,7 @@
       :src="con.photo[500].url"
       :srcset="`${con.photo[500].url} ${con.photo[500].width}w,
         ${con.photo[640].url} ${con.photo[640].width}w,
-        ${con.photo[800].url} ${con.photo[800].width}w,
+        ${(con.photo[800] ? con.photo[800] : con.photo[1024]).url} ${(con.photo[800] ? con.photo[800] : con.photo[1024]).width}w,
         ${con.photo[1024].url} ${con.photo[1024].width}w`"
       :sizes="`
         (max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px) calc(100vw - 16px - 16px),

@@ -107,6 +107,11 @@ export default {
         conColor = photoColors.map(colorName => reducedColors[colorName]).find(color => color);
       }
       const response = await flickr.people.getInfo({ user_id: owner });
+      const size800 = url_c ? {
+        url: url_c,
+        width: +width_c,
+        height: +height_c,
+      } : null;
       this.$emit('input', {
         credit: (response.body.person.realname || response.body.person.username)._content,
         link: response.body.person.photosurl._content,
@@ -126,11 +131,7 @@ export default {
           width: +width_z,
           height: +height_z,
         },
-        800: {
-          url: url_c,
-          width: +width_c,
-          height: +height_c,
-        },
+        800: size800,
         1024: {
           url: url_l,
           width: +width_l,

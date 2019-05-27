@@ -25,7 +25,7 @@
         <tbody>
           <no-ssr>
             <Row
-              v-for="con of futureCons"
+              v-for="con of cons"
               :key="con.id"
               :dbRef="$fireDb.ref(`cons/${con.id}`)"
               v-bind="{ con, fields }"
@@ -138,16 +138,8 @@ export default {
     ...mapState('config', ['config']),
     ...mapState('user', ['admin']),
     ...mapGetters({
-      cons: 'cons/cons',
+      cons: 'cons/adminCons',
     }),
-    futureCons() {
-      return this.cons.filter(({ dates }) => {
-        if (!dates || !dates.start || !dates.end) return true;
-        if (isAfter(dates.start, new Date())) return true;
-        if (isAfter(dates.end, new Date())) return true;
-        return false;
-      });
-    },
   },
   beforeMount() {
     this.$store.dispatch('user/bind', this);
