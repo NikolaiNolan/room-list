@@ -13,15 +13,11 @@ export default {
 
   head: {
     title: pkg.description,
-    link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Montserrat+Alternates:600,700' },
-    ],
   },
 
   manifest: {
     short_name: 'Room List',
-    name: 'Nikolai’s Con Room & Ride List',
-    author: 'Nikolai Nolan',
+    name: pkg.description,
     description: 'Nikolai’s list of convention rooms and rides for friends who want to join the fun.',
     theme_color: '#dd731d',
     background_color: '#dd731d',
@@ -42,6 +38,7 @@ export default {
 
   css: [
     '~/assets/stylus/main',
+    '~/assets/scss/main',
   ],
 
   plugins: [
@@ -51,7 +48,6 @@ export default {
     },
     '~/plugins/imageContext',
     '~/plugins/lazyImage',
-    '~/plugins/materialDesignIcons',
     '~/plugins/observeVisibility',
     '~/plugins/vueFire',
   ],

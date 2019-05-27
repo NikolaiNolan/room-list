@@ -33,7 +33,8 @@ export default {
 }
 
 .shadow {
-  @include cover-background;
+  @include absolute-center;
+  z-index: -1;
   color: transparent;
   text-shadow: 0 0 2em #7b6455;
 }

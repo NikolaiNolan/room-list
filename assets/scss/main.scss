@@ -1,0 +1,96 @@
+@font-face {
+  font: {
+    family: 'Montserrat';
+    style: normal;
+    weight: 400;
+    display: fallback;
+  }
+
+  src: local('Montserrat Regular'),
+    local('Montserrat-Regular'),
+    url('~assets/fonts/montserrat-400.woff2') format('woff2'),
+    url('~assets/fonts/montserrat-400.woff') format('woff');
+}
+
+@font-face {
+  font: {
+    family: 'Montserrat';
+    style: normal;
+    weight: 600;
+    display: fallback;
+  }
+
+  src: local('Montserrat SemiBold'),
+    local('Montserrat-SemiBold'),
+    url('~assets/fonts/montserrat-600.woff2') format('woff2'),
+    url('~assets/fonts/montserrat-600.woff') format('woff');
+}
+
+@font-face {
+  font: {
+    family: 'Montserrat';
+    style: normal;
+    weight: 700;
+    display: fallback;
+  }
+
+  src: local('Montserrat Bold'),
+    local('Montserrat-Bold'),
+    url('~assets/fonts/montserrat-700.woff2') format('woff2'),
+    url('~assets/fonts/montserrat-700.woff') format('woff');
+}
+
+@font-face {
+  font: {
+    family: 'Montserrat Alternates';
+    style: normal;
+    weight: 700;
+    display: fallback;
+  }
+
+  src: local('Montserrat Alternates Bold'),
+    local('MontserratAlternates-Bold'),
+    url('~assets/fonts/montserrat-alternates-700-aeft.woff2') format('woff2'),
+    url('~assets/fonts/montserrat-alternates-700-aeft.woff') format('woff');
+}
+
+@font-face {
+  font: {
+    family: 'Material Icons';
+    style: normal;
+    weight: 400;
+    display: fallback;
+  }
+
+  src: local('Material Icons'),
+    local('Material-Icons-Sharp'),
+    url('~assets/fonts/material-icons.woff2') format('woff2'),
+    url('~assets/fonts/material-icons.woff') format('woff');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+
+}
