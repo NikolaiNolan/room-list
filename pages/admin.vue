@@ -138,12 +138,12 @@ export default {
     ...mapState('config', ['config']),
     ...mapState('user', ['admin']),
     ...mapGetters({
-      cons: 'cons/adminCons',
+      cons: 'cons/allCons',
     }),
   },
   beforeMount() {
     this.$store.dispatch('user/bind', this);
-    this.$store.dispatch('cons/adminBind', this);
+    this.$store.dispatch('cons/bindAll', this);
     this.$store.dispatch('config/bind', this);
   },
   methods: {

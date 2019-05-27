@@ -70,7 +70,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: mapGetters({
-    cons: 'cons/cons',
+    cons: 'cons/futureCons',
   }),
   methods: {
     has,

@@ -6,7 +6,7 @@
     >
       <Header :class="lastBackgroundColor" />
       <Convention
-        v-for="(con, index) of (admin ? adminCons : cons)"
+        v-for="(con, index) of (admin ? allCons : futureCons)"
         :key="con.id"
         :con="{ ...con, index }"
       />
@@ -37,12 +37,12 @@ export default {
   computed: {
     ...mapState('user', ['admin']),
     ...mapGetters({
-      cons: 'cons/cons',
-      adminCons: 'cons/adminCons',
+      futureCons: 'cons/futureCons',
+      allCons: 'cons/allCons',
     }),
     backgroundColors() {
-      if (!this.cons.length) return;
-      const sortedColors = sortBy(map(countBy(this.cons, 'color'), (count, color) => ({ count, color })), 'count');
+      if (!this.futureCons.length) return;
+      const sortedColors = sortBy(map(countBy(this.futureCons, 'color'), (count, color) => ({ count, color })), 'count');
       const leastFrequentCount = sortedColors[0].count;
       return filter(sortedColors, { count: leastFrequentCount });
     },

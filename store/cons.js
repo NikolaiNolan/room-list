@@ -1,4 +1,7 @@
+import addYears from 'date-fns/addYears';
 import isAfter from 'date-fns/isAfter';
+import isBefore from 'date-fns/isBefore';
+import subWeeks from 'date-fns/subWeeks';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import { firebaseAction } from 'vuexfire';
@@ -8,15 +11,16 @@ export const state = () => ({
 });
 
 export const getters = {
-  cons: ({ cons }) => sortBy(
+  futureCons: ({ cons }) => sortBy(
     map(cons, (con, id) => ({ ...con, id }))
       .filter(({ dates }) => {
-        if (isAfter(dates.start, new Date())) return true;
-        return false;
+        if (isBefore(dates.start, new Date())) return false;
+        if (isAfter(dates.end, addYears(new Date(), 1))) return false;
+        return true;
       }),
   'dates.start'
   ),
-  adminCons: ({ cons }) => sortBy(
+  allCons: ({ cons }) => sortBy(
     map(cons, (con, id) => ({ ...con, id })),
     'dates.start'
   ),
@@ -24,9 +28,14 @@ export const getters = {
 
 export const actions = {
   bind: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef('cons', app.$fireDb.ref('cons').orderByChild('dates/start').startAt(new Date().getTime()));
+    return await bindFirebaseRef(
+      'cons',
+      app.$fireDb.ref('cons')
+        .orderByChild('dates/start')
+        .startAt(subWeeks(new Date(), 1).getTime()),
+    );
   }),
-  adminBind: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef('cons', app.$fireDb.ref('cons').orderByChild('dates/start'));
+  bindAll: firebaseAction(async ({ bindFirebaseRef }, app) => {
+    return await bindFirebaseRef('cons', app.$fireDb.ref('cons'));
   }),
 };
