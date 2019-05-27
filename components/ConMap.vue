@@ -1,9 +1,9 @@
 <template>
   <Card
-    :no-lazy="con.index <= 1"
+    :no-lazy="conIndex <= 1"
     :photo-src="map"
     :href="directionsLink"
-    :title="con.city"
+    :title="city"
     :subtitle="duration"
   >
     <template v-slot:icon>
@@ -27,10 +27,17 @@ export default {
     MapMarkerIcon,
   },
   props: {
-    con: {
-      type: Object,
+    conIndex: {
+      type: Number,
       required: true,
     },
+    city: {
+      type: String,
+      required: true,
+    },
+    color: String,
+    hotelName: String,
+    hotelPlaceId: String,
   },
   data() {
     return {
@@ -39,15 +46,9 @@ export default {
   },
   computed: {
     ...mapState('geolocation', ['location']),
-    hotelName() {
-      return this.con.hotel && this.con.hotel.name;
-    },
-    hotelPlaceId() {
-      return this.con.hotel && this.con.hotel.placeId;
-    },
     map() {
-      const color = nikolaiColors[this.con.color] || { primary: '', secondary: '' };
-      const destination = this.hotelName ? `${this.hotelName.replace(/'/g, '')} ${this.con.city}` : this.con.city;
+      const color = nikolaiColors[this.color] || { primary: '', secondary: '' };
+      const destination = this.hotelName ? `${this.hotelName.replace(/'/g, '')} ${this.city}` : this.city;
       return `https://maps.googleapis.com/maps/api/staticmap?${queryString.stringify({
         key: process.env.googleApi,
         markers: `color:0x${color.secondary.slice(1)}|${destination}`,
@@ -74,7 +75,7 @@ export default {
     directionsLink() {
       return `https://www.google.com/maps/dir/?${queryString.stringify({
         api: 1,
-        destination: this.hotelName ? `${this.hotelName} ${this.con.city}` : this.con.city,
+        destination: this.hotelName ? `${this.hotelName} ${this.city}` : this.city,
         destination_place_id: this.hotelPlaceId ? this.hotelPlaceId : null,
       })}`
     }
@@ -85,7 +86,7 @@ export default {
       const response = await new Promise((resolve, reject) => {
         this.directionsService.route({
           origin: `${this.location.lat} ${this.location.lng}`,
-          destination: this.hotelName ? `${this.hotelName} ${this.con.city}` : this.con.city,
+          destination: this.hotelName ? `${this.hotelName} ${this.city}` : this.city,
           travelMode: 'DRIVING',
         }, (response, status) => {
           if (status == 'OK') {

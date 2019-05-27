@@ -40,12 +40,19 @@
       />
       <ConHotel
         v-if="con.hotel"
-        :con="con"
+        :con-index="con.index"
+        :name="con.hotel.name"
+        :link="con.hotel.link"
+        :photoReference="con.hotel.photo.reference"
         class="mt-3"
       />
       <ConMap
         v-if="con.city"
-        :con="con"
+        :con-index="con.index"
+        :city="con.city"
+        :color="con.color"
+        :hotelName="con.hotel && con.hotel.name"
+        :hotelPlaceId="con.hotel && con.hotel.placeId"
         class="mt-2"
       />
     </VList>
