@@ -46,11 +46,7 @@ module.exports = async (personSnapshot, action) => {
     text: `${user.name} was ${actionClause} the ${con.name} room${roomClause}${rideClause}.`,
   };
 
-  try {
-    await mailTransport.sendMail(mailOptions);
-  } catch(error) {
-    console.error(error);
-  }
+  await mailTransport.sendMail(mailOptions);
 
   return null;
 };

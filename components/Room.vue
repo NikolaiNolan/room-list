@@ -35,7 +35,11 @@
               </VListTileAvatar>
               <VLayout justify-space-between align-center>
                 Join this {{roomType}}
-                <Price :price="cost[`add${people.length ? 'Person' : 'Room'}`]" />
+                <Price
+                  :price="cost[`add${people.length ? 'Person' : 'Room'}`]"
+                  :to-canadian="user && user.canadian && !con.canadian"
+                  :from-canadian="user && con.canadian && !user.canadian"
+                />
               </VLayout>
             </VListTile>
           </template>
@@ -43,7 +47,9 @@
             :ride="con.ride.available"
             v-bind="{ roomId, firstDate, lastDate }"
             @close="formOpen = false"
-            @addPerson="(personId, options) => addPerson({ conId: con.id, roomId, personId, options })"
+            @addPerson="
+              (personId, options) => addPerson({ conId: con.id, roomId, personId, options })
+            "
           />
         </VListGroup>
       </template>
@@ -163,7 +169,7 @@ export default {
       removePerson: 'person/remove',
       setPaid: 'person/setPaid',
     }),
-    showForm(event) {
+    showForm() {
       if (this.loggedIn) return;
       window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
       this.login();

@@ -59,7 +59,7 @@ export default {
       family_name: familyName,
       given_name: givenName,
       name,
-      picture
+      picture,
     } = additionalUserInfo.profile;
     const canadian = familyName === 'Easterbrook' || null;
     this.$fireDb.ref(`users/${user.uid}`).update({
@@ -71,7 +71,7 @@ export default {
       canadian,
     });
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

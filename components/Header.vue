@@ -90,7 +90,7 @@ export default {
   }
 }
 
-.background /deep/ img{
+.background /deep/ img {
   @include cover-background;
 
   @include min-width(sm) {

@@ -133,8 +133,8 @@ export default {
     },
     dateMargins() {
       return {
-        marginLeft: differenceInCalendarDays(this.person.dates.arrival, this.firstDate) / this.conLength * 100 + '%',
-        marginRight: differenceInCalendarDays(this.lastDate, this.person.dates.departure) / this.conLength * 100 + '%',
+        marginLeft: `${differenceInCalendarDays(this.person.dates.arrival, this.firstDate) / this.conLength * 100}%`,
+        marginRight: `${differenceInCalendarDays(this.lastDate, this.person.dates.departure) / this.conLength * 100}%`,
       };
     },
     arrivalDay() {
@@ -148,14 +148,18 @@ export default {
     },
     personCost() {
       let price = sum(
-        filter(this.cost.room, (nightCost, night) => {
-          return isWithinInterval(+night, { start: this.person.dates.arrival, end: this.person.dates.departure })
-        }),
+        filter(
+          this.cost.room,
+          (nightCost, night) => isWithinInterval(
+            +night,
+            { start: this.person.dates.arrival, end: this.person.dates.departure },
+          ),
+        ),
       );
       if (this.person.ride && this.person.ride.to) price += this.cost.ride.to;
       if (this.person.ride && this.person.ride.from) price += this.cost.ride.from;
       return price;
-    }
+    },
   },
 };
 </script>

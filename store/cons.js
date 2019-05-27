@@ -18,24 +18,18 @@ export const getters = {
         if (isAfter(dates.end, addYears(new Date(), 1))) return false;
         return true;
       }),
-  'dates.start'
+    'dates.start',
   ),
   allCons: ({ cons }) => sortBy(
     map(cons, (con, id) => ({ ...con, id })),
-    'dates.start'
+    'dates.start',
   ),
 };
 
 export const actions = {
-  bind: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef(
-      'cons',
-      app.$fireDb.ref('cons')
-        .orderByChild('dates/start')
-        .startAt(subWeeks(new Date(), 1).getTime()),
-    );
-  }),
-  bindAll: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef('cons', app.$fireDb.ref('cons'));
-  }),
+  bind: firebaseAction(async ({ bindFirebaseRef }, app) => bindFirebaseRef(
+    'cons',
+    app.$fireDb.ref('cons').orderByChild('dates/start').startAt(subWeeks(new Date(), 1).getTime()),
+  )),
+  bindAll: firebaseAction(async ({ bindFirebaseRef }, app) => bindFirebaseRef('cons', app.$fireDb.ref('cons'))),
 };

@@ -1,0 +1,27 @@
+{
+  "extends": "stylelint-config-airbnb",
+  "rules": {
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": [
+          "blockless-after-same-name-blockless",
+          "first-nested"
+        ],
+        "ignore": [ "after-comment" ]
+      }
+    ],
+    "declaration-property-value-blacklist": {
+      "/^border$/": ["none"]
+    },
+    "order/order": null,
+    "rule-empty-line-before": [
+      "always",
+      {
+        "except": [ "first-nested" ],
+        "ignore": [ "after-comment" ]
+      }
+    ],
+    "string-quotes": "single"
+  }
+}

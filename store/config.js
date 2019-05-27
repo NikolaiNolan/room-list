@@ -14,7 +14,5 @@ export const getters = {
 };
 
 export const actions = {
-  bind: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef('config', app.$fireDb.ref('config'));
-  }),
+  bind: firebaseAction(async ({ bindFirebaseRef }, app) => bindFirebaseRef('config', app.$fireDb.ref('config'))),
 };

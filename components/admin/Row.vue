@@ -59,7 +59,7 @@ export default {
   firebase() {
     return {
       notes: this.$fireDb.ref(`notes/${this.con.id}`),
-    }
-  }
+    };
+  },
 };
 </script>

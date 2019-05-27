@@ -3,8 +3,8 @@ export const state = () => ({
 });
 
 export const mutations = {
-  setLocation(state, location) {
-    state.location = location;
+  setLocation(currentState, location) {
+    currentState.location = location;
   },
 };
 

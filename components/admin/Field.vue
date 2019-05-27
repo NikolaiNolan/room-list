@@ -114,29 +114,29 @@ export default {
       const state = filter(address, { types: ['administrative_area_level_1'] })[0].long_name;
       const country = filter(address, { types: ['country'] })[0].short_name;
 
-      const directionsService = new google.maps.DirectionsService();
-      const response = await new Promise((resolve, reject) => {
+      const directionsService = new window.google.maps.DirectionsService();
+      const directionsResponse = await new Promise((resolve, reject) => {
         directionsService.route({
           origin: '31 Hawks Landing Cir, Verona, WI',
           destination: `${lat()},${lng()}`,
           travelMode: 'DRIVING',
         }, (response, status) => {
-          if (status == 'OK') {
+          if (status === 'OK') {
             resolve(response);
             return;
           }
           reject(status);
-        })
+        });
       });
-      const distance = convert(response.routes[0].legs[0].distance.value).from('m').to('mi');
+      const distance = convert(directionsResponse.routes[0].legs[0].distance.value).from('m').to('mi');
 
       this.dbRef.child('hotel').update({
         link,
         name,
         photo: {
           url: photo.getUrl(),
-          reference: photo.getUrl().replace(/[^?]+\?(1s)?([0-9a-zA-Z-_]+)(\&.+)?/, '$2'),
-          attributions: photo.html_attributions.map(attribution => {
+          reference: photo.getUrl().replace(/[^?]+\?(1s)?([0-9a-zA-Z-_]+)(&.+)?/, '$2'),
+          attributions: photo.html_attributions.map((attribution) => {
             const attributionData = attribution.match(/href="(.*)".*>(.*)</);
             return {
               name: attributionData[2],

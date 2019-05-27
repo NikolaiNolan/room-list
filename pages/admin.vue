@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import isAfter from 'date-fns/isAfter';
 import { mapGetters, mapState } from 'vuex';
 
 import Login from '~/components/Login';

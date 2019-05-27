@@ -24,7 +24,7 @@ export default {
   methods: {
     dateToUnix(dateString) {
       const dayinMs = convert(1).from('d').to('ms');
-      return Math.floor(parseISO(dateString).getTime() / dayinMs) * dayinMs + dayinMs * 11/24;
+      return Math.floor(parseISO(dateString).getTime() / dayinMs) * dayinMs + dayinMs * 11 / 24;
     },
     unixToDate(timestamp) {
       if (!timestamp) return null;

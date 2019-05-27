@@ -2,29 +2,29 @@ export const state = () => ({
   loggedIn: false,
   user: {},
   admin: false,
-})
+});
 
 export const mutations = {
-  setLoggedIn(state, loggedIn) {
-    state.loggedIn = !!loggedIn;
+  setLoggedIn(currentState, loggedIn) {
+    currentState.loggedIn = !!loggedIn;
     if (loggedIn) return;
-    state.user = {};
-    state.admin = false;
+    currentState.user = {};
+    currentState.admin = false;
   },
-  setUser(state, user) {
-    state.user = user;
+  setUser(currentState, user) {
+    currentState.user = user;
   },
-  updateUser(state, user) {
-    state.user = { ...state.user, ...user };
+  updateUser(currentState, user) {
+    currentState.user = { ...currentState.user, ...user };
   },
-  setAdmin(state, admin) {
-    state.admin = admin;
-  }
-}
+  setAdmin(currentState, admin) {
+    currentState.admin = admin;
+  },
+};
 
 export const actions = {
   bind: async ({ commit }, app) => {
-    app.$fireAuth.onAuthStateChanged(async user => {
+    app.$fireAuth.onAuthStateChanged(async (user) => {
       commit('setLoggedIn', user);
       if (!user) return;
       commit('updateUser', {

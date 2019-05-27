@@ -5,7 +5,7 @@
  * @param {string} $align
  * @param {string} $wrap
  */
- @mixin flex($direction: '', $justify: '', $align: '', $wrap: '') {
+@mixin flex($direction: '', $justify: '', $align: '', $wrap: '') {
   display: flex;
   flex-direction: unquote($direction);
   flex-wrap: unquote($wrap);
@@ -91,7 +91,7 @@
 /*
  * Makes an image cover the background of a relatively positioned container.
  */
- @mixin cover-background {
+@mixin cover-background {
   @include absolute-center;
   @include size(100%);
   @include object-fit(cover);

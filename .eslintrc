@@ -1,0 +1,53 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/essential"
+  ],
+  "plugins": [
+    "vue"
+  ],
+  "rules": {
+    "import/no-unresolved": ["error", {
+      "ignore": ["\\..+\\?.*$"]
+    }],
+    "no-param-reassign": ["error", {
+      "props": true,
+      "ignorePropertyModificationsFor": [
+        "acc",
+        "accumulator",
+        "e",
+        "ctx",
+        "req",
+        "request",
+        "res",
+        "response",
+        "$scope",
+        "state",
+        "currentState"
+      ]
+    }]
+  },
+  "settings": {
+    "import/core-modules": [
+      "vue",
+      "vuex"
+    ],
+    "import/resolver": {
+      "nuxt": {
+        "extensions": [
+          ".js",
+          ".vue"
+        ]
+      }
+    }
+  }
+}

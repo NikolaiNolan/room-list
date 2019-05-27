@@ -20,7 +20,10 @@
           </VAvatar>
           <ul class="list">
             <li>Joining or dropping at least one week in advance is&nbsp;recommended.</li>
-            <li class="mt-2">The deadline to drop is the time of check-in. If you drop after this point, you will still be required to&nbsp;pay.</li>
+            <li class="mt-2">
+              The deadline to drop is the time of check-in.
+              If you drop after this point, you will still be required to&nbsp;pay.
+            </li>
           </ul>
         </VLayout>
         <VLayout class="mt-3">
@@ -28,9 +31,14 @@
             <CashUsdIcon />
           </VAvatar>
           <ul class="list">
-            <li>Prices may fluctuate as attendees add and drop, so check back near the con for final&nbsp;rates.</li>
+            <li>
+              Prices may fluctuate as attendees add and drop,
+              so check back near the con for final&nbsp;rates.
+            </li>
             <li class="mt-2">Payment upon arrival is&nbsp;encouraged.</li>
-            <li class="mt-2">PayPal is ideal, but you can also pay in cash, check, or credit&nbsp;card.</li>
+            <li class="mt-2">
+              PayPal is ideal, but you can also pay in cash, check, or credit&nbsp;card.
+            </li>
           </ul>
         </VLayout>
       </div>

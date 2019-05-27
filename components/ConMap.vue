@@ -24,8 +24,8 @@ import nikolaiColors from '~/plugins/nikolaiColors';
 import queryString from 'query-string';
 import { mapState } from 'vuex';
 
-import Card from './Card';
 import MapMarkerIcon from 'vue-material-design-icons/MapMarker.vue';
+import Card from './Card';
 
 export default {
   components: {
@@ -70,43 +70,53 @@ export default {
         style4: 'feature:administrative.province|visibility:on|color:0xaaaaaa',
         style5: 'feature:water|visibility:on|color:0xcccccc',
         style6: 'element:labels|visibility:off',
-      }).replace(/\bstyle\d+\b/g, 'style')}`
+      }).replace(/\bstyle\d+\b/g, 'style')}`;
     },
     path() {
-      if (!this.route) return;
+      if (!this.route) return null;
       return this.route.overview_polyline;
     },
     duration() {
-      if (!this.route) return;
-      return formatDistance(0, this.route.legs[0].duration.value * 1000).replace(/^about /, '') + ' away';
+      if (!this.route) return null;
+      return `${formatDistance(0, this.route.legs[0].duration.value * 1000).replace(/^about /, '')} away`;
     },
     directionsLink() {
       return `https://www.google.com/maps/dir/?${queryString.stringify({
         api: 1,
         destination: this.hotelName ? `${this.hotelName} ${this.city}` : this.city,
         destination_place_id: this.hotelPlaceId ? this.hotelPlaceId : null,
-      })}`
-    }
+      })}`;
+    },
   },
   created() {
     this.$watch(
-      (vm) => (vm.$vuetify.breakpoint.xs, vm.visible, vm.location, vm.directionsService, Date.now()),
+      vm => [
+        vm.$vuetify.breakpoint.xs,
+        vm.visible,
+        vm.location,
+        vm.directionsService,
+      ].join(),
       async () => {
-        if (this.$vuetify.breakpoint.xs || !this.visible || !this.location || !this.directionsService) return;
-        const response = await new Promise((resolve, reject) => {
+        if (
+          this.$vuetify.breakpoint.xs
+          || !this.visible
+          || !this.location
+          || !this.directionsService
+        ) return;
+        const { routes: { 0: route } } = await new Promise((resolve, reject) => {
           this.directionsService.route({
             origin: `${this.location.lat} ${this.location.lng}`,
             destination: this.hotelName ? `${this.hotelName} ${this.city}` : this.city,
             travelMode: 'DRIVING',
           }, (response, status) => {
-            if (status == 'OK') {
+            if (status === 'OK') {
               resolve(response);
               return;
             }
             reject(status);
-          })
+          });
         });
-        this.route = response.routes[0];
+        this.route = route;
       },
     );
   },

@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       model: null,
-    }
+    };
   },
   watch: {
     value: {
@@ -36,5 +36,5 @@ export default {
       },
     },
   },
-}
+};
 </script>

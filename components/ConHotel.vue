@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Card from './Card';
 import HotelIcon from 'vue-material-design-icons/Hotel.vue';
+import Card from './Card';
 
 export default {
   components: {
@@ -47,6 +47,6 @@ export default {
         https://maps.googleapis.com/maps/api/place/photo?key=${process.env.googleApi}&photoreference=${this.photoReference}&maxwidth=600 600w
       `;
     },
-  }
-}
+  },
+};
 </script>

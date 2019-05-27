@@ -27,6 +27,8 @@
 </template>
 
 <script>
+/* eslint-disable camelcase, no-underscore-dangle */
+
 import getUnixTime from 'date-fns/getUnixTime';
 import subYears from 'date-fns/subYears';
 import Flickr from 'flickr-sdk';
@@ -49,13 +51,13 @@ export default {
   data() {
     return {
       photos: [],
-    }
+    };
   },
   computed: {
     photoUrls() {
       if (!this.photos.length) return null;
       return map(this.photos, 'url_q');
-    }
+    },
   },
   methods: {
     async getPhotos(allYears) {
@@ -69,7 +71,7 @@ export default {
         min_taken_date: allYears ? null : getUnixTime(subYears(this.con.dates.start, 10)),
         dimension_search_mode: 'min',
         height: 641,
-        width: 641
+        width: 641,
       });
       this.photos = response.body.photos.photo;
       if (!allYears && !this.photos.length) this.getPhotos(true);
@@ -146,9 +148,9 @@ export default {
         colors: photoColors,
       }, conColor);
       this.photos = [];
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

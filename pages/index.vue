@@ -21,7 +21,6 @@ import filter from 'lodash/filter';
 import last from 'lodash/last';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
-import toPairs from 'lodash/toPairs';
 import { mapGetters, mapState } from 'vuex';
 
 import Convention from '~/components/Convention';
@@ -41,19 +40,19 @@ export default {
       allCons: 'cons/allCons',
     }),
     backgroundColors() {
-      if (!this.futureCons.length) return;
+      if (!this.futureCons.length) return null;
       const sortedColors = sortBy(map(countBy(this.futureCons, 'color'), (count, color) => ({ count, color })), 'count');
       const leastFrequentCount = sortedColors[0].count;
       return filter(sortedColors, { count: leastFrequentCount });
     },
     firstBackgroundColor() {
-      if (!this.backgroundColors) return;
+      if (!this.backgroundColors) return null;
       return this.backgroundColors[0].color;
     },
     lastBackgroundColor() {
-      if (!this.backgroundColors) return;
+      if (!this.backgroundColors) return null;
       return last(this.backgroundColors).color;
-    }
+    },
   },
   beforeMount() {
     this.$store.dispatch('geolocation/bind');
@@ -62,13 +61,13 @@ export default {
     this.$store.dispatch('config/bind', this);
   },
   methods: {
-    scrollHorizontally() {
+    scrollHorizontally(event) {
       if (window.innerWidth < this.$vuetify.breakpoint.thresholds.xs) return;
       event.preventDefault();
       window.scrollBy(event.deltaY, 0);
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -82,9 +81,9 @@ export default {
   }
 
   body,
-  #__nuxt,
-  #__layout,
-  #app,
+  body > div,
+  body > div > div,
+  .application,
   .application--wrap,
   .cons {
     flex: 1;

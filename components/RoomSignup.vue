@@ -111,7 +111,7 @@ export default {
     },
     userIds() {
       return this.users.map(({ '.key': value, name: text }) => ({ text, value }));
-    }
+    },
   },
   watch: {
     firstDate: {
@@ -163,7 +163,7 @@ export default {
             to: this.rideTo || null,
             from: this.rideFrom || null,
           },
-        }
+        },
       );
       this.$emit('close');
     },

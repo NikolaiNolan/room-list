@@ -23,9 +23,9 @@
 
 <script>
 import addDays from 'date-fns/addDays';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
-import format from 'date-fns/format';
-import isWithinInterval from 'date-fns/isWithinInterval'
+import isWithinInterval from 'date-fns/isWithinInterval';
 import subDays from 'date-fns/subDays';
 import filter from 'lodash/filter';
 import flatMap from 'lodash/flatMap';
@@ -34,7 +34,6 @@ import { mapGetters, mapState } from 'vuex';
 
 import ConHeader from './ConHeader';
 import Room from './Room';
-import { differenceInCalendarDays } from 'date-fns/fp';
 
 export default {
   components: {
@@ -73,9 +72,7 @@ export default {
     userRoomId() {
       if (!this.con.people) return null;
       if (!this.user) return null;
-      const index = this.con.people.findIndex(room => {
-        return room && room[this.user.id];
-      });
+      const index = this.con.people.findIndex(room => room && room[this.user.id]);
       return index !== -1 ? index : null;
     },
     cost() {
@@ -83,27 +80,29 @@ export default {
       const addPersonCost = [];
       const addRoomCost = [];
 
-      if (!this.lastDate) return;
-      if (!this.con.room || !this.con.room.rate) return;
+      if (!this.lastDate) return null;
+      if (!this.con.room || !this.con.room.rate) return null;
 
       const people = flatMap(this.con.people, room => Object.values(room || {}));
       const roomCount = Object.keys(this.con.people || {}).length;
-      const rate = this.con.room.rate;
+      const { rate } = this.con.room;
 
       eachDayOfInterval({ start: addDays(this.firstDate, 1), end: this.lastDate })
-        .map(date => {
-          const nightPeople = people.filter(({ dates: { arrival, departure }}) => (
+        .forEach((date) => {
+          const nightPeople = people.filter(({ dates: { arrival, departure } }) => (
             isWithinInterval(date, { start: arrival, end: departure })
           ));
-          cost.room[date.getTime()] = (roomCount * (rate * 1.005 + this.dailyTip)) / nightPeople.length;
-          addPersonCost.push((roomCount * (rate * 1.005 + this.dailyTip)) / (nightPeople.length + 1));
-          addRoomCost.push(((roomCount + 1) * (rate * 1.005 + this.dailyTip)) / (nightPeople.length + 1));
+          const peopleCount = nightPeople.length;
+          cost.room[date.getTime()] = (roomCount * (rate * 1.005 + this.dailyTip)) / peopleCount;
+          addPersonCost.push((roomCount * (rate * 1.005 + this.dailyTip)) / (peopleCount + 1));
+          addRoomCost.push(((roomCount + 1) * (rate * 1.005 + this.dailyTip)) / (peopleCount + 1));
         });
       if (this.con.ride && this.con.ride.available) {
-        const distance = this.con.ride.distance;
+        const { distance } = this.con.ride;
         const toll = this.con.ride.toll || 0;
         const parking = this.con.ride.parking || 0;
-        const rideCost = ((distance / this.mpg) * this.gasCost) + (toll / 2) + (parking * differenceInCalendarDays(this.firstDate, this.lastDate));
+        const rideCost = ((distance / this.mpg) * this.gasCost) + (toll / 2)
+          + (parking * differenceInCalendarDays(this.firstDate, this.lastDate));
         cost.ride = {
           to: rideCost / filter(people, 'ride.to').length,
           from: rideCost / filter(people, 'ride.from').length,
@@ -114,10 +113,10 @@ export default {
         addPerson: sum(addPersonCost),
         addRoom: sum(addRoomCost),
       };
-    }
+    },
   },
   methods: {
-    scrollHorizontally() {
+    scrollHorizontally(event) {
       const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
       if (event.deltaY < 0 && Math.ceil(scrollTop) === 0) return;
       if (event.deltaY > 0 && Math.floor(scrollHeight - scrollTop) === clientHeight) return;
@@ -151,8 +150,8 @@ export default {
   }
 
   @media (min-width: map-get($grid-breakpoints, md)) and (min-height: 700px) {
-    margin-left: -24px;
     @include padding(24px 24px 24px 8px);
+    margin-left: -24px;
   }
 }
 </style>

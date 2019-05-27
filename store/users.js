@@ -5,7 +5,5 @@ export const state = () => ({
 });
 
 export const actions = {
-  bind: firebaseAction(async ({ bindFirebaseRef }, app) => {
-    return await bindFirebaseRef('users', app.$fireDb.ref('users').orderByChild('name'));
-  }),
+  bind: firebaseAction(async ({ bindFirebaseRef }, app) => bindFirebaseRef('users', app.$fireDb.ref('users').orderByChild('name'))),
 };
