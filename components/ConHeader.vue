@@ -27,7 +27,7 @@
         rel="noopener"
         class="heading__link"
       >
-        <TransformAlternates>{{con.name}}</TransformAlternates>
+        <TransformAlternates>{{conName}}</TransformAlternates>
       </a>
     </h2>
     <VList>
@@ -75,6 +75,12 @@ export default {
       required: true,
     },
   },
+  computed: {
+    conName() {
+      if (this.con.name.match(/\S+$/)[0].length > 5) return this.con.name;
+      return this.con.name.replace(/\s+(\S+)$/, '&nbsp;$1');
+    }
+  }
 };
 </script>
 

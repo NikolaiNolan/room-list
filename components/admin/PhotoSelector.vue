@@ -58,7 +58,7 @@ export default {
     }
   },
   methods: {
-    async getPhotos() {
+    async getPhotos(allYears) {
       const response = await flickr.photos.search({
         content_type: 1,
         extras: 'license,url_sq,url_s,url_m,url_z,url_c,url_l,url_o,color_codes',
@@ -66,12 +66,13 @@ export default {
         per_page: 20,
         sort: 'interestingness-desc',
         text: `"${this.con.name}"`,
-        min_taken_date: getUnixTime(subYears(this.con.dates.start, 10)),
+        min_taken_date: allYears ? null : getUnixTime(subYears(this.con.dates.start, 10)),
         dimension_search_mode: 'min',
         height: 641,
         width: 641
       });
       this.photos = response.body.photos.photo;
+      if (!allYears && !this.photos.length) this.getPhotos(true);
     },
     async setPhoto({
       color_codes: colorString = '',
