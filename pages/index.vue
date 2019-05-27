@@ -85,6 +85,12 @@ html {
     margin-right: 8px;
   }
 
+  .v-avatar & {
+    @include flex(row, center, center);
+    @include size(inherit);
+  }
+
+
   .material-design-icon__svg {
     display: block;
   }

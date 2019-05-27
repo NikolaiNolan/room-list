@@ -50,6 +50,7 @@ export default {
       src: '~/plugins/googleMaps',
       mode: 'client',
     },
+    '~/plugins/imageContext',
     '~/plugins/lazyImage',
     '~/plugins/materialDesignIcons',
     '~/plugins/vueFire',

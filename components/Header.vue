@@ -5,77 +5,50 @@
     class="header"
   >
     <VLayout
-      justify-center
-      align-center
-      class="header__top pa-3"
+      column
+      class="header__inner"
     >
-      <VLazyImage
-        use-picture
-        src="~/assets/images/background/576.jpg"
-        srcset="
-          ~/assets/images/background/576.jpg 576w,
-          ~/assets/images/background/768.jpg 584w
-        "
-        sizes="288px"
-        alt
-        :intersection-options="$intersectionOptions"
-        class="background"
+      <VLayout
+        justify-center
+        align-center
+        class="header__top pa-3"
       >
-        <source
-          :media="`(max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px)`"
-          type="image/webp"
-          srcset="
-            ~/assets/images/background/800.webp 800w,
-            ~/assets/images/background/1000.webp 1000w,
-            ~/assets/images/background/1200.webp 1200w
-          "
+        <ResponsivePicture
+          template="background/%width%.jpg"
+          webp
+          :mobile-variants="[800, 1000, 1200]"
+          desktop-width="288px"
+          :desktop-variants="[576, 768]"
+          class="background"
         />
-        <source
-          :media="`(max-width: ${$vuetify.breakpoint.thresholds.xs - 1}px)`"
-          srcset="
-            ~/assets/images/background/800.jpg 800w,
-            ~/assets/images/background/1000.jpg 1000w,
-            ~/assets/images/background/1200.jpg 1200w
-          "
-        />
-        <source
-          type="image/webp"
-          srcset="
-            ~/assets/images/background/576.webp 576w,
-            ~/assets/images/background/768.webp 584w
-          "
-          sizes="288px"
-        />
-      </VLazyImage>
-      <Logo class="logo" />
-      <h1 class="heading display-1">
-        <TransformAlternates>Nikolai’s
+        <Logo class="logo" />
+        <Heading class="heading display-1">Nikolai’s
           Con Room
-          &amp;&nbsp;Ride&nbsp;List</TransformAlternates>
-        <span class="shadow" aria-hidden="true">
-          <TransformAlternates>Nikolai’s
-            Con Room
-            &amp;&nbsp;Ride&nbsp;List</TransformAlternates>
-        </span>
-      </h1>
+          &amp;&nbsp;Ride&nbsp;List</Heading>
+      </VLayout>
+      <VSpacer />
+      <aside class="login px-3">
+        <Login />
+      </aside>
     </VLayout>
-    <VSpacer />
-    <aside class="actions px-3 py-2">
-      <Login />
-    </aside>
+    <Rules class="rules" />
   </VLayout>
 </template>
 
 <script>
-import Login from '~/components/Login';
+import Heading from './Heading';
+import Login from './Login';
 import Logo from '~/assets/images/logo.svg?inline';
-import TransformAlternates from '~/components/TransformAlternates';
+import ResponsivePicture from './ResponsivePicture';
+import Rules from './HeaderRules';
 
 export default {
   components: {
+    Heading,
     Login,
     Logo,
-    TransformAlternates,
+    ResponsivePicture,
+    Rules,
   },
 };
 </script>
@@ -87,6 +60,7 @@ export default {
   flex: none;
 
   @include min-width(sm) {
+    padding-bottom: 50px;
     width: $header-width - 16px;
   }
 
@@ -94,8 +68,12 @@ export default {
     width: $header-width;
   }
 
+  &__inner {
+    position: relative;
+  }
+
   &__top {
-    flex-grow: 0;
+    flex: none;
 
     @include max-width(sm) {
       position: relative;
@@ -120,6 +98,7 @@ export default {
 }
 
 .logo {
+  align-self: center;
   position: relative;
   z-index: 1;
   flex-shrink: 0;
@@ -137,8 +116,6 @@ export default {
 }
 
 .heading {
-  position: relative;
-  z-index: 0;
   width: 5em;
 
   @include min-width(405px) {
@@ -152,15 +129,15 @@ export default {
   }
 }
 
-.shadow {
-  @include cover-background;
-  color: transparent;
-  text-shadow: 0 0 2em #7b6455;
+.login {
+  @include min-width(sm) {
+    padding: 0 24px 8px !important;
+  }
 }
 
-.actions {
-  @media (min-width: map-get($grid-breakpoints, md)) and (min-height: 700px) {
-    padding: 24px !important;
+.rules {
+  @include min-width(sm) {
+    @include position(absolute, null 0 0);
   }
 }
 </style>

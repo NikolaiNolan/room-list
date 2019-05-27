@@ -3,7 +3,7 @@
     v-if="!loggedIn"
     block
     depressed
-    class="ma-0 text-none"
+    class="button mx-0 text-none"
     @click="login"
   >
     <AccountIcon class="left" />
@@ -75,6 +75,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.button {
+  @include margin(10px null);
+}
+
 .user {
   @include margin(null -16px);
   text-shadow: 0 0 .25em #7b6455;

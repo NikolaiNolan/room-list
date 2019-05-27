@@ -86,11 +86,6 @@ export default {
       border-color: transparent;
       transition: background .3s cubic-bezier(.25, .8, .5, 1);
     }
-
-    .material-design-icon {
-      @include flex(row, center, center);
-      @include size(inherit);
-    }
   }
 
   .v-avatar ~ .content {
