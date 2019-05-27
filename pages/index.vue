@@ -65,16 +65,35 @@ export default {
     scrollHorizontally() {
       if (window.innerWidth < this.$vuetify.breakpoint.thresholds.xs) return;
       event.preventDefault();
-      event.currentTarget.scrollLeft += event.deltaY;
+      window.scrollBy(event.deltaY, 0);
     },
   },
 }
 </script>
 
 <style lang="scss">
-html {
-  @include min-width(sm) {
-    overflow: hidden;
+@include min-width(sm) {
+  html {
+    height: 100%;
+    overflow: {
+      x: scroll;
+      y: hidden;
+    }
+  }
+
+  body,
+  #__nuxt,
+  #__layout,
+  #app,
+  .application--wrap,
+  .cons {
+    flex: 1;
+    display: flex;
+    height: 100%;
+  }
+
+  .application--wrap {
+    min-height: 0;
   }
 }
 
@@ -90,44 +109,8 @@ html {
     @include size(inherit);
   }
 
-
   .material-design-icon__svg {
     display: block;
-  }
-}
-
-// .material-design-icon {
-//   display: inline-flex;
-//   align-self: center;
-//   position: relative;
-//   height: 1em;
-//   width: 1em;
-// }
-// .material-design-icon > .material-design-icon__svg {
-//   height: 1em;
-//   width: 1em;
-//   fill: currentColor;
-//   position: absolute;
-//   bottom: -0.125em;
-// }
-
-// .v-lazy-image {
-//   transition: opacity .3s cubic-bezier(.25, .8, .5, 1);
-
-//   &:not(&-loaded) {
-//     opacity: 0;
-//   }
-// }
-</style>
-
-<style lang="scss" scoped>
-.cons {
-  @include min-width(sm) {
-    display: flex;
-    height: 100vh;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
   }
 }
 </style>
