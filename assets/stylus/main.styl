@@ -76,6 +76,7 @@ $colors = {
   .theme--dark.v-expansion-panel li.v-expansion-panel__container
     background-color: $nikolai-colors.blue.primary
   .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-avatar .material-design-icon
   .v-image
   .v-lazy-image
@@ -96,6 +97,7 @@ $colors = {
   .theme--dark.v-expansion-panel li.v-expansion-panel__container
     background-color: $nikolai-colors.red.primary
   .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-avatar .material-design-icon
   .v-image
   .v-lazy-image
@@ -116,6 +118,7 @@ $colors = {
   .theme--dark.v-expansion-panel li.v-expansion-panel__container
     background-color: $nikolai-colors.green.primary
   .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-avatar .material-design-icon
   .v-image
   .v-lazy-image
@@ -136,6 +139,7 @@ $colors = {
   .theme--dark.v-expansion-panel li.v-expansion-panel__container
     background-color: $nikolai-colors.purple.primary
   .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-avatar .material-design-icon
   .v-image
   .v-lazy-image
@@ -156,6 +160,7 @@ $colors = {
   .theme--dark.v-expansion-panel li.v-expansion-panel__container
     background-color: $nikolai-colors.orange.primary
   .v-avatar .v-avatar
+  .v-avatar .v-icon
   .v-avatar .material-design-icon
   .v-image
   .v-lazy-image
@@ -204,11 +209,13 @@ i.accent--text
   caret-color: white !important
 
 .v-avatar .v-avatar
+.v-avatar .v-icon
 .v-avatar .material-design-icon
   @supports (clip-path: polygon(0 0))
     border-radius: 0;
     clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
 
+.v-list__tile__avatar .v-avatar .v-icon
 .v-list__tile__avatar .v-avatar .material-design-icon
   clip-path: none;
   background-color: transparent;

@@ -9,7 +9,7 @@
     </VListTile>
     <VListTile>
       <VListTileAvatar>
-        <CalendarRangeIcon title="Arrival/departure dates" />
+        <VIcon title="Arrival/departure dates">date_range</VIcon>
       </VListTileAvatar>
       <VListTileContent>
         <VRangeSlider
@@ -26,7 +26,7 @@
     </VListTile>
     <VListTile v-if="ride">
       <VListTileAvatar>
-        <CarIcon />
+        <VIcon>directions_car</VIcon>
       </VListTileAvatar>
       <VListTileContent class="pt-1">
         <VCheckbox
@@ -51,7 +51,7 @@
           class="ma-0 text-none"
           @click="joinRoom"
         >
-          <CheckIcon class="left" />
+          <VIcon left>check</VIcon>
           Join
         </VBtn>
       </VListTileContent>
@@ -65,16 +65,7 @@ import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
 import { mapState } from 'vuex';
 
-import CarIcon from 'vue-material-design-icons/Car.vue';
-import CalendarRangeIcon from 'vue-material-design-icons/CalendarRange.vue';
-import CheckIcon from 'vue-material-design-icons/Check.vue';
-
 export default {
-  components: {
-    CarIcon,
-    CalendarRangeIcon,
-    CheckIcon,
-  },
   props: {
     firstDate: {
       type: Number,

@@ -40,17 +40,21 @@
                 :style="dateMargins"
               >
                 {{arrivalDay}}
-                <CarIcon
+                <VIcon
                   v-if="person.ride && person.ride.to"
-                  :size="16"
+                  small
                   class="pl-1"
-                />
+                >
+                  directions_car
+                </VIcon>
                 <VDivider class="divider mx-1" />
-                <CarIcon
+                <VIcon
                   v-if="person.ride && person.ride.from"
-                  :size="16"
+                  small
                   class="pr-1"
-                />
+                >
+                  directions_car
+                </VIcon>
                 <template v-if="conLength < 3 || stayLength !== 1">
                   {{departureDay}}
                 </template>
@@ -88,13 +92,11 @@ import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
 import AccountMinusIcon from 'vue-material-design-icons/AccountMinus.vue';
-import CarIcon from 'vue-material-design-icons/Car.vue';
 import Price from './Price';
 
 export default {
   components: {
     AccountMinusIcon,
-    CarIcon,
     Price,
   },
   props: {

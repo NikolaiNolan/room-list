@@ -3,23 +3,18 @@
     :no-lazy="conIndex <= 1"
     :photo-src="hotelPhotoSrc"
     :photo-srcset="hotelPhotoSrcSet"
+    icon="hotel"
     :href="link"
     :title="name"
-  >
-    <template v-slot:icon>
-      <HotelIcon />
-    </template>
-  </Card>
+  />
 </template>
 
 <script>
-import HotelIcon from 'vue-material-design-icons/Hotel.vue';
 import Card from './Card';
 
 export default {
   components: {
     Card,
-    HotelIcon,
   },
   props: {
     conIndex: {

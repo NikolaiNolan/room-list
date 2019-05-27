@@ -7,7 +7,7 @@
       <div class="pt-1 px-4 pb-4">
         <VLayout>
           <VAvatar class="icon mr-2">
-            <HotelIcon />
+            <VIcon>hotel</VIcon>
           </VAvatar>
           <ul class="list">
             <li>No alcohol, smoking, or forbidden possessions.</li>
@@ -16,7 +16,7 @@
         </VLayout>
         <VLayout class="mt-3">
           <VAvatar class="icon mr-2">
-            <AccountPlusIcon />
+            <VIcon>person_add</VIcon>
           </VAvatar>
           <ul class="list">
             <li>Joining or dropping at least one week in advance is&nbsp;recommended.</li>
@@ -28,7 +28,7 @@
         </VLayout>
         <VLayout class="mt-3">
           <VAvatar class="icon mr-2">
-            <CashUsdIcon />
+            <VIcon>local_atm</VIcon>
           </VAvatar>
           <ul class="list">
             <li>
@@ -45,20 +45,6 @@
     </VExpansionPanelContent>
   </VExpansionPanel>
 </template>
-
-<script>
-import AccountPlusIcon from 'vue-material-design-icons/AccountPlus.vue';
-import CashUsdIcon from 'vue-material-design-icons/CashUsd.vue';
-import HotelIcon from 'vue-material-design-icons/Hotel.vue';
-
-export default {
-  components: {
-    AccountPlusIcon,
-    CashUsdIcon,
-    HotelIcon,
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 /deep/ .v-expansion-panel__header {

@@ -20,8 +20,8 @@
       rel="noopener"
     >
       <VLayout align-center>
-        <VAvatar v-if="$slots.icon">
-          <slot name="icon" />
+        <VAvatar v-if="icon">
+          <VIcon>{{icon}}</VIcon>
         </VAvatar>
         <div class="content mr-2">
           {{smartQuotes(title)}}
@@ -46,6 +46,7 @@ export default {
     noLazy: Boolean,
     photoSrc: String,
     photoSrcset: String,
+    icon: String,
     href: String,
     title: String,
     subtitle: String,

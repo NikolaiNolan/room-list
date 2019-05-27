@@ -2,6 +2,7 @@
   <Card
     :no-lazy="conIndex <= 1"
     :photo-src="map"
+    icon="location_city"
     :href="directionsLink"
     :title="city"
     :subtitle="duration"
@@ -11,11 +12,7 @@
       once: true,
       throttle: 300,
     }"
-  >
-    <template v-slot:icon>
-      <MapMarkerIcon />
-    </template>
-  </Card>
+  />
 </template>
 
 <script>
@@ -24,13 +21,11 @@ import nikolaiColors from '~/plugins/nikolaiColors';
 import queryString from 'query-string';
 import { mapState } from 'vuex';
 
-import MapMarkerIcon from 'vue-material-design-icons/MapMarker.vue';
 import Card from './Card';
 
 export default {
   components: {
     Card,
-    MapMarkerIcon,
   },
   props: {
     conIndex: {

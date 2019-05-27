@@ -16,7 +16,7 @@
       v-if="fromCanadian"
       class="text-xs-right"
     >
-      <StarIcon class="icon" />
+      <VIcon class="icon">star</VIcon>
       ${{Math.ceil(price / exchange)}}
     </VListTileSubTitle>
   </div>
@@ -26,12 +26,10 @@
 import { mapGetters } from 'vuex';
 
 import MapleLeafIcon from '~/assets/images/maple-leaf.svg?inline';
-import StarIcon from 'vue-material-design-icons/Star.vue';
 
 export default {
   components: {
     MapleLeafIcon,
-    StarIcon,
   },
   props: {
     price: {
