@@ -1,0 +1,66 @@
+.cons {
+  .display-4,
+  .display-3,
+  .display-2,
+  .display-1,
+  .headline,
+  .title,
+  .subheading {
+    text-transform: lowercase;
+  }
+
+  .v-expansion-panel {
+    box-shadow: none;
+  }
+
+  .theme--dark.v-list {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+  }
+
+  .v-list__group__header .v-list__group__header__append-icon {
+    padding-left: 6px;
+  }
+
+  .v-list__group__header .v-list__group__header__prepend-icon {
+    padding-right: 6px;
+  }
+
+  .v-list__tile {
+    line-height: 1.2;
+
+    &__sub-title {
+      font-size: 13px;
+    }
+  }
+
+  .v-list__tile__action {
+    min-width: 46px;
+  }
+
+  .v-avatar .v-avatar,
+  .v-avatar .v-icon,
+  .v-avatar .material-design-icon {
+    @supports (clip-path: polygon(0 0)) {
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+    }
+  }
+
+  .v-list__tile__avatar .v-avatar .v-icon,
+  .v-list__tile__avatar .v-avatar .material-design-icon {
+    clip-path: none;
+    background-color: transparent;
+  }
+
+  .v-avatar img {
+    @supports (clip-path: polygon(0 0)) {
+      border-radius: 0;
+    }
+  }
+
+  .v-btn {
+    border-radius: 0;
+  }
+}

@@ -37,8 +37,8 @@ export default {
   loading: false,
 
   css: [
-    '~/assets/stylus/main',
-    '~/assets/scss/_main',
+    '~/assets/stylus/vuetify',
+    '~/assets/scss/main',
   ],
 
   plugins: [

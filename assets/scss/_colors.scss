@@ -1,0 +1,39 @@
+@each $name, $color in $colors {
+  .cons .#{$name} {
+    .v-divider {
+      border-color: color($name, 'secondary');
+    }
+
+    .card .v-avatar::before {
+      border-bottom-color: color($name, 'primary');
+    }
+
+    .card .v-list__tile--link:hover .v-avatar::before {
+      border-bottom-color: color($name, 'secondary');
+    }
+
+    .v-expansion-panel .v-expansion-panel__container {
+      background-color: color($name, 'primary');
+    }
+
+    .v-lazy-image,
+    .v-avatar .v-avatar,
+    .v-avatar .v-icon,
+    .v-avatar .material-design-icon,
+    .v-list .v-list__group__header::after,
+    .v-list .v-list__tile--link::after,
+    .v-input--slider .v-slider__track,
+    .v-input--slider .v-slider__track-fill,
+    .v-btn:not(.v-btn--icon):not(.v-btn--flat) {
+      background-color: color($name, 'secondary');
+    }
+
+    .logo_svg__primary {
+      fill: color($name, 'primary');
+    }
+
+    .logo_svg__secondary {
+      fill: color($name, 'secondary');
+    }
+  }
+}

@@ -58,29 +58,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  /deep/ .v-list__tile {
-    @include padding(null 0);
-    height: auto;
+/deep/ .v-list__tile {
+  @include padding(null 0);
+  height: auto;
+}
+
+.photo {
+  @include size($header-width, $header-width / 2);
+  @include object-fit(cover);
+  display: block;
+
+  @media (max-width: map-get($grid-breakpoints, sm) - 1), (max-height: 700px - 1) {
+    display: none;
   }
+}
 
-  .photo {
-    @include size($header-width, $header-width / 2);
-    @include object-fit(cover);
-    display: block;
+/deep/ .v-avatar {
+  @include margin(null 8px null -4px);
 
-    @media (max-width: map-get($grid-breakpoints, sm) - 1), (max-height: 700px - 1) {
-      display: none;
-    }
-  }
-
-  /deep/ .v-avatar {
-    @include margin(null 8px null -4px);
-
-    @media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
-      align-self: flex-start;
-      margin: -7px 8px;
-    }
+  @media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
+    align-self: flex-start;
+    margin: -7px 8px;
 
     @include generated-block(before) {
       @include position(absolute, -8px null null -2px);
@@ -90,16 +88,16 @@ export default {
       transition: background .3s cubic-bezier(.25, .8, .5, 1);
     }
   }
+}
 
-  .v-avatar ~ .content {
-    @media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
-      @include margin(8px null);
-      min-height: 32px;
-    }
+.v-avatar ~ .content {
+  @media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
+    @include margin(8px null);
+    min-height: 32px;
   }
+}
 
-  small {
-    font-size: 13px;
-  }
+small {
+  font-size: 13px;
 }
 </style>
