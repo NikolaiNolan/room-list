@@ -85,3 +85,5 @@ sw.*
 
 static/icons
 static/favicon.ico
+
+.firebase
