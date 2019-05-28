@@ -50,6 +50,7 @@ export default {
     '~/plugins/lazyImage',
     '~/plugins/observeVisibility',
     '~/plugins/vueFire',
+    '~/plugins/vuetify',
   ],
 
   modules: [
@@ -132,11 +133,6 @@ export default {
       icon: false,
     }],
     '@nuxtjs/style-resources',
-    ['@nuxtjs/vuetify', {
-      materialIcons: false,
-      css: false,
-      treeShake: true,
-    }],
     ['nuxt-fire', {
       useOnly: ['auth', 'realtimeDb'],
       config: {
@@ -214,6 +210,7 @@ export default {
       });
     },
     transpile: [
+      'vuetify/lib',
       /^vue2-google-maps($|\/)/,
     ],
   },

@@ -17,7 +17,6 @@
     "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
     "@nuxtjs/style-resources": "^0.1.2",
-    "@nuxtjs/vuetify": "^0.5.5",
     "bourbon": "^5.1.0",
     "convert-units": "^2.3.4",
     "cross-env": "^5.2.0",
@@ -36,7 +35,6 @@
     "vue2-google-maps": "^0.10.6",
     "vuefire": "^2.0.0-alpha.24",
     "vuetify": "^1.5.14",
-    "vuetify-loader": "^1.2.2",
     "vuexfire": "^3.0.0-alpha.18"
   },
   "devDependencies": {
