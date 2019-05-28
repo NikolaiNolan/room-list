@@ -1,6 +1,6 @@
 <template>
   <VApp dark>
-    <main
+    <div
       class="cons"
       @wheel="scrollHorizontally"
     >
@@ -11,7 +11,7 @@
         :con="{ ...con, index }"
       />
       <Footer :class="firstBackgroundColor" />
-    </main>
+    </div>
   </VApp>
 </template>
 
@@ -93,23 +93,6 @@ export default {
 
   .application--wrap {
     min-height: 0;
-  }
-}
-
-.material-design-icon {
-  display: inline-block;
-
-  &.left {
-    margin-right: 8px;
-  }
-
-  .v-avatar & {
-    @include flex(row, center, center);
-    @include size(inherit);
-  }
-
-  .material-design-icon__svg {
-    display: block;
   }
 }
 </style>

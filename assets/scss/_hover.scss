@@ -1,0 +1,25 @@
+.cons .theme--dark.v-list .v-list__tile--link,
+.cons .theme--dark.v-list .v-list__tile--highlighted,
+.cons .theme--dark.v-list .v-list__group__header,
+.cons .v-expansion-panel__header {
+  position: relative;
+  z-index: 0;
+
+  @include generated-block {
+    @include cover-background;
+    transform: scaleY(0) {
+      origin: bottom;
+    }
+    transition: transform .3s cubic-bezier(.25, .8, .5, 1);
+  }
+
+  &:focus,
+  &:hover {
+    background-color: transparent;
+
+    &::after {
+      transform: none;
+      transform-origin: top;
+    }
+  }
+}

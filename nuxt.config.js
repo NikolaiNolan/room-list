@@ -38,7 +38,7 @@ export default {
 
   css: [
     '~/assets/stylus/main',
-    '~/assets/scss/main',
+    '~/assets/scss/_main',
   ],
 
   plugins: [

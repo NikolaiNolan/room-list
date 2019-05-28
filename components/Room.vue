@@ -27,9 +27,10 @@
         <VListGroup
           v-model="formOpen"
           class="signup"
+          @click="showForm($event)"
         >
           <template v-slot:activator>
-            <VListTile @click="showForm($event)">
+            <VListTile>
               <VListTileAvatar>
                 <VIcon>person_add</VIcon>
               </VListTileAvatar>

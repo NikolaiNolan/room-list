@@ -17,6 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 .alternates /deep/ span {
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: 'Montserrat Alternates', $font-stack-system, sans-serif;
 }
 </style>
