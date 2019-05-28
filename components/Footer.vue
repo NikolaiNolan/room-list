@@ -82,6 +82,7 @@ export default {
 .footer {
   flex-shrink: 0;
   font-size: 11px;
+  line-height: 16px;
 
   @include min-width(sm) {
     width: $header-width * 7/9;

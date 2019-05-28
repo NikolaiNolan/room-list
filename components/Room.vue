@@ -16,7 +16,6 @@
         :key="person.id"
         :person="person"
         :multiple="nameCount[person.givenName] > 1"
-        :con-index="con.index"
         :con-canadian="con.canadian"
         v-bind="{ firstDate, lastDate, cost }"
         @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"

@@ -7,10 +7,14 @@
     >
       <VListTileAvatar>
         <VAvatar v-if="person.picture">
-          <component
-            :is="conIndex <= 1 ? 'img' : 'VLazyImage'"
+          <VLazyImage
             :src-placeholder="$placeholder"
-            :src="person.picture"
+            :src="person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')"
+            :srcset="`
+              ${person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')} 48w,
+              ${person.picture.replace(/(\/\w\w)?\/photo/, '/s72/photo')} 72w,
+              ${person.picture.replace(/(\/\w\w)?\/photo/, '/s96/photo')} 96w,
+            `"
             alt
             :intersection-options="$intersectionOptions"
           />
@@ -105,10 +109,6 @@ export default {
       required: true,
     },
     multiple: Boolean,
-    conIndex: {
-      type: Number,
-      required: true,
-    },
     conCanadian: Boolean,
     firstDate: {
       type: Number,

@@ -13,6 +13,10 @@ export default {
 
   head: {
     title: pkg.description,
+    link: [
+      { rel: 'preconnect', href: 'https://www.google-analytics.com' },
+      { rel: 'preconnect', href: 'https://maps.googleapis.com' },
+    ],
   },
 
   manifest: {
@@ -31,7 +35,6 @@ export default {
     twitterCreator: 'Nikolai',
     start_url: '/',
     display: 'standalone',
-    nativeUI: true,
   },
 
   loading: false,

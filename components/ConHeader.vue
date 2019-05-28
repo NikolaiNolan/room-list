@@ -5,7 +5,7 @@
     class="header"
   >
     <component
-      :is="con.index <= 1 ? 'img' : 'VLazyImage'"
+      :is="con.index ? 'VLazyImage' : 'img'"
       v-if="con.photo"
       :src-placeholder="$placeholder"
       :src="con.photo[500].url"

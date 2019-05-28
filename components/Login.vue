@@ -20,7 +20,12 @@
       <VAvatar>
         <VLazyImage
           :src-placeholder="$placeholder"
-          :src="user.picture"
+          :src="user.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')"
+          :srcset="`
+            ${user.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')} 48w,
+            ${user.picture.replace(/(\/\w\w)?\/photo/, '/s72/photo')} 72w,
+            ${user.picture.replace(/(\/\w\w)?\/photo/, '/s96/photo')} 96w,
+          `"
           alt
           :intersection-options="$intersectionOptions"
         />
