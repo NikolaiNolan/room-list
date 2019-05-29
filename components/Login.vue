@@ -6,7 +6,6 @@
     class="button mx-0 text-none"
     @click="login"
   >
-    <VIcon left>$vuetify.icons.accountCircle</VIcon>
     Log In
   </VBtn>
   <VListTile

@@ -26,7 +26,7 @@
     </VListTile>
     <VListTile v-if="ride">
       <VListTileAvatar>
-        <VIcon>$vuetify.icons.car</VIcon>
+        <VIcon>$vuetify.icons.carSide</VIcon>
       </VListTileAvatar>
       <VListTileContent class="pt-1">
         <VCheckbox

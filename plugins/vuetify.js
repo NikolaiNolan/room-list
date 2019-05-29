@@ -24,11 +24,10 @@ import Vuetify, {
   VSubheader,
 } from 'vuetify/lib';
 import AccountArrowRight from 'vue-material-design-icons/AccountArrowRight.vue';
-import AccountCircle from 'vue-material-design-icons/AccountCircle.vue';
 import AccountMinus from 'vue-material-design-icons/AccountMinus.vue';
 import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
 import CalendarRange from 'vue-material-design-icons/CalendarRange.vue';
-import Car from 'vue-material-design-icons/Car.vue';
+import CarSide from 'vue-material-design-icons/CarSide.vue';
 import CashUsd from 'vue-material-design-icons/CashUsd.vue';
 import Check from 'vue-material-design-icons/Check.vue';
 import CheckboxBlankOutline from 'vue-material-design-icons/CheckboxBlankOutline.vue';
@@ -73,13 +72,6 @@ Vue.use(Vuetify, {
         decorative: true,
       },
     },
-    accountCircle: {
-      component: AccountCircle,
-      props: {
-        title: null,
-        decorative: true,
-      },
-    },
     accountMinus: {
       component: AccountMinus,
       props: {
@@ -101,8 +93,8 @@ Vue.use(Vuetify, {
         decorative: true,
       },
     },
-    car: {
-      component: Car,
+    carSide: {
+      component: CarSide,
       props: {
         title: null,
         decorative: true,

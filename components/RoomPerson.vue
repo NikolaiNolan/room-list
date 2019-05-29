@@ -49,15 +49,15 @@
                   small
                   class="pl-1"
                 >
-                  $vuetify.icons.car
+                  $vuetify.icons.carSide
                 </VIcon>
                 <VDivider class="divider mx-1" />
                 <VIcon
                   v-if="person.ride && person.ride.from"
                   small
-                  class="pr-1"
+                  class="returnCar pl-1"
                 >
-                  $vuetify.icons.car
+                  $vuetify.icons.carSide
                 </VIcon>
                 <template v-if="conLength < 3 || stayLength !== 1">
                   {{departureDay}}
@@ -193,6 +193,10 @@ export default {
 
 .dates {
   font-size: 79%;
+}
+
+.returnCar {
+  transform: scaleX(-1);
 }
 
 .divider.v-divider.theme--dark {
