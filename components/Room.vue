@@ -12,7 +12,12 @@
       >
         {{roomType[0].toUpperCase()}}{{roomType.slice(1)}} {{roomId + 1}}
         <span class="caption">
-          {{people.length}}/{{max}} guests
+          <template v-if="people.length < max">
+            {{people.length}}/{{max}} guests
+          </template>
+          <template v-else>
+            Full
+          </template>
         </span>
       </VSubheader>
       <RoomPerson
