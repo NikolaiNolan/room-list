@@ -103,10 +103,10 @@ export default {
         });
       if (this.con.ride && this.con.ride.available) {
         const { distance } = this.con.ride;
-        const toll = (this.con.ride.toll || 0) / 2;
+        const toll = this.con.ride.toll || 0;
         const parking = this.con.ride.parking || 0;
         const tripLength = differenceInCalendarDays(this.lastDate, this.firstDate);
-        const rideCost = ((distance / this.mpg) * this.gasCost) + toll + (parking * tripLength);
+        const rideCost = ((distance / this.mpg) * this.gasCost) + toll + (parking * tripLength / 2);
         const rideToCount = filter(people, 'ride.to').length;
         const rideFromCount = filter(people, 'ride.from').length;
         cost.ride = {
