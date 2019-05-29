@@ -37,6 +37,7 @@ import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import City from 'vue-material-design-icons/City.vue';
 import Hotel from 'vue-material-design-icons/Hotel.vue';
 import MapleLeaf from '~/components/MapleLeaf';
+import MenuDown from 'vue-material-design-icons/MenuDown.vue';
 import Star from 'vue-material-design-icons/Star.vue';
 
 Vue.use(Vuetify, {
@@ -76,6 +77,7 @@ Vue.use(Vuetify, {
     checkboxOff: { component: CheckboxBlankOutline },
     checkboxOn: { component: CheckboxMarked },
     city: { component: City },
+    dropdown: { component: MenuDown },
     expand: { component: ChevronDown },
     hotel: { component: Hotel },
     mapleLeaf: { component: MapleLeaf },

@@ -196,6 +196,6 @@ export default {
 }
 
 .divider.v-divider.theme--dark {
-  border-color: inherit;
+  border-color: white;
 }
 </style>

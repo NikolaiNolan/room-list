@@ -56,6 +56,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card {
+  @include min-width(sm) {
+    width: $header-width;
+  }
+}
+
 /deep/ .v-list__tile {
   @include padding(null 0);
   height: auto;
@@ -80,10 +86,21 @@ export default {
 
     @include generated-block(before) {
       @include position(absolute, -8px null null -2px);
+      display: none;
       border: solid;
       border-width: 0 26px 15px;
       border-color: transparent;
       transition: background .3s cubic-bezier(.25, .8, .5, 1);
+    }
+  }
+}
+
+@media (min-width: map-get($grid-breakpoints, sm)) and (min-height: 700px) {
+  /deep/ .v-avatar::before {
+    display: none;
+
+    @supports (clip-path: polygon(0 0)) {
+      display: block;
     }
   }
 }

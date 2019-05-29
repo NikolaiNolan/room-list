@@ -105,7 +105,7 @@ export default {
   height: calc((100vw - 16px - 16px) * .75);
 
   @include min-width(sm) {
-    height: $header-width;
+    @include size($header-width);
   }
 }
 

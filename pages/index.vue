@@ -21,6 +21,7 @@ import filter from 'lodash/filter';
 import last from 'lodash/last';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
+import normalizeWheel from 'normalize-wheel';
 import { mapGetters, mapState } from 'vuex';
 
 import Convention from '~/components/Convention';
@@ -59,12 +60,13 @@ export default {
     this.$store.dispatch('user/bind', this);
     this.$store.dispatch('cons/bind', this);
     this.$store.dispatch('config/bind', this);
+    console.dir(this.$vuetify.icons)
   },
   methods: {
     scrollHorizontally(event) {
       if (window.innerWidth < this.$vuetify.breakpoint.thresholds.xs) return;
       event.preventDefault();
-      window.scrollBy(event.deltaY, 0);
+      window.scrollBy(normalizeWheel(event).pixelY, 0);
     },
   },
 };
@@ -93,6 +95,10 @@ export default {
 
   .application--wrap {
     min-height: 0;
+  }
+
+  .cons {
+    max-height: 100%;
   }
 }
 </style>
