@@ -63,6 +63,9 @@
 import convert from 'convert-units';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
+import isWithinInterval from 'date-fns/isWithinInterval';
+import filter from 'lodash/filter';
+import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
 export default {
@@ -76,6 +79,14 @@ export default {
       validator: value => value % 1 === 0,
     },
     ride: Boolean,
+    addPersonCost: {
+      type: Object,
+      required: true,
+    },
+    addRideCost: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -99,6 +110,20 @@ export default {
     tickLabels() {
       return eachDayOfInterval({ start: this.firstDate, end: this.lastDate })
         .map(date => format(date, 'EEE'));
+    },
+    personCost() {
+      let price = sum(
+        filter(
+          this.addPersonCost,
+          (nightCost, night) => isWithinInterval(
+            +night,
+            { start: this.arrivalDate, end: this.departureDate },
+          ),
+        ),
+      );
+      if (this.rideTo) price += this.addRideCost.to;
+      if (this.rideFrom) price += this.addRideCost.from;
+      return price;
     },
     userIds() {
       return this.users.map(({ '.key': value, name: text }) => ({ text, value }));
@@ -126,6 +151,12 @@ export default {
       if (departureDate !== this.lastDate) this.rideFrom = false;
       if (this.arrivalDate !== departureDate) return;
       this.dayRange = [this.arrivalDate, departureDate + this.step];
+    },
+    personCost: {
+      immediate: true,
+      handler(cost) {
+        this.$emit('updateSignupCost', cost);
+      },
     },
     'user.id': {
       immediate: true,

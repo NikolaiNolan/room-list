@@ -29,7 +29,6 @@ import isWithinInterval from 'date-fns/isWithinInterval';
 import subDays from 'date-fns/subDays';
 import filter from 'lodash/filter';
 import flatMap from 'lodash/flatMap';
-import sum from 'lodash/sum';
 import { mapGetters, mapState } from 'vuex';
 
 import ConHeader from './ConHeader';
@@ -76,9 +75,13 @@ export default {
       return index !== -1 ? index : null;
     },
     cost() {
-      const cost = { room: {}, ride: {} };
-      const addPersonCost = [];
-      const addRoomCost = [];
+      const cost = {
+        room: {},
+        ride: {},
+        addPerson: {},
+        addRoom: {},
+        addRide: {},
+      };
 
       if (!this.lastDate) return null;
       if (!this.con.room || !this.con.room.rate) return null;
@@ -89,30 +92,33 @@ export default {
 
       eachDayOfInterval({ start: addDays(this.firstDate, 1), end: this.lastDate })
         .forEach((date) => {
-          const nightPeople = people.filter(({ dates: { arrival, departure } }) => (
+          const day = date.getTime();
+          const rateWithTip = rate * 1.005 + this.dailyTip;
+          const peopleCount = people.filter(({ dates: { arrival, departure } }) => (
             isWithinInterval(date, { start: arrival, end: departure })
-          ));
-          const peopleCount = nightPeople.length;
-          cost.room[date.getTime()] = (roomCount * (rate * 1.005 + this.dailyTip)) / peopleCount;
-          addPersonCost.push((roomCount * (rate * 1.005 + this.dailyTip)) / (peopleCount + 1));
-          addRoomCost.push(((roomCount + 1) * (rate * 1.005 + this.dailyTip)) / (peopleCount + 1));
+          )).length;
+          cost.room[day] = rateWithTip * roomCount / peopleCount;
+          cost.addPerson[day] = rateWithTip * roomCount / (peopleCount + 1);
+          cost.addRoom[day] = rateWithTip * (roomCount + 1) / (peopleCount + 1);
         });
       if (this.con.ride && this.con.ride.available) {
         const { distance } = this.con.ride;
-        const toll = this.con.ride.toll || 0;
+        const toll = (this.con.ride.toll || 0) / 2;
         const parking = this.con.ride.parking || 0;
-        const rideCost = ((distance / this.mpg) * this.gasCost) + (toll / 2)
-          + (parking * differenceInCalendarDays(this.firstDate, this.lastDate));
+        const tripLength = differenceInCalendarDays(this.lastDate, this.firstDate);
+        const rideCost = ((distance / this.mpg) * this.gasCost) + toll + (parking * tripLength);
+        const rideToCount = filter(people, 'ride.to').length;
+        const rideFromCount = filter(people, 'ride.from').length;
         cost.ride = {
-          to: rideCost / filter(people, 'ride.to').length,
-          from: rideCost / filter(people, 'ride.from').length,
+          to: rideCost / rideToCount,
+          from: rideCost / rideFromCount,
+        };
+        cost.addRide = {
+          to: rideCost / (rideToCount + 1),
+          from: rideCost / (rideFromCount + 1),
         };
       }
-      return {
-        ...cost,
-        addPerson: sum(addPersonCost),
-        addRoom: sum(addRoomCost),
-      };
+      return cost;
     },
   },
   methods: {

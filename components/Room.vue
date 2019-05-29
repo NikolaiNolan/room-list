@@ -40,7 +40,7 @@
               <VLayout justify-space-between align-center>
                 Join this {{roomType}}
                 <Price
-                  :price="cost[`add${people.length ? 'Person' : 'Room'}`]"
+                  :price="formOpen ? signupCost : allNightCost"
                   :to-canadian="user && user.canadian && !con.canadian"
                   :from-canadian="user && con.canadian && !user.canadian"
                 />
@@ -50,7 +50,10 @@
           <RoomSignup
             :ride="con.ride.available"
             v-bind="{ roomId, firstDate, lastDate }"
+            :add-person-cost="cost[`add${this.people.length ? 'Person' : 'Room'}`]"
+            :add-ride-cost="cost.addRide"
             @close="formOpen = false"
+            @updateSignupCost="updateSignupCost"
             @addPerson="
               (personId, options) => addPerson({ conId: con.id, roomId, personId, options })
             "
@@ -78,6 +81,7 @@ import countBy from 'lodash/countBy';
 import map from 'lodash/map';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
+import sum from 'lodash/sum';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 import Price from './Price';
@@ -126,6 +130,7 @@ export default {
   data() {
     return {
       formOpen: false,
+      signupCost: null,
     };
   },
   computed: {
@@ -155,6 +160,9 @@ export default {
       if (!this.user) return false;
       return !!this.peopleObject[this.user.id];
     },
+    allNightCost() {
+      return sum(Object.values(this.cost[`add${this.people.length ? 'Person' : 'Room'}`]));
+    },
   },
   methods: {
     ...mapActions({
@@ -171,6 +179,9 @@ export default {
       });
       await this.login();
       if (this.loggedIn) this.formOpen = true;
+    },
+    updateSignupCost(cost) {
+      this.signupCost = cost;
     },
   },
 };
