@@ -50,26 +50,6 @@ export default {
     auth,
   ],
   computed: mapState('user', ['loggedIn', 'user']),
-  async mounted() {
-    const { user, additionalUserInfo } = await this.$fireAuth.getRedirectResult();
-    if (!user || !additionalUserInfo) return;
-    const {
-      email,
-      family_name: familyName,
-      given_name: givenName,
-      name,
-      picture,
-    } = additionalUserInfo.profile;
-    const canadian = familyName === 'Easterbrook' || null;
-    this.$fireDb.ref(`users/${user.uid}`).update({
-      email,
-      familyName,
-      givenName,
-      name,
-      picture,
-      canadian,
-    });
-  },
 };
 </script>
 

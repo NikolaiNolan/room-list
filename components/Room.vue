@@ -33,7 +33,7 @@
           @click="showForm($event)"
         >
           <template v-slot:activator>
-            <VListTile>
+            <VListTile @click="showForm($event)">
               <VListTileAvatar>
                 <VIcon>$vuetify.icons.accountPlus</VIcon>
               </VListTileAvatar>
@@ -156,12 +156,6 @@ export default {
       return !!this.peopleObject[this.user.id];
     },
   },
-  mounted() {
-    const openForm = window.sessionStorage.getItem('openForm');
-    if (!openForm) return;
-    if (openForm === `${this.con.id}/${this.roomId}`) this.formOpen = true;
-    window.sessionStorage.removeItem('openForm');
-  },
   methods: {
     ...mapActions({
       addPerson: 'person/add',
@@ -169,10 +163,14 @@ export default {
       removePerson: 'person/remove',
       setPaid: 'person/setPaid',
     }),
-    showForm() {
+    async showForm(event) {
       if (this.loggedIn) return;
-      window.sessionStorage.setItem('openForm', `${this.con.id}/${this.roomId}`);
-      this.login();
+      event.stopPropagation();
+      setTimeout(() => {
+        this.formOpen = false;
+      });
+      await this.login();
+      if (this.loggedIn) this.formOpen = true;
     },
   },
 };
