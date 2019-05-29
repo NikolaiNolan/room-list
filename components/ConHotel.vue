@@ -1,6 +1,5 @@
 <template>
   <Card
-    :no-lazy="conIndex <= 1"
     :photo-src="hotelPhotoSrc"
     :photo-srcset="hotelPhotoSrcSet"
     icon="hotel"
@@ -17,10 +16,6 @@ export default {
     Card,
   },
   props: {
-    conIndex: {
-      type: Number,
-      required: true,
-    },
     name: {
       type: String,
       required: true,

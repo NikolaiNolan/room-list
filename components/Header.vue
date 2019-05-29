@@ -14,7 +14,6 @@
         class="header__top pa-3"
       >
         <ResponsivePicture
-          no-lazy
           template="background/%width%.jpg"
           webp
           :mobile-variants="[800, 1000, 1200]"
@@ -71,6 +70,13 @@ export default {
 
   &__inner {
     position: relative;
+    z-index: 0;
+
+    @include min-width(sm) {
+      background: url(~assets/images/background/placeholder-desktop.png) center top {
+        size: cover;
+      }
+    }
   }
 
   &__top {
@@ -78,6 +84,9 @@ export default {
 
     @include max-width(sm) {
       position: relative;
+      background: url(~assets/images/background/placeholder-mobile.png) center {
+        size: cover;
+      }
     }
 
     @include min-width(sm) {

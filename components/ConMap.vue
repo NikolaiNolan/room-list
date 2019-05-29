@@ -1,6 +1,5 @@
 <template>
   <Card
-    :no-lazy="conIndex <= 1"
     :photo-src="map"
     icon="location_city"
     :href="directionsLink"
@@ -28,10 +27,6 @@ export default {
     Card,
   },
   props: {
-    conIndex: {
-      type: Number,
-      required: true,
-    },
     city: {
       type: String,
       required: true,
@@ -86,14 +81,13 @@ export default {
   created() {
     this.$watch(
       vm => [
-        vm.$vuetify.breakpoint.xs,
         vm.visible,
         vm.location,
         vm.directionsService,
       ].join(),
       async () => {
         if (
-          this.$vuetify.breakpoint.xs
+          this.route
           || !this.visible
           || !this.location
           || !this.directionsService
