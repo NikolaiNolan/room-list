@@ -66,21 +66,117 @@ Vue.use(Vuetify, {
     VSubheader,
   },
   icons: {
-    accountArrowRight: { component: AccountArrowRight },
-    accountCircle: { component: AccountCircle },
-    accountMinus: { component: AccountMinus },
-    accountPlus: { component: AccountPlus },
-    calendarRange: { component: CalendarRange },
-    car: { component: Car },
-    cashUsd: { component: CashUsd },
-    check: { component: Check },
-    checkboxOff: { component: CheckboxBlankOutline },
-    checkboxOn: { component: CheckboxMarked },
-    city: { component: City },
-    dropdown: { component: MenuDown },
-    expand: { component: ChevronDown },
-    hotel: { component: Hotel },
-    mapleLeaf: { component: MapleLeaf },
-    star: { component: Star },
+    accountArrowRight: {
+      component: AccountArrowRight,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    accountCircle: {
+      component: AccountCircle,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    accountMinus: {
+      component: AccountMinus,
+      props: {
+        title: 'Leave this room',
+        decorative: true,
+      },
+    },
+    accountPlus: {
+      component: AccountPlus,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    calendarRange: {
+      component: CalendarRange,
+      props: {
+        title: 'Arrival/departure dates',
+        decorative: true,
+      },
+    },
+    car: {
+      component: Car,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    cashUsd: {
+      component: CashUsd,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    check: {
+      component: Check,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    checkboxOff: {
+      component: CheckboxBlankOutline,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    checkboxOn: {
+      component: CheckboxMarked,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    city: {
+      component: City,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    dropdown: {
+      component: MenuDown,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    expand: {
+      component: ChevronDown,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    hotel: {
+      component: Hotel,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    mapleLeaf: {
+      component: MapleLeaf,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    star: {
+      component: Star,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
   },
 });

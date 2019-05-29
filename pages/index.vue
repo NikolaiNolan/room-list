@@ -60,7 +60,6 @@ export default {
     this.$store.dispatch('user/bind', this);
     this.$store.dispatch('cons/bind', this);
     this.$store.dispatch('config/bind', this);
-    console.dir(this.$vuetify.icons)
   },
   methods: {
     scrollHorizontally(event) {

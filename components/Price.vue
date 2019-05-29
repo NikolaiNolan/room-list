@@ -5,6 +5,7 @@
     </VListTileTitle>
     <VListTileSubTitle
       v-if="toCanadian"
+      title="Canadian"
       class="text-xs-right"
     >
       <VIcon small>$vuetify.icons.mapleLeaf</VIcon>
@@ -12,6 +13,7 @@
     </VListTileSubTitle>
     <VListTileSubTitle
       v-if="fromCanadian"
+      title="American"
       class="text-xs-right"
     >
       <VIcon small>$vuetify.icons.star</VIcon>

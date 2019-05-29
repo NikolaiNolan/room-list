@@ -9,7 +9,7 @@
     </VListTile>
     <VListTile>
       <VListTileAvatar>
-        <VIcon title="Arrival/departure dates">$vuetify.icons.calendarRange</VIcon>
+        <VIcon>$vuetify.icons.calendarRange</VIcon>
       </VListTileAvatar>
       <VListTileContent>
         <VRangeSlider

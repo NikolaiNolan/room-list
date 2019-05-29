@@ -1,12 +1,16 @@
 <template>
   <section>
-    <VList :class="{ 'mt-3': roomId }">
+    <VDivider
+      v-if="roomId"
+      inset
+      class="divider my-2"
+    />
+    <VList>
       <VSubheader
         inset
         class="subheader"
       >
-        {{roomType[0].toUpperCase()}}{{roomType.slice(1)}}
-        <template v-if="con.room.count > 1">{{roomId + 1}}</template>
+        {{roomType[0].toUpperCase()}}{{roomType.slice(1)}} {{roomId + 1}}
         <span class="caption">
           {{people.length}}/{{max}} guests
         </span>
@@ -175,6 +179,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.divider.v-divider {
+  border-color: white;
+
+  @include min-width(sm) {
+    margin: {
+      top: 24px !important;
+      bottom: 24px !important;
+    }
+  }
+}
+
 .subheader {
   justify-content: space-between;
   font-weight: 600;
