@@ -7,16 +7,14 @@
       v-if="toCanadian"
       class="text-xs-right"
     >
-      <span class="material-design-icon">
-        <MapleLeafIcon class="icon material-design-icon__svg" />
-      </span>
+      <VIcon small>$vuetify.icons.mapleLeaf</VIcon>
       ${{Math.ceil(price * exchange)}}
     </VListTileSubTitle>
     <VListTileSubTitle
       v-if="fromCanadian"
       class="text-xs-right"
     >
-      <VIcon class="icon">star</VIcon>
+      <VIcon small>$vuetify.icons.star</VIcon>
       ${{Math.ceil(price / exchange)}}
     </VListTileSubTitle>
   </div>
@@ -25,12 +23,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import MapleLeafIcon from '~/assets/images/maple-leaf.svg?inline';
-
 export default {
-  components: {
-    MapleLeafIcon,
-  },
   props: {
     price: {
       type: Number,
@@ -51,8 +44,8 @@ export default {
 }
 
 .icon {
-  @include margin(-1px null -3px);
-  @include size(16px);
-  fill: currentColor;
+  // @include margin(-1px null -3px);
+  // @include size(16px);
+  // fill: currentColor;
 }
 </style>

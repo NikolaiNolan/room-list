@@ -2,7 +2,7 @@
   <Card
     :photo-src="hotelPhotoSrc"
     :photo-srcset="hotelPhotoSrcSet"
-    icon="hotel"
+    icon="$vuetify.icons.hotel"
     :href="link"
     :title="name"
   />

@@ -1,7 +1,7 @@
 <template>
   <Card
     :photo-src="map"
-    icon="location_city"
+    icon="$vuetify.icons.city"
     :href="directionsLink"
     :title="city"
     :subtitle="duration"

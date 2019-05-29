@@ -9,7 +9,7 @@
     </VListTile>
     <VListTile>
       <VListTileAvatar>
-        <VIcon title="Arrival/departure dates">date_range</VIcon>
+        <VIcon title="Arrival/departure dates">$vuetify.icons.calendarRange</VIcon>
       </VListTileAvatar>
       <VListTileContent>
         <VRangeSlider
@@ -26,7 +26,7 @@
     </VListTile>
     <VListTile v-if="ride">
       <VListTileAvatar>
-        <VIcon>directions_car</VIcon>
+        <VIcon>$vuetify.icons.car</VIcon>
       </VListTileAvatar>
       <VListTileContent class="pt-1">
         <VCheckbox
@@ -51,7 +51,7 @@
           class="ma-0 text-none"
           @click="joinRoom"
         >
-          <VIcon left>check</VIcon>
+          <VIcon left>$vuetify.icons.check</VIcon>
           Join
         </VBtn>
       </VListTileContent>

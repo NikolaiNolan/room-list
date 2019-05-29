@@ -49,7 +49,7 @@
                   small
                   class="pl-1"
                 >
-                  directions_car
+                  $vuetify.icons.car
                 </VIcon>
                 <VDivider class="divider mx-1" />
                 <VIcon
@@ -57,7 +57,7 @@
                   small
                   class="pr-1"
                 >
-                  directions_car
+                  $vuetify.icons.car
                 </VIcon>
                 <template v-if="conLength < 3 || stayLength !== 1">
                   {{departureDay}}
@@ -80,7 +80,7 @@
           ripple
           @click="$emit('removePerson')"
         >
-          <AccountMinusIcon />
+          <VIcon>$vuetify.icons.accountMinus</VIcon>
         </VBtn>
       </VListTileAction>
     </VListTile>
@@ -95,12 +95,10 @@ import filter from 'lodash/filter';
 import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
-import AccountMinusIcon from 'vue-material-design-icons/AccountMinus.vue';
 import Price from './Price';
 
 export default {
   components: {
-    AccountMinusIcon,
     Price,
   },
   props: {

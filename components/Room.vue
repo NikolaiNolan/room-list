@@ -31,7 +31,7 @@
           <template v-slot:activator>
             <VListTile>
               <VListTileAvatar>
-                <VIcon>person_add</VIcon>
+                <VIcon>$vuetify.icons.accountPlus</VIcon>
               </VListTileAvatar>
               <VLayout justify-space-between align-center>
                 Join this {{roomType}}
@@ -57,7 +57,7 @@
         <VDivider inset />
         <VListTile @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })">
           <VListTileAvatar>
-            <AccountArrowRightIcon />
+            <VIcon>$vuetify.icons.accountArrowRight</VIcon>
           </VListTileAvatar>
           <VLayout justify-space-between align-center>
             Move to this {{roomType}}
@@ -76,14 +76,12 @@ import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
-import AccountArrowRightIcon from 'vue-material-design-icons/AccountArrowRight.vue';
 import Price from './Price';
 import RoomPerson from './RoomPerson';
 import RoomSignup from './RoomSignup';
 
 export default {
   components: {
-    AccountArrowRightIcon,
     Price,
     RoomPerson,
     RoomSignup,

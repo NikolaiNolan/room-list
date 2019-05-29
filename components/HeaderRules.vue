@@ -7,7 +7,7 @@
       <div class="pt-1 px-4 pb-4">
         <VLayout>
           <VAvatar class="icon mr-2">
-            <VIcon>hotel</VIcon>
+            <VIcon>$vuetify.icons.hotel</VIcon>
           </VAvatar>
           <ul class="list">
             <li>No alcohol, smoking, or forbidden possessions.</li>
@@ -16,7 +16,7 @@
         </VLayout>
         <VLayout class="mt-3">
           <VAvatar class="icon mr-2">
-            <VIcon>person_add</VIcon>
+            <VIcon>$vuetify.icons.accountPlus</VIcon>
           </VAvatar>
           <ul class="list">
             <li>Joining or dropping at least one week in advance is&nbsp;recommended.</li>
@@ -28,7 +28,7 @@
         </VLayout>
         <VLayout class="mt-3">
           <VAvatar class="icon mr-2">
-            <VIcon>local_atm</VIcon>
+            <VIcon>$vuetify.icons.cashUsd</VIcon>
           </VAvatar>
           <ul class="list">
             <li>
