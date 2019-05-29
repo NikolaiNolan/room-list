@@ -44,6 +44,14 @@
 
   .v-list__tile__content {
     overflow: visible;
+
+    .v-input {
+      margin-top: 4px;
+    }
+
+    .v-input:not(.v-input--hide-details) .v-input__slot {
+      margin-bottom: 0;
+    }
   }
 
   .v-list__tile__action {
