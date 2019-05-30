@@ -16,14 +16,12 @@ export default {
         name,
         picture,
       } = auth.additionalUserInfo.profile;
-      const canadian = familyName === 'Easterbrook' || null;
       this.$fireDb.ref(`users/${auth.user.uid}`).update({
         email,
         familyName,
         givenName,
         name,
         picture,
-        canadian,
       });
     },
     async logout() {
