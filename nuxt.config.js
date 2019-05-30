@@ -142,7 +142,7 @@ export default {
       config: {
         development: {
           apiKey: googleApi,
-          authDomain: 'con-rooms.firebaseapp.com',
+          authDomain: 'conrooms.com',
           databaseURL: 'https://con-rooms.firebaseio.com',
           projectId: 'con-rooms',
           storageBucket: 'con-rooms.appspot.com',
@@ -150,7 +150,7 @@ export default {
         },
         production: {
           apiKey: googleApi,
-          authDomain: 'con-rooms.firebaseapp.com',
+          authDomain: 'conrooms.com',
           databaseURL: 'https://con-rooms.firebaseio.com',
           projectId: 'con-rooms',
           storageBucket: 'con-rooms.appspot.com',
