@@ -84,6 +84,7 @@ export default {
 
     @include max-width(sm) {
       position: relative;
+      z-index: 0;
       background: url(~assets/images/background/placeholder-mobile.png) center {
         size: cover;
       }
