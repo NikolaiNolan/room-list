@@ -84,6 +84,24 @@
         </VBtn>
       </VListTileAction>
     </VListTile>
+    <VListTile
+      v-if="conApproaching && !paid && user && person.id === user.id"
+      class="payment"
+    >
+      <VListTileAvatar />
+      <VListTileContent>
+        <VBtn
+          :href="`https://paypal.me/nikolain/${Math.ceil(personCost)}`"
+          target="_blank"
+          rel="noopener"
+          depressed
+          class="ma-0 text-none"
+        >
+          <VIcon left>$vuetify.icons.paypal</VIcon>
+          Pay Now
+        </VBtn>
+      </VListTileContent>
+    </VListTile>
   </div>
 </template>
 
@@ -160,6 +178,9 @@ export default {
       if (this.person.ride && this.person.ride.from) price += this.cost.ride.from;
       return price;
     },
+    conApproaching() {
+      return differenceInCalendarDays(this.firstDate, new Date()) <= 4;
+    },
   },
 };
 </script>
@@ -201,5 +222,9 @@ export default {
 
 .divider.v-divider.theme--dark {
   border-color: white;
+}
+
+.payment {
+  margin-top: -6px;
 }
 </style>

@@ -37,6 +37,7 @@ import City from 'vue-material-design-icons/City.vue';
 import Hotel from 'vue-material-design-icons/Hotel.vue';
 import MapleLeaf from '~/components/MapleLeaf';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
+import Paypal from 'vue-material-design-icons/Paypal.vue';
 import Star from 'vue-material-design-icons/Star.vue';
 
 Vue.use(Vuetify, {
@@ -152,12 +153,19 @@ Vue.use(Vuetify, {
     hotel: {
       component: Hotel,
       props: {
-        title: null,
+        title: 'PayPal',
         decorative: true,
       },
     },
     mapleLeaf: {
       component: MapleLeaf,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    paypal: {
+      component: Paypal,
       props: {
         title: null,
         decorative: true,

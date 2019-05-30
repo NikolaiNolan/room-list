@@ -77,6 +77,14 @@
     }
   }
 
+  .v-icon--left {
+    margin-right: 8px;
+  }
+
+  .v-icon--right {
+    margin-left: 8px;
+  }
+
   .v-icon svg {
     @include size(1em);
   }
