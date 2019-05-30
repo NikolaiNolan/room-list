@@ -169,6 +169,11 @@ export default {
       return sum(Object.values(this.cost[`add${this.people.length ? 'Person' : 'Room'}`]));
     },
   },
+  watch: {
+    loggedIn(loggedIn) {
+      if (!loggedIn) this.formOpen = false;
+    },
+  },
   methods: {
     ...mapActions({
       addPerson: 'person/add',
