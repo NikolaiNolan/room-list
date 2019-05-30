@@ -34,6 +34,11 @@
     padding-right: 6px;
   }
 
+  .v-list .v-list__group--disabled .v-list__group__header__append-icon,
+  .v-list .v-list__group--disabled .v-list__group__header__prepend-icon {
+    color: rgba(white, .5);
+  }
+
   .v-list__tile {
     line-height: 1.2;
 
@@ -75,6 +80,10 @@
     @supports (clip-path: polygon(0 0)) {
       border-radius: 0;
     }
+  }
+
+  .theme--dark.v-icon {
+    color: inherit;
   }
 
   .v-icon--left {

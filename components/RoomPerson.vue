@@ -23,6 +23,7 @@
       <VListTileAction v-if="admin">
         <VCheckbox
           v-model="paid"
+          :disabled="$nuxt.isOffline"
           @change="$emit('setPaid', paid)"
         />
       </VListTileAction>
@@ -78,6 +79,7 @@
           :title="person.id === user.id ? 'Leave this room' : 'Remove this person'"
           icon
           ripple
+          :disabled="$nuxt.isOffline"
           @click="$emit('removePerson')"
         >
           <VIcon>$vuetify.icons.accountMinus</VIcon>

@@ -34,6 +34,7 @@
         <VDivider inset />
         <VListGroup
           v-model="formOpen"
+          :disabled="$nuxt.isOffline"
           class="signup"
           @click="showForm($event)"
         >
@@ -67,7 +68,10 @@
       </template>
       <template v-else-if="people.length < max && userRoomId !== roomId">
         <VDivider inset />
-        <VListTile @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })">
+        <VListTile
+          :disabled="$nuxt.isOffline"
+          @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })"
+        >
           <VListTileAvatar>
             <VIcon>$vuetify.icons.accountArrowRight</VIcon>
           </VListTileAvatar>

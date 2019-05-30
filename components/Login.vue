@@ -3,6 +3,7 @@
     v-if="!loggedIn"
     block
     depressed
+    :disabled="$nuxt.isOffline"
     class="button mx-0 text-none"
     @click="login"
   >
