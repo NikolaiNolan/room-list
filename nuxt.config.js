@@ -35,6 +35,7 @@ export default {
     twitterCreator: 'Nikolai',
     start_url: '/',
     display: 'standalone',
+    nativeUI: true,
   },
 
   loading: false,
