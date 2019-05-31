@@ -7,8 +7,5 @@ pipelines:
           caches:
             - node
           script: # Modify the commands below to build your repository.
-            - cd functions
             - yarn install
-            - cd ..
-            - yarn install
-            - yarn deploy
+            - yarn deploy-content
