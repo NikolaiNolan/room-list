@@ -22,6 +22,7 @@
       </VListTileAvatar>
       <VListTileAction v-if="admin">
         <VCheckbox
+          v-if="person.id !== user.id"
           v-model="paid"
           :disabled="$nuxt.isOffline"
           @change="$emit('setPaid', paid)"
