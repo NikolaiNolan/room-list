@@ -25,12 +25,16 @@
         <div class="content mr-2">
           {{smartQuotes(title)}}
           <br v-if="photoSrc" />
-          <small
-            v-if="subtitle"
-            class="d-inline-block"
+          <component
+            :is="clientSubtitle ? 'no-ssr' : 'span'"
           >
-            {{smartQuotes(subtitle)}}
-          </small>
+            <small
+              v-if="subtitle"
+              class="d-inline-block"
+            >
+              {{smartQuotes(subtitle)}}
+            </small>
+          </component>
         </div>
       </VLayout>
     </VListTile>
@@ -48,6 +52,7 @@ export default {
     href: String,
     title: String,
     subtitle: String,
+    clientSubtitle: Boolean,
   },
   methods: {
     smartQuotes,

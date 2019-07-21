@@ -2,6 +2,7 @@
   <Card
     :title="dateRange"
     :subtitle="dateDistance"
+    :client-subtitle="true"
   />
 </template>
 
