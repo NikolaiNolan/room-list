@@ -27,11 +27,11 @@
   }
 
   .v-list__group__header .v-list__group__header__append-icon {
-    padding-left: 6px;
+    padding-left: 0;
   }
 
   .v-list__group__header .v-list__group__header__prepend-icon {
-    padding-right: 6px;
+    padding-right: 0;
   }
 
   .v-list .v-list__group--disabled .v-list__group__header__append-icon,
@@ -60,7 +60,7 @@
   }
 
   .v-list__tile__action {
-    min-width: 38px;
+    min-width: 40px;
   }
 
   .v-avatar .v-avatar,
