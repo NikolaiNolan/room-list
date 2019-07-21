@@ -26,59 +26,61 @@
         :person="person"
         :multiple="nameCount[person.givenName] > 1"
         :con-canadian="con.canadian"
-        v-bind="{ firstDate, lastDate, cost }"
+        v-bind="{ firstDate, lastDate, isFuture, cost }"
         @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
         @setPaid="paid => setPaid({ conId: con.id, roomId, personId: person.id, paid })"
       />
-      <template v-if="(people.length < max && userRoomId === null) || admin">
-        <VDivider inset />
-        <VListGroup
-          v-model="formOpen"
-          :disabled="$nuxt.isOffline"
-          class="signup"
-          @click="showForm($event)"
-        >
-          <template v-slot:activator>
-            <VListTile @click="showForm($event)">
-              <VListTileAvatar>
-                <VIcon>$vuetify.icons.accountPlus</VIcon>
-              </VListTileAvatar>
-              <VLayout justify-space-between align-center>
-                Join this {{roomType}}
-                <Price
-                  :price="formOpen ? signupCost : allNightCost"
-                  :to-canadian="user && user.canadian && !con.canadian"
-                  :from-canadian="user && con.canadian && !user.canadian"
-                />
-              </VLayout>
-            </VListTile>
-          </template>
-          <RoomSignup
-            :ride="con.ride.available"
-            v-bind="{ roomId, firstDate, lastDate }"
-            :add-person-cost="cost[`add${this.people.length ? 'Person' : 'Room'}`]"
-            :add-ride-cost="cost.addRide"
-            @close="formOpen = false"
-            @updateSignupCost="updateSignupCost"
-            @addPerson="
-              (personId, options) => addPerson({ conId: con.id, roomId, personId, options })
-            "
-          />
-        </VListGroup>
-      </template>
-      <template v-else-if="people.length < max && userRoomId !== roomId">
-        <VDivider inset />
-        <VListTile
-          :disabled="$nuxt.isOffline"
-          @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })"
-        >
-          <VListTileAvatar>
-            <VIcon>$vuetify.icons.accountArrowRight</VIcon>
-          </VListTileAvatar>
-          <VLayout justify-space-between align-center>
-            Move to this {{roomType}}
-          </VLayout>
-        </VListTile>
+      <template v-if="isFuture || admin">
+        <template v-if="(people.length < max && userRoomId === null) || admin">
+          <VDivider inset />
+          <VListGroup
+            v-model="formOpen"
+            :disabled="$nuxt.isOffline"
+            class="signup"
+            @click="showForm($event)"
+          >
+            <template v-slot:activator>
+              <VListTile @click="showForm($event)">
+                <VListTileAvatar>
+                  <VIcon>$vuetify.icons.accountPlus</VIcon>
+                </VListTileAvatar>
+                <VLayout justify-space-between align-center>
+                  Join this {{roomType}}
+                  <Price
+                    :price="formOpen ? signupCost : allNightCost"
+                    :to-canadian="user && user.canadian && !con.canadian"
+                    :from-canadian="user && con.canadian && !user.canadian"
+                  />
+                </VLayout>
+              </VListTile>
+            </template>
+            <RoomSignup
+              :ride="con.ride.available"
+              v-bind="{ roomId, firstDate, lastDate }"
+              :add-person-cost="cost[`add${this.people.length ? 'Person' : 'Room'}`]"
+              :add-ride-cost="cost.addRide"
+              @close="formOpen = false"
+              @updateSignupCost="updateSignupCost"
+              @addPerson="
+                (personId, options) => addPerson({ conId: con.id, roomId, personId, options })
+              "
+            />
+          </VListGroup>
+        </template>
+        <template v-else-if="people.length < max && userRoomId !== roomId">
+          <VDivider inset />
+          <VListTile
+            :disabled="$nuxt.isOffline"
+            @click="movePerson({ conId: con.id, fromRoomId: userRoomId, toRoomId: roomId })"
+          >
+            <VListTileAvatar>
+              <VIcon>$vuetify.icons.accountArrowRight</VIcon>
+            </VListTileAvatar>
+            <VLayout justify-space-between align-center>
+              Move to this {{roomType}}
+            </VLayout>
+          </VListTile>
+        </template>
       </template>
     </VList>
   </section>
@@ -87,6 +89,7 @@
 <script>
 import auth from '~/plugins/auth';
 import countBy from 'lodash/countBy';
+import isAfter from 'date-fns/isAfter';
 import map from 'lodash/map';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
@@ -171,6 +174,9 @@ export default {
     },
     allNightCost() {
       return sum(Object.values(this.cost[`add${this.people.length ? 'Person' : 'Room'}`]));
+    },
+    isFuture() {
+      return isAfter(this.firstDate, new Date());
     },
   },
   watch: {

@@ -1,6 +1,7 @@
 import addYears from 'date-fns/addYears';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
+import subDays from 'date-fns/subDays';
 import subWeeks from 'date-fns/subWeeks';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
@@ -14,7 +15,9 @@ export const getters = {
   futureCons: ({ cons }) => sortBy(
     map(cons, (con, id) => ({ ...con, id }))
       .filter(({ dates }) => {
-        if (isBefore(dates.start, new Date())) return false;
+        if (dates.end) {
+          if (isBefore(dates.end, subDays(new Date(), 1))) return false;
+        } else if (isBefore(dates.start, new Date())) return false;
         if (isAfter(dates.end, addYears(new Date(), 1))) return false;
         return true;
       }),

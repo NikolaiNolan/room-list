@@ -74,7 +74,7 @@
           />
         </VLayout>
       </VListTileContent>
-      <VListTileAction>
+      <VListTileAction v-if="isFuture || admin">
         <VBtn
           v-if="user && person.id === user.id || admin"
           :title="person.id === user.id ? 'Leave this room' : 'Remove this person'"
@@ -137,6 +137,7 @@ export default {
       type: Number,
       validator: value => value % 1 === 0,
     },
+    isFuture: Boolean,
     cost: {
       type: Object,
       required: true,
