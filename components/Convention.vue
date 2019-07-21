@@ -124,8 +124,8 @@ export default {
   methods: {
     scrollHorizontally(event) {
       const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
-      if (event.deltaY < 0 && Math.ceil(scrollTop) === 0) return;
-      if (event.deltaY > 0 && Math.floor(scrollHeight - scrollTop) === clientHeight) return;
+      if (event.deltaY < 0 && Math.floor(scrollTop) === 0) return;
+      if (event.deltaY > 0 && Math.ceil(scrollHeight - scrollTop) === clientHeight) return;
       event.stopImmediatePropagation();
     },
   },
