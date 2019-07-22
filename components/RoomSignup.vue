@@ -5,7 +5,17 @@
         v-model="personId"
         :items="userIds"
         color="white"
-      />
+      >
+        <template
+          slot="item"
+          slot-scope="data"
+        >
+          <VListTileContent>
+            <VListTileTitle v-html="data.item.text" />
+            <VListTileSubTitle v-html="data.item.email" />
+          </VListTileContent>
+        </template>
+      </VSelect>
     </VListTile>
     <VListTile>
       <VListTileAvatar>
@@ -126,7 +136,7 @@ export default {
       return price;
     },
     userIds() {
-      return this.users.map(({ '.key': value, name: text }) => ({ text, value }));
+      return this.users.map(({ '.key': value, name: text, email }) => ({ text, email, value }));
     },
   },
   watch: {
