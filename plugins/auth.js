@@ -1,3 +1,7 @@
+import capitalize from 'capitalize';
+
+const capitalizeName = name => (/[A-Z]/.test(name) ? name : capitalize.words(name));
+
 export default {
   methods: {
     async login() {
@@ -18,9 +22,9 @@ export default {
       } = auth.additionalUserInfo.profile;
       this.$fireDb.ref(`users/${auth.user.uid}`).update({
         email,
-        familyName,
-        givenName,
-        name,
+        familyName: capitalizeName(familyName),
+        givenName: capitalizeName(givenName),
+        name: capitalizeName(name),
         picture,
       });
     },
