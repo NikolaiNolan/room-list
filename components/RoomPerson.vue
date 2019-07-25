@@ -8,6 +8,7 @@
       <VListTileAvatar>
         <VAvatar v-if="person.picture">
           <VLazyImage
+            v-if="pictureIsPhoto"
             :src-placeholder="$placeholder"
             :src="person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')"
             :srcset="`
@@ -18,6 +19,7 @@
             alt
             :intersection-options="$intersectionOptions"
           />
+          <VIcon v-else>$vuetify.icons.account</VIcon>
         </VAvatar>
       </VListTileAvatar>
       <VListTileAction v-if="admin">
@@ -146,6 +148,7 @@ export default {
   data() {
     return {
       paid: this.person.paid,
+      pictureIsPhoto: !/\/A{11}\//.test(this.person.picture),
     };
   },
   computed: {

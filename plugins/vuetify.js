@@ -23,6 +23,7 @@ import Vuetify, {
   VSpacer,
   VSubheader,
 } from 'vuetify/lib';
+import Account from 'vue-material-design-icons/Account.vue';
 import AccountArrowRight from 'vue-material-design-icons/AccountArrowRight.vue';
 import AccountMinus from 'vue-material-design-icons/AccountMinus.vue';
 import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
@@ -66,6 +67,13 @@ Vue.use(Vuetify, {
     VSubheader,
   },
   icons: {
+    account: {
+      component: Account,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
     accountArrowRight: {
       component: AccountArrowRight,
       props: {

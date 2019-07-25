@@ -19,6 +19,7 @@
     <VListTileAvatar v-if="user.picture">
       <VAvatar>
         <VLazyImage
+          v-if="!/\/A{11}\//.test(user.picture)"
           :src-placeholder="$placeholder"
           :src="user.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')"
           :srcset="`
@@ -29,6 +30,7 @@
           alt
           :intersection-options="$intersectionOptions"
         />
+        <VIcon v-else>$vuetify.icons.account</VIcon>
       </VAvatar>
     </VListTileAvatar>
     <VListTileContent>
