@@ -56,7 +56,7 @@
             </template>
             <RoomSignup
               :ride="con.ride.available"
-              v-bind="{ roomId, firstDate, lastDate }"
+              v-bind="{ roomId, firstDate, lastDate, people }"
               :add-person-cost="cost[`add${this.people.length ? 'Person' : 'Room'}`]"
               :add-ride-cost="cost.addRide"
               @close="formOpen = false"

@@ -75,6 +75,7 @@ import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
 import isWithinInterval from 'date-fns/isWithinInterval';
 import filter from 'lodash/filter';
+import some from 'lodash/some';
 import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
@@ -87,6 +88,10 @@ export default {
     lastDate: {
       type: Number,
       validator: value => value % 1 === 0,
+    },
+    people: {
+      type: Array,
+      default: () => [],
     },
     ride: Boolean,
     addPersonCost: {
@@ -136,7 +141,10 @@ export default {
       return price;
     },
     userIds() {
-      return this.users.map(({ '.key': value, name: text, email }) => ({ text, email, value }));
+      return this.users.map(({ '.key': value, name: text, email }) => {
+        if (some(this.people, { id: value })) return null;
+        return { text, email, value };
+      }).filter(Boolean);
     },
   },
   watch: {
