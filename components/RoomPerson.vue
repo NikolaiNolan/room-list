@@ -37,7 +37,7 @@
         <VLayout align-center>
           <VLayout class="content__pertinent mr-2">
             <VListTileTitle class="name">
-              {{person.givenName}}
+              {{person.givenName.replace(/,$/, '')}}
               <template v-if="multiple">{{person.familyInitial}}.</template>
             </VListTileTitle>
             <VFlex>
