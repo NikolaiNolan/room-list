@@ -23,3 +23,11 @@
     }
   }
 }
+
+.cons .theme--dark.v-list .no-hover .v-list__group__header {
+  cursor: auto;
+
+  &::after {
+    display: none;
+  }
+}

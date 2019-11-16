@@ -25,10 +25,15 @@
         :key="person.id"
         :person="person"
         :multiple="nameCount[person.givenName] > 1"
+        :con-ride="con.ride && con.ride.available"
         :con-canadian="con.canadian"
         v-bind="{ firstDate, lastDate, isFuture, cost }"
+        @addPerson="
+          options => addPerson({ conId: con.id, roomId, personId: person.id, options })
+        "
         @removePerson="removePerson({ conId: con.id, roomId, personId: person.id })"
         @setPaid="paid => setPaid({ conId: con.id, roomId, personId: person.id, paid })"
+        @close="formOpen = false"
       />
       <template v-if="isFuture || admin">
         <template v-if="(people.length < max && userRoomId === null) || admin">
@@ -59,6 +64,7 @@
               v-bind="{ roomId, firstDate, lastDate, people }"
               :add-person-cost="cost[`add${this.people.length ? 'Person' : 'Room'}`]"
               :add-ride-cost="cost.addRide"
+              admin-list
               @close="formOpen = false"
               @updateSignupCost="updateSignupCost"
               @addPerson="

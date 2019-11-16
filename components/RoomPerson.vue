@@ -1,94 +1,122 @@
 <template>
   <div>
     <VDivider inset />
-    <VListTile
-      avatar
-      class="person"
+    <VListGroup
+      v-model="formOpen"
+      :disabled="$nuxt.isOffline"
+      :append-icon="null"
+      class="no-hover"
     >
-      <VListTileAvatar>
-        <VAvatar v-if="person.picture">
-          <VLazyImage
-            v-if="pictureIsPhoto"
-            :src-placeholder="$placeholder"
-            :src="person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')"
-            :srcset="`
-              ${person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')} 48w,
-              ${person.picture.replace(/(\/\w\w)?\/photo/, '/s72/photo')} 72w,
-              ${person.picture.replace(/(\/\w\w)?\/photo/, '/s96/photo')} 96w,
-            `"
-            alt
-            :intersection-options="$intersectionOptions"
-          />
-          <VIcon v-else>$vuetify.icons.account</VIcon>
-        </VAvatar>
-      </VListTileAvatar>
-      <VListTileAction v-if="admin">
-        <VCheckbox
-          v-if="person.id !== user.id"
-          v-model="paid"
-          :disabled="$nuxt.isOffline"
-          @change="$emit('setPaid', paid)"
-        />
-      </VListTileAction>
-      <VListTileContent
-        class="content"
-        :class="{ paid: admin && paid }"
-      >
-        <VLayout align-center>
-          <VLayout class="content__pertinent mr-2">
-            <VListTileTitle class="name">
-              {{person.givenName.replace(/,$/, '')}}
-              <template v-if="multiple">{{person.familyInitial}}.</template>
-            </VListTileTitle>
-            <VFlex>
-              <VLayout
-                justify-space-between
-                align-center
-                class="dates"
-                :style="dateMargins"
-              >
-                {{arrivalDay}}
-                <VIcon
-                  v-if="person.ride && person.ride.to"
-                  small
-                  class="pl-1"
-                >
-                  $vuetify.icons.carSide
-                </VIcon>
-                <VDivider class="divider mx-1" />
-                <VIcon
-                  v-if="person.ride && person.ride.from"
-                  small
-                  class="returnCar pl-1"
-                >
-                  $vuetify.icons.carSide
-                </VIcon>
-                <template v-if="conLength < 3 || stayLength !== 1">
-                  {{departureDay}}
-                </template>
-              </VLayout>
-            </VFlex>
-          </VLayout>
-          <Price
-            :price="personCost"
-            :to-canadian="user && user.canadian && !conCanadian"
-            :from-canadian="user && conCanadian && !user.canadian"
-          />
-        </VLayout>
-      </VListTileContent>
-      <VListTileAction v-if="isFuture || admin">
-        <VBtn
-          v-if="user && person.id === user.id || admin"
-          :title="person.id === user.id ? 'Leave this room' : 'Remove this person'"
-          icon
-          ripple
-          :disabled="$nuxt.isOffline"
-          @click="$emit('removePerson')"
+      <template v-slot:activator>
+        <VListTile
+          avatar
+          class="person"
+          @click.native.stop
         >
-          <VIcon>$vuetify.icons.accountMinus</VIcon>
-        </VBtn>
-      </VListTileAction>
-    </VListTile>
+          <VListTileAvatar>
+            <VAvatar v-if="person.picture">
+              <VLazyImage
+                v-if="pictureIsPhoto"
+                :src-placeholder="$placeholder"
+                :src="person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')"
+                :srcset="`
+                  ${person.picture.replace(/(\/\w\w)?\/photo/, '/s48/photo')} 48w,
+                  ${person.picture.replace(/(\/\w\w)?\/photo/, '/s72/photo')} 72w,
+                  ${person.picture.replace(/(\/\w\w)?\/photo/, '/s96/photo')} 96w,
+                `"
+                alt
+                :intersection-options="$intersectionOptions"
+              />
+              <VIcon v-else>$vuetify.icons.account</VIcon>
+            </VAvatar>
+          </VListTileAvatar>
+          <VListTileAction v-if="admin">
+            <VCheckbox
+              v-if="person.id !== user.id"
+              v-model="paid"
+              :disabled="$nuxt.isOffline"
+              @change="$emit('setPaid', paid)"
+            />
+          </VListTileAction>
+          <VListTileContent
+            class="content"
+            :class="{ paid: admin && paid }"
+          >
+            <VLayout align-center>
+              <VLayout class="content__pertinent mr-2">
+                <VListTileTitle class="name">
+                  {{person.givenName.replace(/,$/, '')}}
+                  <template v-if="multiple">{{person.familyInitial}}.</template>
+                </VListTileTitle>
+                <VFlex>
+                  <VLayout
+                    justify-space-between
+                    align-center
+                    class="dates"
+                    :style="dateMargins"
+                  >
+                    {{arrivalDay}}
+                    <VIcon
+                      v-if="person.ride && person.ride.to"
+                      small
+                      class="pl-1"
+                    >
+                      $vuetify.icons.carSide
+                    </VIcon>
+                    <VDivider class="divider mx-1" />
+                    <VIcon
+                      v-if="person.ride && person.ride.from"
+                      small
+                      class="returnCar pl-1"
+                    >
+                      $vuetify.icons.carSide
+                    </VIcon>
+                    <template v-if="conLength < 3 || stayLength !== 1">
+                      {{departureDay}}
+                    </template>
+                  </VLayout>
+                </VFlex>
+              </VLayout>
+              <Price
+                :price="personCost"
+                :to-canadian="user && user.canadian && !conCanadian"
+                :from-canadian="user && conCanadian && !user.canadian"
+              />
+            </VLayout>
+          </VListTileContent>
+          <VListTileAction v-if="isFuture || admin">
+            <VBtn
+              v-if="user && person.id === user.id || admin"
+              :title="iconTitle"
+              icon
+              ripple
+              :disabled="$nuxt.isOffline"
+              @click="formOpen = !formOpen"
+            >
+              <VIcon v-if="formOpen">$vuetify.icons.close</VIcon>
+              <VIcon v-else>$vuetify.icons.edit</VIcon>
+            </VBtn>
+          </VListTileAction>
+        </VListTile>
+      </template>
+      <RoomSignup
+        v-if="user && person.id === user.id || admin"
+        v-bind="{ firstDate, lastDate }"
+        :defaults="{
+          arrival: person.dates.arrival,
+          departure: person.dates.departure,
+          rideTo: person.ride && person.ride.to,
+          rideFrom: person.ride && person.ride.from,
+        }"
+        :ride="conRide"
+        live-update
+        remove-button
+        @close="$emit('close')"
+        @addPerson="(personId, options) => $emit('addPerson', options)"
+        @removePerson="$emit('removePerson')"
+      />
+      <div v-else />
+    </VListGroup>
     <VListTile
       v-if="conApproaching && !paid && user && person.id === user.id"
       class="payment"
@@ -119,10 +147,12 @@ import sum from 'lodash/sum';
 import { mapState } from 'vuex';
 
 import Price from './Price';
+import RoomSignup from './RoomSignup';
 
 export default {
   components: {
     Price,
+    RoomSignup,
   },
   props: {
     person: {
@@ -130,6 +160,7 @@ export default {
       required: true,
     },
     multiple: Boolean,
+    conRide: Boolean,
     conCanadian: Boolean,
     firstDate: {
       type: Number,
@@ -149,6 +180,7 @@ export default {
     return {
       paid: this.person.paid,
       pictureIsPhoto: !/\/A{11}\//.test(this.person.picture),
+      formOpen: false,
     };
   },
   computed: {
@@ -187,6 +219,11 @@ export default {
     },
     conApproaching() {
       return differenceInCalendarDays(this.firstDate, new Date()) <= 4;
+    },
+    iconTitle() {
+      if (this.formOpen) return 'Close';
+      if (this.person.id === this.user.id) return 'Edit your preferences';
+      return 'Edit this person';
     },
   },
 };

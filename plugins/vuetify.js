@@ -25,6 +25,7 @@ import Vuetify, {
 } from 'vuetify/lib';
 import Account from 'vue-material-design-icons/Account.vue';
 import AccountArrowRight from 'vue-material-design-icons/AccountArrowRight.vue';
+import AccountEdit from 'vue-material-design-icons/AccountEdit.vue';
 import AccountMinus from 'vue-material-design-icons/AccountMinus.vue';
 import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
 import CalendarRange from 'vue-material-design-icons/CalendarRange.vue';
@@ -35,6 +36,7 @@ import CheckboxBlankOutline from 'vue-material-design-icons/CheckboxBlankOutline
 import CheckboxMarked from 'vue-material-design-icons/CheckboxMarked.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import City from 'vue-material-design-icons/City.vue';
+import Close from 'vue-material-design-icons/Close.vue';
 import Hotel from 'vue-material-design-icons/Hotel.vue';
 import MapleLeaf from '~/components/MapleLeaf';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
@@ -84,7 +86,7 @@ Vue.use(Vuetify, {
     accountMinus: {
       component: AccountMinus,
       props: {
-        title: 'Leave this room',
+        title: null,
         decorative: true,
       },
     },
@@ -144,8 +146,22 @@ Vue.use(Vuetify, {
         decorative: true,
       },
     },
+    close: {
+      component: Close,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
     dropdown: {
       component: MenuDown,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    edit: {
+      component: AccountEdit,
       props: {
         title: null,
         decorative: true,

@@ -1,6 +1,6 @@
 <template>
   <section class="room-signup">
-    <VListTile v-if="admin">
+    <VListTile v-if="admin && adminList">
       <VSelect
         v-model="personId"
         :items="userIds"
@@ -53,16 +53,26 @@
         />
       </VListTileContent>
     </VListTile>
-    <VListTile>
+    <VListTile v-if="!liveUpdate || removeButton">
       <VListTileAvatar />
       <VListTileContent>
         <VBtn
+          v-if="!liveUpdate"
           depressed
           class="ma-0 text-none"
           @click="joinRoom"
         >
           <VIcon left>$vuetify.icons.check</VIcon>
           Join
+        </VBtn>
+        <VBtn
+          v-if="removeButton"
+          depressed
+          class="ma-0 text-none"
+          @click="$emit('removePerson')"
+        >
+          <VIcon left>$vuetify.icons.accountMinus</VIcon>
+          Leave
         </VBtn>
       </VListTileContent>
     </VListTile>
@@ -89,19 +99,17 @@ export default {
       type: Number,
       validator: value => value % 1 === 0,
     },
+    defaults: Object,
     people: {
       type: Array,
       default: () => [],
     },
     ride: Boolean,
-    addPersonCost: {
-      type: Object,
-      required: true,
-    },
-    addRideCost: {
-      type: Object,
-      required: true,
-    },
+    addPersonCost: Object,
+    addRideCost: Object,
+    liveUpdate: Boolean,
+    removeButton: Boolean,
+    adminList: Boolean,
   },
   data() {
     return {
@@ -126,7 +134,11 @@ export default {
       return eachDayOfInterval({ start: this.firstDate, end: this.lastDate })
         .map(date => format(date, 'EEE'));
     },
+    formData() {
+      return `${this.arrivalDate}${this.departureDate}${this.rideTo}${this.rideFrom}`;
+    },
     personCost() {
+      if (!this.addPersonCost) return null;
       let price = sum(
         filter(
           this.addPersonCost,
@@ -160,6 +172,15 @@ export default {
         this.dayRange = [this.firstDate, lastDate];
       },
     },
+    defaults: {
+      immediate: true,
+      handler(defaults) {
+        if (!defaults) return;
+        this.dayRange = [defaults.arrival, defaults.departure];
+        this.rideTo = defaults.rideTo;
+        this.rideFrom = defaults.rideFrom;
+      },
+    },
     arrivalDate(arrivalDate) {
       if (arrivalDate !== this.firstDate) this.rideTo = false;
       if (arrivalDate !== this.departureDate) return;
@@ -169,6 +190,9 @@ export default {
       if (departureDate !== this.lastDate) this.rideFrom = false;
       if (this.arrivalDate !== departureDate) return;
       this.dayRange = [this.arrivalDate, departureDate + this.step];
+    },
+    formData() {
+      if (this.liveUpdate) this.updateRoom();
     },
     personCost: {
       immediate: true,
@@ -190,7 +214,7 @@ export default {
     },
   },
   methods: {
-    joinRoom() {
+    updateRoom() {
       this.$emit(
         'addPerson',
         this.personId,
@@ -205,6 +229,9 @@ export default {
           },
         },
       );
+    },
+    joinRoom() {
+      this.updateRoom();
       this.$emit('close');
     },
   },

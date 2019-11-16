@@ -26,6 +26,11 @@
     background-color: transparent;
   }
 
+  .v-list__group::before,
+  .v-list__group::after {
+    display: none;
+  }
+
   .v-list__group__header .v-list__group__header__append-icon {
     padding-left: 0;
   }
@@ -98,7 +103,7 @@
     @include size(1em);
   }
 
-  .v-btn {
+  .v-btn:not(.v-btn--icon) {
     border-radius: 0;
   }
 
