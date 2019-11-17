@@ -2,7 +2,7 @@
   <VExpansionPanel>
     <VExpansionPanelContent>
       <template v-slot:header>
-        <h2 class="body-2">Rules</h2>
+        <h2 class="body-2">Room Rules</h2>
       </template>
       <div class="pt-1 px-4 pb-4">
         <VLayout>
