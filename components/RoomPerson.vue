@@ -30,7 +30,7 @@
               <VIcon v-else>$vuetify.icons.account</VIcon>
             </VAvatar>
           </VListTileAvatar>
-          <VListTileAction v-if="admin">
+          <VListTileAction v-if="admin && conApproaching">
             <VCheckbox
               v-if="person.id !== user.id"
               v-model="paid"
