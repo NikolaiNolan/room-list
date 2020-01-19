@@ -127,10 +127,10 @@ export default {
 }
 
 .heading {
-  width: 5em;
+  width: 5.5em;
 
-  @include min-width(405px) {
-    width: 8em;
+  @include min-width(432px) {
+    width: 8.5em;
   }
 
   @include min-width(sm) {
