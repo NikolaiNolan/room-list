@@ -9,7 +9,7 @@
 export default {
   computed: {
     text() {
-      return this.$slots.default[0].text.replace(/([aeft]+)/gi, match => `<span>${match}</span>`);
+      return this.$slots.default[0].text.replace(/([aeft]+)/g, match => `<span>${match}</span>`);
     },
   },
 };
