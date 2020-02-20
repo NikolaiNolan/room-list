@@ -38,10 +38,7 @@
               @change="$emit('setPaid', paid)"
             />
           </VListTileAction>
-          <VListTileContent
-            class="content"
-            :class="{ paid: admin && paid }"
-          >
+          <VListTileContent class="content">
             <VLayout align-center>
               <VLayout class="content__pertinent mr-2">
                 <VListTileTitle class="name">
@@ -230,10 +227,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.paid {
-  text-decoration: line-through;
-}
-
 .content {
   align-items: stretch;
 
