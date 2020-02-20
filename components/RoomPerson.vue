@@ -115,7 +115,7 @@
       <div v-else />
     </VListGroup>
     <VListTile
-      v-if="conApproaching && !paid && user && person.id === user.id"
+      v-if="conApproaching && !paid && !admin && user && person.id === user.id"
       class="payment"
     >
       <VListTileAvatar />
