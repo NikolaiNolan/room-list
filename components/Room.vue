@@ -165,7 +165,6 @@ export default {
         this.peopleObject,
         (person, id) => ({ ...person, id }),
       );
-      if (this.admin) return orderBy(peopleArray, ['paid', 'givenName', 'familyInitial'], ['desc']);
       return sortBy(peopleArray, ['givenName', 'familyInitial']);
     },
     nameCount() {
