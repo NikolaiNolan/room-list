@@ -176,7 +176,7 @@ export default {
   data() {
     return {
       paid: this.person.paid,
-      pictureIsPhoto: !/\/A{11}\//.test(this.person.picture),
+      pictureIsPhoto: /\/a-\//.test(this.person.picture),
       formOpen: false,
     };
   },
