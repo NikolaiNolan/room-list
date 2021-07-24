@@ -1,13 +1,29 @@
 const format = require('date-fns/format');
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+const { google } = require("googleapis");
 const nodemailer = require('nodemailer');
+const OAuth2 = google.auth.OAuth2;
+
+const oauth2Client = new OAuth2(
+  functions.config().oauth.clientid,
+  functions.config().oauth.clientsecret,
+  'https://developers.google.com/oauthplayground',
+);
+oauth2Client.setCredentials({
+  refresh_token: functions.config().oauth.refreshtoken,
+});
+const accessToken = oauth2Client.getAccessToken();
 
 const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
+    type: 'OAuth2',
     user: functions.config().gmail.email,
-    pass: functions.config().gmail.password,
+    clientId: functions.config().oauth.clientid,
+    clientSecret: functions.config().oauth.clientsecret,
+    refreshToken: functions.config().oauth.refreshtoken,
+    accessToken: accessToken,
   },
 });
 
