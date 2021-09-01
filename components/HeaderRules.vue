@@ -10,7 +10,8 @@
             <VIcon>$vuetify.icons.hotel</VIcon>
           </VAvatar>
           <ul class="list">
-            <li>No alcohol, smoking, or forbidden possessions.</li>
+            <li>COVID-19 vaccination is currently required.</li>
+            <li class="mt-2">No alcohol, smoking, or forbidden possessions.</li>
             <li class="mt-2">Be courteous and don’t inconvenience others.</li>
           </ul>
         </VLayout>
