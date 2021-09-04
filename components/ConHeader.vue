@@ -36,7 +36,7 @@
         v-if="con.dates && con.dates.start && con.dates.end"
         :start="con.dates.start"
         :end="con.dates.end"
-        class="mt-1"
+        class="mt-1 mb-3"
       />
       <ConHotel
         v-if="con.hotel"
