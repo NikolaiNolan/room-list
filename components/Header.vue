@@ -29,6 +29,17 @@
       <VSpacer />
       <aside class="login px-3">
         <Login />
+        <VBtn
+          v-if="admin"
+          href="/admin"
+          target="_blank"
+          block
+          depressed
+          :disabled="$nuxt.isOffline"
+          class="button mx-0 text-none"
+        >
+          Admin
+        </VBtn>
       </aside>
     </VLayout>
     <Rules class="rules" />
@@ -36,6 +47,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import Heading from './Heading';
 import Login from './Login';
 import Logo from '~/assets/images/logo.svg?inline';
@@ -49,6 +62,9 @@ export default {
     Logo,
     ResponsivePicture,
     Rules,
+  },
+  computed: {
+    ...mapState('user', ['admin']),
   },
 };
 </script>
