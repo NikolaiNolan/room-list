@@ -12,6 +12,11 @@
       />
       <table>
         <thead>
+          <tr v-if="!showPast">
+            <td>
+              <button @click="showPast = true">Show Past Cons</button>
+            </td>
+          </tr>
           <tr>
             <th
               v-for="field of fields"
@@ -131,14 +136,19 @@ export default {
           name: 'Color',
         },
       ],
+      showPast: false,
     };
   },
   computed: {
     ...mapState('config', ['config']),
     ...mapState('user', ['admin']),
     ...mapGetters({
-      cons: 'cons/allCons',
+      futureCons: 'cons/futureCons',
+      allCons: 'cons/allCons',
     }),
+    cons() {
+      return this.showPast ? this.allCons : this.futureCons;
+    },
   },
   beforeMount() {
     this.$store.dispatch('user/bind', this);
