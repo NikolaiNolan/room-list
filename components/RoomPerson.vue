@@ -33,9 +33,9 @@
           <VListTileAction v-if="admin && conApproaching">
             <VCheckbox
               v-if="person.id !== user.id"
-              v-model="paid"
+              :input-value="person.paid"
               :disabled="$nuxt.isOffline"
-              @change="$emit('setPaid', paid)"
+              @change="paid => $emit('setPaid', paid)"
             />
           </VListTileAction>
           <VListTileContent class="content">
@@ -115,7 +115,7 @@
       <div v-else />
     </VListGroup>
     <VListTile
-      v-if="conApproaching && !paid && !admin && user && person.id === user.id"
+      v-if="conApproaching && !person.paid && !admin && user && person.id === user.id"
       class="payment"
     >
       <VListTileAvatar />
@@ -175,7 +175,6 @@ export default {
   },
   data() {
     return {
-      paid: this.person.paid,
       pictureIsPhoto: /\/a-\//.test(this.person.picture),
       formOpen: false,
     };
