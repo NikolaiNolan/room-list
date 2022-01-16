@@ -6,10 +6,10 @@ export const actions = { // eslint-disable-line import/prefer-default-export
     options,
   }) {
     const userSnapshot = await this.$fireDb.ref(`users/${personId}`).once('value');
-    const { familyName, givenName, picture } = userSnapshot.val();
+    const { familyName = null, givenName = null, picture = null } = userSnapshot.val();
     this.$fireDb.ref(`cons/${conId}/people/${roomId}/${personId}`).update({
       givenName,
-      familyInitial: familyName[0],
+      familyInitial: familyName ? familyName[0] : null,
       picture,
       ...options,
     });
