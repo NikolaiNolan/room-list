@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     conName() {
-      if (this.con.name.match(/\S+$/)[0].length > 5) return this.con.name;
+      if (this.con.name.match(/\S+$/)[0].length > 4) return this.con.name;
       return this.con.name.replace(/\s+(\S+)$/, '&nbsp;$1');
     },
   },
