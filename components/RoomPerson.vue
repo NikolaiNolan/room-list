@@ -121,7 +121,7 @@
       <VListTileAvatar />
       <VListTileContent>
         <VBtn
-          :href="`https://paypal.me/nikolain/${Math.ceil(personCost)}`"
+          :href="`https://pay.nikol.ai/${Math.ceil(personCost)}`"
           target="_blank"
           rel="noopener"
           depressed
