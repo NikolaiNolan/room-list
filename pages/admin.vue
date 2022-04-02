@@ -107,6 +107,11 @@ export default {
           type: 'checkbox',
         },
         {
+          path: 'room/max',
+          name: 'Max',
+          type: 'number',
+        },
+        {
           path: 'room/rate',
           name: 'Room Rate',
           type: 'currency',

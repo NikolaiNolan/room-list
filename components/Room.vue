@@ -171,7 +171,7 @@ export default {
       return countBy(this.peopleObject, 'givenName');
     },
     max() {
-      return this[`${this.roomType}Max`];
+      return this.con.room.max || this[`${this.roomType}Max`];
     },
     userInRoom() {
       if (!this.user) return false;
