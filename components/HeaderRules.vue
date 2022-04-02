@@ -38,7 +38,7 @@
             </li>
             <li class="mt-2">Payment upon arrival is&nbsp;encouraged.</li>
             <li class="mt-2">
-              PayPal is ideal, but you can also pay in cash, check, or credit&nbsp;card.
+              You can pay with Cash App, Venmo, PayPal, cash, check, or credit&nbsp;card.
             </li>
           </ul>
         </VLayout>
