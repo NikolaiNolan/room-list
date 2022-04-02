@@ -53,12 +53,24 @@
         />
       </VListTileContent>
     </VListTile>
+    <VListTile v-if="!defaults || !defaults.vaccinated">
+      <VListTileAvatar>
+        <VIcon>$vuetify.icons.needle</VIcon>
+      </VListTileAvatar>
+      <VListTileContent class="pt-1">
+        <VCheckbox
+          v-model="vaccinated"
+          label="I am fully vaccinated against COVID-19"
+        />
+      </VListTileContent>
+    </VListTile>
     <VListTile v-if="!liveUpdate || removeButton">
       <VListTileAvatar />
       <VListTileContent>
         <VBtn
           v-if="!liveUpdate"
           depressed
+          :disabled="!vaccinated"
           class="ma-0 text-none"
           @click="joinRoom"
         >
@@ -119,6 +131,7 @@ export default {
       rideFrom: false,
       step: convert(1).from('d').to('ms'),
       personId: null,
+      vaccinated: false,
     };
   },
   computed: {
@@ -179,6 +192,7 @@ export default {
         this.dayRange = [defaults.arrival, defaults.departure];
         this.rideTo = defaults.rideTo;
         this.rideFrom = defaults.rideFrom;
+        this.vaccinated = defaults.vaccinated;
       },
     },
     arrivalDate(arrivalDate) {

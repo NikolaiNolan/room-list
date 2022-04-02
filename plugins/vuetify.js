@@ -40,6 +40,7 @@ import Close from 'vue-material-design-icons/Close.vue';
 import Hotel from 'vue-material-design-icons/Hotel.vue';
 import MapleLeaf from '~/components/MapleLeaf';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
+import Needle from 'vue-material-design-icons/Needle.vue';
 import Paypal from 'vue-material-design-icons/Paypal.vue';
 import Star from 'vue-material-design-icons/Star.vue';
 
@@ -183,6 +184,13 @@ Vue.use(Vuetify, {
     },
     mapleLeaf: {
       component: MapleLeaf,
+      props: {
+        title: null,
+        decorative: true,
+      },
+    },
+    needle: {
+      component: Needle,
       props: {
         title: null,
         decorative: true,

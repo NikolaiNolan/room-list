@@ -104,6 +104,7 @@
           departure: person.dates.departure,
           rideTo: person.ride && person.ride.to,
           rideFrom: person.ride && person.ride.from,
+          vaccinated: true,
         }"
         :ride="conRide"
         live-update
