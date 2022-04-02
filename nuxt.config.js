@@ -103,7 +103,7 @@ export default {
               content: 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiB2aWV3Qm94PSItMzc1IC0zNzUgNzUwIDc1MCI+DQo8ZGVmcz4NCiAgPG1hc2sgaWQ9Im1hc2sxIiB4PSIwIiB5PSIwIiB3aWR0aD0iNzUwIiBoZWlnaHQ9Ijc1MCIgPg0KCQk8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMzc1IiBmaWxsPSJ3aGl0ZSIgLz4NCiAgPC9tYXNrPg0KPC9kZWZzPg0KPGcgc3R5bGU9Im1hc2s6IHVybCgjbWFzazEpIj4NCgk8cmVjdCB4PSItNTAlIiB5PSItNTAlIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIiBmaWxsPSIjZGQ3MzFkIiAvPg0KCTxwb2x5Z29uIHBvaW50cz0iLTQzMy4wMSwtNDAwIDM0Ni40MSwtNDAwIDg2LjYsLTI1MCAtMTczLjIxLC00MDAgLTQzMy4wMSwtMjUwIiBmaWxsPSIjZmQ4NzEzIiAvPg0KCTxwb2x5Z29uIHBvaW50cz0iODYuNiwtMjUwIDI1OS44MSwtMTUwIDQzMy4wMSwtMjUwIDQzMy4wMSwyNTAgMTczLjIxLDQwMCAtODYuNiwyNTAgLTQzMy4wMSw0NTAgLTQzMy4wMSwyNTAgLTI1OS44MSwxNTAgLTg2LjYsMjUwIC04Ni42LDUwIDg2LjYsMTUwIDE3My4yMSwxMDAgLTg2LjYsLTUwIC04Ni42LC0xNTAgODYuNiwtNTAiIGZpbGw9IiNmZDg3MTMiIC8+DQoJPHBvbHlnb24gcG9pbnRzPSItMjU5LjgxLC0xNTAgMCwtMzAwIDAsLTEwMCAtODYuNiwtMTUwIC04Ni42LC01MCAtMTczLjIxLC0xMDAgLTE3My4yMSwyMDAgLTI1OS44MSwxNTAiIGZpbGw9IiNmZmYiIC8+DQoJPHBvbHlnb24gcG9pbnRzPSIyNTkuODEsMTUwIDAsMzAwIDAsMTAwIDg2LjYsMTUwIDg2LjYsNTAgMTczLjIxLDEwMCAxNzMuMjEsLTIwMCAyNTkuODEsLTE1MCIgZmlsbD0iI2ZmZiIgLz4NCgk8L2c+DQo8L3N2Zz4NCg==',
             },
             pictureAspect: 'noChange',
-            themeColor: '#ffffff',
+            themeColor: '#dd731d',
             manifest: {
               display: 'standalone',
               orientation: 'notSet',
@@ -121,7 +121,7 @@ export default {
               content: 'CTxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIxNC4xOSA2NCA2NCA2NCI+DQoJPHBvbHlnb24gZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSIxOC40NzcsODAgNDYuMTksNjQgNDYuMTksODUuMzMzIDM2Ljk1Myw4MCAzNi45NTMsOTAuNjY3IDI3LjcxNCw4NS4zMzMgMjcuNzE0LDExNy4zMzMgMTguNDc3LDExMiIvPg0KCTxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNzMuOTAzLDExMiA0Ni4xOSwxMjggNDYuMTksMTA2LjY2NyA1NS40MjgsMTEyIDU1LjQyOCwxMDEuMzMzIDY0LjY2NiwxMDYuNjY3IDY0LjY2Niw3NC42NjcgNzMuOTAzLDgwIi8+DQo8L3N2Zz4NCg==',
             },
             pictureAspect: 'silhouette',
-            themeColor: '#5bbad5',
+            themeColor: '#dd731d',
           },
         },
         settings: {
