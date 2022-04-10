@@ -215,7 +215,7 @@ export default {
       return price;
     },
     conApproaching() {
-      return differenceInCalendarDays(this.firstDate, new Date()) <= 4;
+      return differenceInCalendarDays(this.firstDate, new Date()) <= 7;
     },
     iconTitle() {
       if (this.formOpen) return 'Close';
