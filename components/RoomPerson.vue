@@ -128,7 +128,7 @@
           depressed
           class="ma-0 text-none"
         >
-          <VIcon left>$vuetify.icons.paypal</VIcon>
+          <VIcon left>$vuetify.icons.cashUsd</VIcon>
           Pay Now
         </VBtn>
       </VListTileContent>
