@@ -59,7 +59,7 @@ export default {
 
   modules: [
     ['@nuxtjs/google-analytics', {
-      id: 'UA-28036640-3',
+      id: 'G-YFW2JY2QRE',
       dev: false,
     }],
     ['nuxt-rfg-icon', {
