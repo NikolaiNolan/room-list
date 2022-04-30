@@ -50,6 +50,7 @@ export default {
       src: '~/plugins/googleMaps',
       mode: 'client',
     },
+    '~/plugins/gtag',
     '~/plugins/imageContext',
     '~/plugins/lazyImage',
     '~/plugins/observeVisibility',
@@ -58,10 +59,6 @@ export default {
   ],
 
   modules: [
-    ['@nuxtjs/google-analytics', {
-      id: 'G-YFW2JY2QRE',
-      dev: false,
-    }],
     ['nuxt-rfg-icon', {
       masterPicture: 'static/icon.svg',
       force: true,

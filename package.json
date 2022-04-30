@@ -15,7 +15,6 @@
     "deploy-content": "nuxt generate && firebase deploy --only database,hosting"
   },
   "dependencies": {
-    "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
     "@nuxtjs/style-resources": "^0.1.2",
     "bourbon": "^5.1.0",
@@ -33,6 +32,7 @@
     "query-string": "^6.5.0",
     "smartquotes": "^2.3.1",
     "v-lazy-image": "^1.3.2",
+    "vue-gtag": "1",
     "vue-material-design-icons": "^3.2.0",
     "vue-observe-visibility": "^0.4.4",
     "vue2-google-maps": "^0.10.6",
