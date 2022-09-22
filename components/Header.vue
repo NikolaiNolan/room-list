@@ -151,7 +151,7 @@ export default {
 
   @include min-width(sm) {
     width: auto;
-    font-size: 48px !important;
+    font-size: 52px !important;
     line-height: 50px !important;
   }
 }

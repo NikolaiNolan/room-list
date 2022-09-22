@@ -27,16 +27,15 @@
         target="_blank"
         rel="noopener"
         class="heading__link"
-      >
-        <TransformAlternates>{{conName}}</TransformAlternates>
-      </a>
+        v-html="conName"
+      />
     </h2>
     <VList>
       <ConDates
         v-if="con.dates && con.dates.start && con.dates.end"
         :start="con.dates.start"
         :end="con.dates.end"
-        class="mt-1 mb-3"
+        class="mb-3"
       />
       <ConHotel
         v-if="con.hotel"
@@ -61,14 +60,12 @@
 import ConDates from './ConDates';
 import ConHotel from './ConHotel';
 import ConMap from './ConMap';
-import TransformAlternates from './TransformAlternates';
 
 export default {
   components: {
     ConDates,
     ConHotel,
     ConMap,
-    TransformAlternates,
   },
   props: {
     con: {

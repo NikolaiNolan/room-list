@@ -28,28 +28,13 @@
 
 @font-face {
   font: {
-    family: 'Montserrat';
+    family: 'Galano Grotesque';
     style: normal;
     weight: 700;
     display: fallback;
   }
 
-  src: local('Montserrat Bold'),
-    local('Montserrat-Bold'),
-    url('~assets/fonts/montserrat-700.woff2') format('woff2'),
-    url('~assets/fonts/montserrat-700.woff') format('woff');
-}
-
-@font-face {
-  font: {
-    family: 'Montserrat Alternates';
-    style: normal;
-    weight: 700;
-    display: fallback;
-  }
-
-  src: local('Montserrat Alternates Bold'),
-    local('MontserratAlternates-Bold'),
-    url('~assets/fonts/montserrat-alternates-700-aeft.woff2') format('woff2'),
-    url('~assets/fonts/montserrat-alternates-700-aeft.woff') format('woff');
+  src: local('Galano Grotesque Bold'),
+    local('GalanoGrotesque-Bold'),
+    url('~assets/fonts/galano-grotesque-700.woff2') format('woff2');
 }

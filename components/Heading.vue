@@ -3,20 +3,15 @@
     :is="tag"
     class="heading"
   >
-    <TransformAlternates><slot /></TransformAlternates>
+    <slot />
     <span class="shadow" aria-hidden="true">
-      <TransformAlternates><slot /></TransformAlternates>
+      <slot />
     </span>
   </component>
 </template>
 
 <script>
-import TransformAlternates from '~/components/TransformAlternates';
-
 export default {
-  components: {
-    TransformAlternates,
-  },
   props: {
     tag: {
       type: String,
