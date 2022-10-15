@@ -5,7 +5,7 @@ const { admin, db } = require('./admin');
 module.exports = (req, res) => {
   const lastUpdatedRef = db.ref('config/lastUpdated');
 
-  const updateExchange = () => fetch('https://free.currconv.com/api/v7/convert?q=USD_CAD&compact=ultra&apiKey=aa63e4f0196ce0b0a865')
+  const updateExchange = () => fetch('https://free.currconv.com/api/v7/convert?q=USD_CAD&compact=ultra&apiKey=3838ecfffe4e6333df54')
     .then(response => response.json())
     .then(({ USD_CAD: exchange }) => db.ref('config').update({ exchange }));
 
