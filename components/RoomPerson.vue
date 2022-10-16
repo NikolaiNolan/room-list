@@ -242,10 +242,9 @@ export default {
 }
 
 .name {
-  width: 7em;
-
   @include min-width(sm) {
     margin-right: 8px;
+    width: 7em;
   }
 }
 
