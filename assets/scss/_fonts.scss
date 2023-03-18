@@ -1,27 +1,23 @@
 @font-face {
   font: {
-    family: 'Montserrat';
+    family: 'Galano Grotesque';
     style: normal;
     weight: 400;
     display: fallback;
   }
 
-  src: local('Montserrat Regular'),
-    local('Montserrat-Regular'),
-    url('~assets/fonts/montserrat-400.woff2') format('woff2');
+  src: url('~assets/fonts/galanogrotesque-regular-webfont.woff2') format('woff2');
 }
 
 @font-face {
   font: {
-    family: 'Montserrat';
+    family: 'Galano Grotesque';
     style: normal;
     weight: 600;
     display: fallback;
   }
 
-  src: local('Montserrat SemiBold'),
-    local('Montserrat-SemiBold'),
-    url('~assets/fonts/montserrat-600.woff2') format('woff2');
+  src: url('~assets/fonts/galanogrotesque-semibold-webfont.woff2') format('woff2');
 }
 
 @font-face {
@@ -32,7 +28,5 @@
     display: fallback;
   }
 
-  src: local('Galano Grotesque Bold'),
-    local('GalanoGrotesque-Bold'),
-    url('~assets/fonts/galano-grotesque-700.woff2') format('woff2');
+  src: url('~assets/fonts/galanogrotesque-bold-webfont.woff2') format('woff2');
 }
